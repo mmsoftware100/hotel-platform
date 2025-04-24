@@ -37,3 +37,23 @@ Route::post('v1/hotels', function (Request $request) {
     $hotel = Hotel::create($request->all());
     return response()->json($hotel, 201);
 });
+
+Route::put('v1/hotels/{id}', function (Request $request, $id) {
+    $hotel = Hotel::find($id);
+    if ($hotel) {
+        $hotel->update($request->all());
+        return response()->json($hotel);
+    } else {
+        return response()->json(['message' => 'Hotel not found'], 404);
+    }
+});
+
+Route::delete('v1/hotels/{id}', function ($id) {
+    $hotel = Hotel::find($id);
+    if ($hotel) {
+        $hotel->delete();
+        return response()->json(['message' => 'Hotel deleted successfully']);
+    } else {
+        return response()->json(['message' => 'Hotel not found'], 404);
+    }
+});
