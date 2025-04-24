@@ -24,3 +24,16 @@ Route::get('v1/hotels', function () {
     return response()->json($hotels);
 });
 
+Route::get('v1/hotels/{id}', function ($id) {
+    $hotel = Hotel::find($id);
+    if ($hotel) {
+        return response()->json($hotel);
+    } else {
+        return response()->json(['message' => 'Hotel not found'], 404);
+    }
+});
+
+Route::post('v1/hotels', function (Request $request) {
+    $hotel = Hotel::create($request->all());
+    return response()->json($hotel, 201);
+});
