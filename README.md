@@ -13,3 +13,5 @@ php artisan make:model Hotel -mcs
 ```
 
 this is updated version.
+
+another updated
