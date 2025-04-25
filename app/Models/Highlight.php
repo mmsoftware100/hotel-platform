@@ -8,4 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class Highlight extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'media_url',
+    ];
+
+    /**
+     * Relationships
+     */
+
+    // Many-to-Many: Highlight can belong to many Hotels
+    public function hotels()
+    {
+        return $this->belongsToMany(Hotel::class, 'highlight_hotels')->withTimestamps();
+    }
 }

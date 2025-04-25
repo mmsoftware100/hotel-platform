@@ -37,6 +37,7 @@ php artisan filament:install --panels
 
 # let's add resources 
 php artisan make:filament-resource User --view
+php artisan make:filament-resource Hotel --view
 
 # user seeder
 

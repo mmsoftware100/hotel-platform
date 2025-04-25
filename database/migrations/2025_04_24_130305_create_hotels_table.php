@@ -18,12 +18,13 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->boolean('active')->nullable();
             $table->double('pricing')->nullable();
-            $table->double('lat')->default(0);
-            $table->double('lng')->default(0);
+            $table->double('lat')->nullable()->default(0);
+            $table->double('lng')->nullable()->default(0);
             $table->string('google_map_label')->nullable();
             $table->string('google_map_link')->nullable();
             $table->foreignId('township_id')->nullable()->constrained('townships', 'id')->restrictOnUpdate()->restrictOnDelete();
             $table->timestamps();
+            $table->softDeletes(); // Add this line for Soft Delete
         });
     }
 

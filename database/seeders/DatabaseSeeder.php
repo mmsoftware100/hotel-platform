@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\FacilityHotel;
+use App\Models\HighlightHotel;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -32,6 +33,9 @@ class DatabaseSeeder extends Seeder
             HotelMediaSeeder::class,
             FacilitySeeder::class,
             FacilityHotelSeeder::class,
+
+            HighlightSeeder::class,
+            HighlightHotelSeeder::class
         ]);
     }
 }
