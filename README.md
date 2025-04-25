@@ -42,3 +42,6 @@ php artisan make:filament-resource Hotel --view
 # user seeder
 
 php artisan make:seeder UserSeeder
+
+
+https://github.com/mmsoftware100/hotel-platform
