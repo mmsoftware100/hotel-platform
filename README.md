@@ -18,6 +18,9 @@ php artisan make:model Hotel -mcs
 php artisan make:model HotelMedia -mcs
 php artisan make:model Facility -mcs
 php artisan make:model FacilityHotel -mcs
+
+php artisan make:model Highlight -mcs
+php artisan make:model HighlightHotel -mcs
 ```
 
 this is updated version.
