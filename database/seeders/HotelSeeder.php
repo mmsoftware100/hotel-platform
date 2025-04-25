@@ -13,23 +13,44 @@ class HotelSeeder extends Seeder
      */
     public function run(): void
     {
-        Hotel::create([
-            'name' => 'Hotel California',
-            'address' => '123 Sunset Blvd, Los Angeles, CA',
-            'pricing' => 199.99,
-            'township_id' => 1,
-        ]);
-        Hotel::create([
-            'name' => 'စံချိန် ဟိုတယ်',
-            'address' => '456 Grand St, Budapest, Hungary',
-            'pricing' => 299.99,
-            'township_id' => 1,
-        ]);
-        Hotel::create([
-            'name' => 'Mt. Pleasant Hotel',
-            'address' => '15 Place Vendôme, 75001 Paris, France',
-            'pricing' => 499.99,
-            'township_id' => 1,
-        ]);
+        $hotels = [
+            [
+                'name' => 'Sunrise Palace Hotel',
+                'address' => '123 Seaside Rd, Hlaing',
+                'description' => 'A modern hotel with sea view and rooftop pool.',
+                'active' => true,
+                'pricing' => 85.50,
+                'lat' => 16.7982,
+                'lng' => 96.1570,
+                'google_map_label' => 'Sunrise Palace',
+                'google_map_link' => 'https://maps.google.com/?q=Sunrise+Palace+Hotel',
+                'township_id' => 1, // Ensure this township exists
+            ],
+            [
+                'name' => 'Royal Mandalay Resort',
+                'address' => '88 Sunset Blvd, Chanayethazan',
+                'description' => 'Luxury resort with traditional decor and spa services.',
+                'active' => true,
+                'pricing' => 120.00,
+                'lat' => 21.9750,
+                'lng' => 96.0836,
+                'google_map_label' => 'Royal Mandalay',
+                'google_map_link' => 'https://maps.google.com/?q=Royal+Mandalay+Resort',
+                'township_id' => 4,
+            ],
+            [
+                'name' => 'Downtown Inn',
+                'address' => '456 Central Ave, Insein',
+                'description' => 'Affordable stay in the heart of the city.',
+                'active' => false,
+                'pricing' => 45.00,
+                'lat' => 16.9023,
+                'lng' => 96.0954,
+                'google_map_label' => 'Downtown Inn',
+                'google_map_link' => 'https://maps.google.com/?q=Downtown+Inn',
+                'township_id' => 2,
+            ],
+        ];
+        Hotel::insert($hotels);
     }
 }

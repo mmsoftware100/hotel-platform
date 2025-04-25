@@ -26,6 +26,9 @@ class DatabaseSeeder extends Seeder
             StateSeeder::class,
             TownshipSeeder::class,
             HotelSeeder::class,
+
+            HotelMediaSeeder::class,
+            FacilitySeeder::class,
         ]);
     }
 }
