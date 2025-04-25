@@ -15,6 +15,9 @@ php artisan make:model State -mcs
 php artisan make:model Township -mcs
 
 php artisan make:model Hotel -mcs
+php artisan make:model HotelMedia -mcs
+php artisan make:model Facility -mcs
+php artisan make:model FacilityHotel -mcs
 ```
 
 this is updated version.
