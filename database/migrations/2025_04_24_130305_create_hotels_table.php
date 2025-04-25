@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('hotels', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('address');
-            $table->double('pricing');
+            $table->string('address')->nullable();
+            $table->double('pricing')->nullable();
+            $table->foreignId('township_id')->nullable()->constrained('townships', 'id')->restrictOnUpdate()->restrictOnDelete();
             $table->timestamps();
         });
     }

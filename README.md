@@ -9,6 +9,11 @@
 
 ```bash
 # migration
+php artisan make:model Role -mcs
+php artisan make:model Country -mcs
+php artisan make:model State -mcs
+php artisan make:model Township -mcs
+
 php artisan make:model Hotel -mcs
 ```
 
@@ -26,3 +31,7 @@ php artisan filament:install --panels
 
 # let's add resources 
 php artisan make:filament-resource User --view
+
+# user seeder
+
+php artisan make:seeder UserSeeder
