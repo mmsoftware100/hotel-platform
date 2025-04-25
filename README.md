@@ -17,3 +17,12 @@ this is updated version.
 another updated
 
 this is another update
+
+
+# install filament 
+composer require filament/filament:"^3.2" -W
+# now we have admin panel,
+php artisan filament:install --panels
+
+# let's add resources 
+php artisan make:filament-resource User --view
