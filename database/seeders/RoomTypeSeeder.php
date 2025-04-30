@@ -13,11 +13,11 @@ class RoomTypeSeeder extends Seeder
      */
     public function run(): void
     {
-        $highlights = [
+        $roomTypes = [
             ['name' => 'Deluxe Twin Room', 'media_url' => 'https://example.com/images/highlights/ocean-view.jpg'],
             ['name' => 'Deluxe Twin', 'media_url' => 'https://example.com/images/highlights/mountain.jpg'],
         ];
 
-        DB::table('room_types')->insert($highlights);
+        DB::table('room_types')->insert($roomTypes);
     }
 }
