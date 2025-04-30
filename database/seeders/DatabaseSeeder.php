@@ -48,6 +48,7 @@ class DatabaseSeeder extends Seeder
             RoomSeeder::class,
 
             BookingStatusSeeder::class,
+            BookingSeeder::class,
         ]);
     }
 }
