@@ -42,6 +42,9 @@ class DatabaseSeeder extends Seeder
 
             RoomFacilityTypeSeeder::class,
             RoomFacilitySeeder::class,
+
+            RoomFacilityRoomTypeSeeder::class,
+            RoomSeeder::class,
         ]);
     }
 }
