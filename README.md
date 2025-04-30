@@ -68,3 +68,18 @@ https://github.com/mmsoftware100/hotel-platform
 ```bash
 php artisan make:controller Api/V1/HotelApiController --api
 ```
+
+## Main Module List
+
+- [ ] User Management 
+- [ ] Hotel Management
+- [ ] Room Type Management
+- [ ] Room Management
+- [ ] Pricing Management
+- [ ] Booking Management
+
+## Panel List
+
+- [ ] Admin Panel
+- [ ] Hotel Owner Panel
+- [ ] Hotel Manager Panel
