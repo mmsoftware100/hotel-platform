@@ -39,6 +39,7 @@ class DatabaseSeeder extends Seeder
 
             RoomTypeSeeder::class,
             HotelRoomTypeSeeder::class,
+            PricingSeeder::class,
 
             RoomFacilityTypeSeeder::class,
             RoomFacilitySeeder::class,

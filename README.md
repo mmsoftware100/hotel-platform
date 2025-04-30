@@ -25,6 +25,10 @@ php artisan make:model HighlightHotel -mcs
 php artisan make:model RoomType -mcs
 php artisan make:model HotelRoomType -mcs
 
+php artisan make:model Pricing -mcs
+
+
+
 php artisan make:model RoomFacilityType -mcs
 php artisan make:model RoomFacility -mcs
 
@@ -32,6 +36,7 @@ php artisan make:model RoomFacilityRoomType -mcs
 
 php artisan make:model Room -mcs
 php artisan make:model BookingStatus -mcs
+php artisan make:model Booking -mcs
 ```
 
 *** 27 room types | 67 room offers ***
