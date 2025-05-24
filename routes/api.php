@@ -32,15 +32,15 @@ Route::get('v1/hotels', function (Request $request) {
     $hotels = Hotel::select("*", DB::raw("
         (6371 * acos(
             cos(radians(?)) *
-            cos(radians(latitude)) *
-            cos(radians(longitude) - radians(?)) +
+            cos(radians(lat)) *
+            cos(radians(lng) - radians(?)) +
             sin(radians(?)) *
-            sin(radians(latitude))
+            sin(radians(lat))
         )) AS distance
     "))
     ->setBindings([$lat, $lng, $lat])
     ->orderBy('distance')
-    ->limit(1)
+    // ->limit(1)
     ->get();
 
     return response()->json($hotels);
