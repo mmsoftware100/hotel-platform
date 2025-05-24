@@ -19,8 +19,30 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::get('v1/hotels', function () {
-    $hotels = Hotel::all();
+Route::get('v1/hotels', function (Request $request) {
+    // $hotels = Hotel::all();
+    // return response()->json($hotels);
+    $lat = $request->query('lat');
+    $lng = $request->query('lng');
+
+    if (!$lat || !$lng) {
+        return response()->json(['error' => 'Latitude and longitude are required.'], 400);
+    }
+
+    $hotels = Hotel::select("*", DB::raw("
+        (6371 * acos(
+            cos(radians(?)) *
+            cos(radians(latitude)) *
+            cos(radians(longitude) - radians(?)) +
+            sin(radians(?)) *
+            sin(radians(latitude))
+        )) AS distance
+    "))
+    ->setBindings([$lat, $lng, $lat])
+    ->orderBy('distance')
+    ->limit(1)
+    ->get();
+
     return response()->json($hotels);
 });
 
