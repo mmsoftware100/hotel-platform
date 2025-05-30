@@ -7,6 +7,12 @@
 - [ ] develop api for Hotel CRUD
 
 
+## Tourism Modules
+
+
+- [ ] Home Page
+- [ ] 
+
 ```bash
 # migration
 php artisan make:model Role -mcs
