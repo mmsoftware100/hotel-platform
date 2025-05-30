@@ -6,6 +6,7 @@ use App\Models\Culture;
 use App\Models\Destination;
 use App\Models\Home;
 use App\Models\Hotel;
+use App\Models\MyanmarEvent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -47,6 +48,11 @@ Route::get('v1/feaured-attractions', function (Request $request) {
 Route::get('v1/featured-cultures', function (Request $request) {
     // get random 5 destinations
     $destinations = Culture::inRandomOrder()->limit(5)->get();
+    return response()->json($destinations);
+});
+Route::get('v1/featured-events', function (Request $request) {
+    // get random 5 destinations
+    $destinations = MyanmarEvent::inRandomOrder()->limit(5)->get();
     return response()->json($destinations);
 });
 
