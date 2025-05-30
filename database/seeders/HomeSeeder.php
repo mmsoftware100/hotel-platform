@@ -14,11 +14,11 @@ class HomeSeeder extends Seeder
     public function run(): void
     {
         Home::create([
-            'name' => 'Welcome to Indonesia',
-            'slug' => 'welcome-to-indonesia',
-            'video_url' => 'sample.mp4',
-            'image_url' => 'URL_ADDRESS',
-            'description' => 'Welcome to Indonesia',
+            'name' => 'Welcome to Golden Land',
+            'slug' => 'welcome-to-golden-land',
+            'video_url' => 'https://tourism-mm.vercel.app/myanmar.mov',
+            'image_url' => 'https://tourism-mm.vercel.app/myanmar.png',
+            'description' => 'Welcome to Myanmar, the Golden Land. Explore the rich culture, history, and natural beauty of this Southeast Asian gem.',
             'is_active' => true,    
         ]);
     }

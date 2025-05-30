@@ -31,6 +31,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('v1/home', function (Request $request) {
     $home = Home::find(1);
+    // sleep 5 seconds
+    sleep(5);
     return response()->json($home);
 });
 Route::get('v1/carousels', function (Request $request) {
