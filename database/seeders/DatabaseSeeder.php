@@ -26,6 +26,9 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             UserSeeder::class,
 
+            HomeSeeder::class,
+            
+
             ArticleCategorySeeder::class,
             ArticleSeeder::class,
 
