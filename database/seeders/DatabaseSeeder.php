@@ -37,7 +37,21 @@ class DatabaseSeeder extends Seeder
             CitySeeder::class,
             TownshipSeeder::class,
 
+            DestinationCategorySeeder::class,
+            DestinationSeeder::class,
+
+            AttractionCategorySeeder::class,
+            AttractionSeeder::class,
             
+            
+
+            CultureCategorySeeder::class,
+            CultureSeeder::class,
+            
+            MyanmarEventCategorySeeder::class,
+            MyanmarEventSeeder::class,
+
+
 
 
             // CountrySeeder::class,
