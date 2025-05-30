@@ -29,4 +29,15 @@ class Division extends Model
     {
         return $this->hasMany(Region::class);
     }
+
+
+
+    /**
+     * Get the destinations for the division.
+     */
+    public function destinations()
+    {
+        return $this->hasMany(Destination::class);
+    }
+    
 }

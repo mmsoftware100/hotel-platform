@@ -58,6 +58,9 @@ php artisan make:model MyanmarEventCategory -mcs
 php artisan make:model MyanmarEvent -mcs
 
 
+php artisan make:resource DestinationResource
+php artisan make:resource DivisionResource
+
 ```
 
 *** 27 room types | 67 room offers ***

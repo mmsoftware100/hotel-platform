@@ -1,9 +1,12 @@
 <?php
 
+use App\Http\Resources\DestinationResource;
+use App\Http\Resources\DivisionResource;
 use App\Models\Article;
 use App\Models\Attraction;
 use App\Models\Culture;
 use App\Models\Destination;
+use App\Models\Division;
 use App\Models\Home;
 use App\Models\Hotel;
 use App\Models\MyanmarEvent;
@@ -35,6 +38,14 @@ Route::get('v1/carousels', function (Request $request) {
     $destinations = Destination::inRandomOrder()->limit(5)->get();
     return response()->json($destinations);
 });
+
+Route::get('v1/featured-divisions', function (Request $request) {
+    // get random 5 destinations
+    $divisions = Division::with('destinations')->get();
+    $data = DivisionResource::collection($divisions);
+    return response()->json($data);
+});
+
 Route::get('v1/featured-articles', function (Request $request) {
     // get random 5 destinations
     $destinations = Article::inRandomOrder()->limit(5)->get();
