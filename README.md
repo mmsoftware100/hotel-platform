@@ -39,6 +39,24 @@ php artisan make:model BookingStatus -mcs
 php artisan make:model Booking -mcs
 
 
+
+php artisan make:model ArticleCategory -mcs
+php artisan make:model Article -mcs
+php artisan make:model Division -mcs
+php artisan make:model Region -mcs
+php artisan make:model City -mcs
+php artisan make:model Township -mcs
+php artisan make:model Village -mcs
+php artisan make:model DestinationCategory -mcs
+php artisan make:model Destination -mcs
+php artisan make:model AttractionCategory -mcs
+php artisan make:model Attraction -mcs
+php artisan make:model CultureCategory -mcs
+php artisan make:model Culture -mcs
+php artisan make:model MyanmarEventCategory -mcs
+php artisan make:model MyanmarEvent -mcs
+
+
 ```
 
 *** 27 room types | 67 room offers ***
