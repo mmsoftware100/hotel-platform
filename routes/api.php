@@ -2,6 +2,7 @@
 
 use App\Models\Article;
 use App\Models\Attraction;
+use App\Models\Culture;
 use App\Models\Destination;
 use App\Models\Home;
 use App\Models\Hotel;
@@ -38,9 +39,14 @@ Route::get('v1/featured-articles', function (Request $request) {
     $destinations = Article::inRandomOrder()->limit(5)->get();
     return response()->json($destinations);
 });
-Route::get('v1/random-attractions', function (Request $request) {
+Route::get('v1/feaured-attractions', function (Request $request) {
     // get random 5 destinations
     $destinations = Attraction::inRandomOrder()->limit(5)->get();
+    return response()->json($destinations);
+});
+Route::get('v1/featured-cultures', function (Request $request) {
+    // get random 5 destinations
+    $destinations = Culture::inRandomOrder()->limit(5)->get();
     return response()->json($destinations);
 });
 
