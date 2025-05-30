@@ -35,6 +35,9 @@ class DatabaseSeeder extends Seeder
             DivisionSeeder::class,
             RegionSeeder::class,
             CitySeeder::class,
+            TownshipSeeder::class,
+
+            
 
 
             // CountrySeeder::class,

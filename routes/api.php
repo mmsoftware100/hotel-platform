@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Destination;
 use App\Models\Home;
 use App\Models\Hotel;
 use Illuminate\Http\Request;
@@ -24,6 +25,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('v1/home', function (Request $request) {
     $home = Home::find(1);
     return response()->json($home);
+});
+Route::get('v1/carousels', function (Request $request) {
+    // get random 5 destinations
+    $destinations = Destination::inRandomOrder()->limit(5)->get();
+    return response()->json($destinations);
 });
 
 
