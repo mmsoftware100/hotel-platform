@@ -11,10 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('townships', function (Blueprint $table) {
+        Schema::create('divisions', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->foreignId('state_id')->constrained('states', 'id')->restrictOnUpdate()->restrictOnDelete();
+            $table->string('name')->nullable();
+            $table->string('slug')->nullable();
+            $table->string('image_url')->nullable();
+            $table->mediumText('description')->nullable();
+            $table->boolean('is_active')->nullable()->default(true);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -24,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('townships');
+        Schema::dropIfExists('divisions');
     }
 };

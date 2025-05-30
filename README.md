@@ -144,3 +144,17 @@ php artisan make:controller Api/V1/HotelApiController --api
 - [ ] /articles?featured=true (Home Page မှာ ပြချင်တဲ့ သတင်း / ဆောင်းပါးများ )
 - [ ] /events?featured=true (Home Page မှာ ပြချင်တဲ့ ပွဲတော်များ )
 - [ ] /cultures?featured=true (Home Page မှာ ပြချင်တဲ့ ယဉ်ကျေးမှု အမွေအနှစ်များ )
+
+
+
+## Basic Fields
+
+
+            $table->string('name')->nullable();
+            $table->string('slug')->nullable();
+            $table->string('image_url')->nullable();
+            $table->mediumText('description')->nullable();
+            $table->boolean('is_active')->nullable()->default(true);
+            $table->foreignId('division_id')->nullable()->constrained('article_categories', 'id')->restrictOnUpdate()->restrictOnDelete();
+            $table->softDeletes();
+

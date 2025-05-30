@@ -22,7 +22,7 @@ return new class extends Migration
             $table->double('lng')->nullable()->default(0);
             $table->string('google_map_label')->nullable();
             $table->string('google_map_link')->nullable();
-            $table->foreignId('township_id')->nullable()->constrained('townships', 'id')->restrictOnUpdate()->restrictOnDelete();
+            // $table->foreignId('township_id')->nullable()->constrained('townships', 'id')->restrictOnUpdate()->restrictOnDelete();
             $table->timestamps();
             $table->softDeletes(); // Add this line for Soft Delete
         });
