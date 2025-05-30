@@ -176,3 +176,30 @@ detail ေခါ်ေပးရင် ရပြီ။
 
 - event detail
 - article detail
+
+
+## API Documentation
+
+
+API Endpoint : https://hotel.software100.com.mm/api
+
+```bash
+GET /v1/home
+GET /v1/carousels
+GET /v1/featured-divisions
+GET /v1/featured-articles
+GET /v1/featured-attractions
+GET /v1/featured-cultures
+GET /v1/featured-events
+GET /v1/destinations/{slug}
+GET /v1/articles/{slug}
+GET /v1/attractions/{slug}
+GET /v1/cultures/{slug}
+GET /v1/events/{slug}
+GET /v1/destinations
+GET /v1/articles
+GET /v1/attractions
+GET /v1/cultures
+GET /v1/events
+```
+
