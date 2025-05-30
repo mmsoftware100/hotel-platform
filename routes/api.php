@@ -51,7 +51,7 @@ Route::get('v1/featured-articles', function (Request $request) {
     $destinations = Article::inRandomOrder()->limit(5)->get();
     return response()->json($destinations);
 });
-Route::get('v1/feaured-attractions', function (Request $request) {
+Route::get('v1/featured-attractions', function (Request $request) {
     // get random 5 destinations
     $destinations = Attraction::inRandomOrder()->limit(5)->get();
     return response()->json($destinations);
@@ -108,6 +108,32 @@ Route::get('v1/events/{slug}', function ($slug) {
         return response()->json(['message' => 'Event not found'], 404);
     }
 });
+
+// get all destinations
+Route::get('v1/destinations', function (Request $request) {
+    $destinations = Destination::all();
+    return response()->json($destinations);
+});
+Route::get('v1/articles', function (Request $request) {
+    $articles = Article::all();
+    return response()->json($articles); 
+});
+Route::get('v1/attractions', function (Request $request) {
+    $attractions = Attraction::all();
+    return response()->json($attractions);
+});
+Route::get('v1/cultures', function (Request $request) {
+    $cultures = Culture::all();
+    return response()->json($cultures);
+});
+Route::get('v1/events', function (Request $request) {
+    $events = MyanmarEvent::all();
+    return response()->json($events);   
+});
+
+
+
+
 // search section
 Route::get('v1/search', function (Request $request) {
     $query = $request->input('query');
