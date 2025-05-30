@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Article;
 use App\Models\Attraction;
 use App\Models\Destination;
 use App\Models\Home;
@@ -30,6 +31,11 @@ Route::get('v1/home', function (Request $request) {
 Route::get('v1/carousels', function (Request $request) {
     // get random 5 destinations
     $destinations = Destination::inRandomOrder()->limit(5)->get();
+    return response()->json($destinations);
+});
+Route::get('v1/featured-articles', function (Request $request) {
+    // get random 5 destinations
+    $destinations = Article::inRandomOrder()->limit(5)->get();
     return response()->json($destinations);
 });
 Route::get('v1/random-attractions', function (Request $request) {
