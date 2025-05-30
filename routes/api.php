@@ -1,7 +1,9 @@
 <?php
 
+use App\Models\Home;
 use App\Models\Hotel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +20,12 @@ use Illuminate\Support\Facades\Route;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
+
+Route::get('v1/home', function (Request $request) {
+    $home = Home::find(1);
+    return response()->json($home);
+});
+
 
 Route::get('v1/hotels', function (Request $request) {
     // $hotels = Hotel::all();

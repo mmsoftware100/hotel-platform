@@ -40,6 +40,7 @@ php artisan make:model Booking -mcs
 
 
 
+php artisan make:model Home -mcs
 php artisan make:model ArticleCategory -mcs
 php artisan make:model Article -mcs
 php artisan make:model Division -mcs
@@ -87,6 +88,7 @@ https://github.com/mmsoftware100/hotel-platform
 
 ```bash
 php artisan make:controller Api/V1/HotelApiController --api
+php artisan make:controller Api/V1/HomeApiController --api
 ```
 
 ## Main Module List
