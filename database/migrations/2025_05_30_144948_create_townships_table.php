@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('state_id')->nullable()->constrained('states', 'id')->restrictOnUpdate()->restrictOnDelete();
             
             $table->string('name')->nullable();
-            $table->string('slug')->nullable();
+            $table->string('slug')->nullable()->unique();
             $table->string('image_url')->nullable();
             $table->mediumText('description')->nullable();
             $table->boolean('is_active')->nullable()->default(true);

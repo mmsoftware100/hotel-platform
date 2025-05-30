@@ -25,30 +25,35 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RoleSeeder::class,
             UserSeeder::class,
-            CountrySeeder::class,
-            StateSeeder::class,
-            TownshipSeeder::class,
-            HotelSeeder::class,
 
-            HotelMediaSeeder::class,
-            FacilitySeeder::class,
-            FacilityHotelSeeder::class,
+            ArticleCategorySeeder::class,
+            ArticleSeeder::class,
 
-            HighlightSeeder::class,
-            HighlightHotelSeeder::class,
+            
+            // CountrySeeder::class,
+            // StateSeeder::class,
+            // TownshipSeeder::class,
+            // HotelSeeder::class,
 
-            RoomTypeSeeder::class,
-            HotelRoomTypeSeeder::class,
-            PricingSeeder::class,
+            // HotelMediaSeeder::class,
+            // FacilitySeeder::class,
+            // FacilityHotelSeeder::class,
 
-            RoomFacilityTypeSeeder::class,
-            RoomFacilitySeeder::class,
+            // HighlightSeeder::class,
+            // HighlightHotelSeeder::class,
 
-            RoomFacilityRoomTypeSeeder::class,
-            RoomSeeder::class,
+            // RoomTypeSeeder::class,
+            // HotelRoomTypeSeeder::class,
+            // PricingSeeder::class,
 
-            BookingStatusSeeder::class,
-            BookingSeeder::class,
+            // RoomFacilityTypeSeeder::class,
+            // RoomFacilitySeeder::class,
+
+            // RoomFacilityRoomTypeSeeder::class,
+            // RoomSeeder::class,
+
+            // BookingStatusSeeder::class,
+            // BookingSeeder::class,
         ]);
     }
 }

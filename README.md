@@ -158,3 +158,8 @@ php artisan make:controller Api/V1/HotelApiController --api
             $table->foreignId('division_id')->nullable()->constrained('article_categories', 'id')->restrictOnUpdate()->restrictOnDelete();
             $table->softDeletes();
 
+
+
+## Image Placeholder
+
+https://placehold.co/400
