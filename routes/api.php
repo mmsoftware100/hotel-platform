@@ -67,6 +67,54 @@ Route::get('v1/featured-events', function (Request $request) {
     return response()->json($destinations);
 });
 
+// detail section using slug
+Route::get('v1/destinations/{slug}', function ($slug) {
+    $destination = Destination::where('slug', $slug)->first();
+    if ($destination) {
+        return response()->json($destination);
+    } else {
+        return response()->json(['message' => 'Destination not found'], 404);
+    }
+});
+Route::get('v1/articles/{slug}', function ($slug) {
+    $article = Article::where('slug', $slug)->first();
+    if ($article) {
+        return response()->json($article);
+    } else {
+        return response()->json(['message' => 'Article not found'], 404);
+    }           
+});
+Route::get('v1/attractions/{slug}', function ($slug) {
+    $attraction = Attraction::where('slug', $slug)->first();
+    if ($attraction) {
+        return response()->json($attraction);
+    } else {
+        return response()->json(['message' => 'Attraction not found'], 404);
+    }       
+});
+Route::get('v1/cultures/{slug}', function ($slug) {
+    $culture = Culture::where('slug', $slug)->first();
+    if ($culture) {
+        return response()->json($culture);
+    } else {
+        return response()->json(['message' => 'Culture not found'], 404);
+    }
+});
+Route::get('v1/events/{slug}', function ($slug) {
+    $event = MyanmarEvent::where('slug', $slug)->first();
+    if ($event) {
+        return response()->json($event);
+    } else {
+        return response()->json(['message' => 'Event not found'], 404);
+    }
+});
+// search section
+Route::get('v1/search', function (Request $request) {
+    $query = $request->input('query');
+    $destinations = Destination::where('name', 'like', '%' . $query . '%')->get();
+    return response()->json($destinations);
+});
+
 
 Route::get('v1/hotels', function (Request $request) {
     // $hotels = Hotel::all();

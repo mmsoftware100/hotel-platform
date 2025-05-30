@@ -168,3 +168,11 @@ php artisan make:controller Api/V1/HomeApiController --api
 ## Image Placeholder
 
 https://placehold.co/400
+
+
+detail ေခါ်ေပးရင် ရပြီ။
+
+အရာအားလုံးက destination detail
+
+- event detail
+- article detail
