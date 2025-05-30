@@ -19,6 +19,7 @@ return new class extends Migration
             $table->mediumText('description')->nullable();
             $table->boolean('is_active')->nullable()->default(true);
             $table->foreignId('division_id')->nullable()->constrained('divisions', 'id')->restrictOnUpdate()->restrictOnDelete();
+            $table->boolean('is_state')->nullable()->default(true);
             
             $table->softDeletes();
             $table->timestamps();

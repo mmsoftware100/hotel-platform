@@ -29,7 +29,10 @@ class DatabaseSeeder extends Seeder
             ArticleCategorySeeder::class,
             ArticleSeeder::class,
 
-            
+            DivisionSeeder::class,
+            RegionSeeder::class,
+
+
             // CountrySeeder::class,
             // StateSeeder::class,
             // TownshipSeeder::class,
