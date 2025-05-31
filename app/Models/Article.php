@@ -16,11 +16,13 @@ class Article extends Model
         'image_url',
         'description',
         'is_active',
+        'is_featured',
         'article_category_id',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
+        'is_featured' => 'boolean',
     ];
 
     /**

@@ -28,6 +28,7 @@ class MyanmarEventCategory extends Model
         'image_url',
         'description',
         'is_active',
+        'is_featured',
     ];
 
     /**
@@ -37,6 +38,7 @@ class MyanmarEventCategory extends Model
      */
     protected $casts = [
         'is_active' => 'boolean',
+        'is_featured' => 'boolean',
     ];
 
     // If you later have a 'MyanmarEvent' model linked to this category

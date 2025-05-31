@@ -15,11 +15,13 @@ class Division extends Model
         'slug',
         'image_url',
         'description',
-        'is_active'
+        'is_active',
+        'is_featured',
     ];
 
     protected $casts = [
-        'is_active' => 'boolean'
+        'is_active' => 'boolean',
+        'is_featured' => 'boolean',
     ];
 
     /**

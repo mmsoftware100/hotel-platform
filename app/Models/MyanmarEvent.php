@@ -36,6 +36,7 @@ class MyanmarEvent extends Model
         'myanmar_event_category_id', // Make sure this matches your migration field
         'start_date',
         'end_date',
+        'is_featured',
     ];
 
     /**
@@ -47,6 +48,7 @@ class MyanmarEvent extends Model
         'is_active' => 'boolean',
         'start_date' => 'date',
         'end_date' => 'date',
+        'is_featured' => 'boolean',
     ];
 
     // --- Relationships ---

@@ -203,3 +203,10 @@ GET /v1/cultures
 GET /v1/events
 ```
 
+
+
+Featured , ဒါက Home Page မှာ ပြဖို့လား?
+
+အဲ့လို ထည့်လိုက်မယ်။
+default true ပေါ့။
+

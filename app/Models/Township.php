@@ -17,10 +17,12 @@ class Township extends Model
         'description',
         'is_active',
         'region_id',
+        'is_featured',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
+        'is_featured' => 'boolean',
     ];
 
     // Relationships

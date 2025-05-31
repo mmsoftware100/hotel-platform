@@ -22,10 +22,12 @@ class Destination extends Model
         'township_id',
         'village_id',
         'destination_category_id',
+        'is_featured',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
+        'is_featured' => 'boolean',
     ];
 
     // Define relationships if necessary
