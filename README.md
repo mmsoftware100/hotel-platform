@@ -241,5 +241,9 @@ Nav Bar , Footer က ပြမယ့် စာရင်းကို Static / အ
 
 ကြိုရေးထားတာမျိုးပေါ့။
 
+### To Do List
 
+- [ ] Category တွေအတွက် api ထုတ်ပေးရန်။
+- [ ] Listing API တွေမှာ filtering (filter by category / search query ) , pagination ထည့်ပေးရန်။
+- [ ] Listing API တွေ အတွက် စာနည်းတဲ့ resources နဲ့ detail api တွေ အတွက် စာအပြည့်အစုံ full flagged resources ထည့်ပေးရန်။
 
