@@ -35,6 +35,14 @@ Route::get('v1/home', function (Request $request) {
     sleep(5);
     return response()->json($home);
 });
+Route::get('v1/nav-bars', function (Request $request) {
+    $home = Home::find(1);
+    return response()->json($home);
+});
+Route::get('v1/footers', function (Request $request) {
+    $home = Home::find(1);
+    return response()->json($home);
+});
 Route::get('v1/carousels', function (Request $request) {
     // get random 5 destinations
     $destinations = Destination::inRandomOrder()->limit(5)->get();
