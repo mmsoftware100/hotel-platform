@@ -203,3 +203,43 @@ GET /v1/cultures
 GET /v1/events
 ```
 
+
+
+Featured , ဒါက Home Page မှာ ပြဖို့လား?
+
+အဲ့လို ထည့်လိုက်မယ်။
+default true ပေါ့။
+
+
+## 2025-05-31
+
+- [ ] Nav Bar API
+- [ ] Footer Bar API
+
+ဒါတွေကို ဘယ်လို စီစဉ်ပေးထားမလဲ?
+
+Nav Bar မှာ 
+
+Entity တွေရဲ့ category စာရင်းတွေ ပြေပေးထားမလား?
+
+ကောင်းတာကတော့ static ထားတာက အကောင်းဆုံးပဲ
+
+Loading မြန်မယ်။
+
+ပြင်ချင်ရင် ေပြာ။
+Layout ပြင်ပေးမယ်ပေါ့။
+
+static page တွေလည်း ရေးပေးထားလိုက်မယ်။
+
+OKay,
+
+Nav Bar , Footer က ပြမယ့် စာရင်းကို Static / အသေရေးပေးထားလိုက်မယ်။
+
+သွားမယ့် Page က Detail ကိုလည်း static နဲ့ ပြထားလိုက်မယ်။
+
+ဉပမာ Things to do ဆိုရင် 
+
+ကြိုရေးထားတာမျိုးပေါ့။
+
+
+

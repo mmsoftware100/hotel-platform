@@ -18,12 +18,14 @@ class Region extends Model
         'description',
         'is_active',
         'division_id',
-        'is_state'
+        'is_state',
+        'is_featured',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
-        'is_state' => 'boolean'
+        'is_state' => 'boolean',
+        'is_featured' => 'boolean',
     ];
 
     /**

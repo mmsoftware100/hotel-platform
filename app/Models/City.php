@@ -18,12 +18,14 @@ class City extends Model
         'description',
         'is_active',
         'region_id',
-        'is_capital' // to identify regional capitals
+        'is_capital', // to identify regional capitals
+        'is_featured',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
-        'is_capital' => 'boolean'
+        'is_capital' => 'boolean',
+        'is_featured' => 'boolean'
     ];
 
     /**

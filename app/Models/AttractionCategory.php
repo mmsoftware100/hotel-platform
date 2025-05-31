@@ -21,6 +21,7 @@ class AttractionCategory extends Model
         'image_url',
         'description',
         'is_active',
+        'is_featured',
     ];
 
     /**
@@ -30,6 +31,7 @@ class AttractionCategory extends Model
      */
     protected $casts = [
         'is_active' => 'boolean',
+        'is_featured' => 'boolean',
     ];
 
     // --- Relationships ---

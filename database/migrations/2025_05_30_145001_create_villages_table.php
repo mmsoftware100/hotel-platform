@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('image_url')->nullable();
             $table->mediumText('description')->nullable();
             $table->boolean('is_active')->nullable()->default(true);
+            $table->boolean('is_featured')->nullable()->default(true);
             $table->foreignId('township_id')->nullable()->constrained('townships', 'id')->restrictOnUpdate()->restrictOnDelete();
             
             $table->softDeletes();

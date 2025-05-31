@@ -29,10 +29,43 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
+Route::get('v1', function (Request $request) {
+    
+    // should return available API endpoints
+    $endpoints = [
+        'home' => url('/api/v1/home'),
+        'nav-bars' => url('/api/v1/nav-bars'),
+        'footers' => url('/api/v1/footers'),
+        'carousels' => url('/api/v1/carousels'),
+        'featured-divisions' => url('/api/v1/featured-divisions'),
+        'featured-articles' => url('/api/v1/featured-articles'),
+        'featured-attractions' => url('/api/v1/featured-attractions'),
+        'featured-cultures' => url('/api/v1/featured-cultures'),
+        'featured-events' => url('/api/v1/featured-events'),
+        'destinations' => url('/api/v1/destinations'),
+        'articles' => url('/api/v1/articles'),
+        'attractions' => url('/api/v1/attractions'),
+        'cultures' => url('/api/v1/cultures'),
+        'events' => url('/api/v1/events'),
+    ];
+    return response()->json([
+        'message' => 'Welcome to the API',
+        'endpoints' => $endpoints,
+    ]);
+});
+
 Route::get('v1/home', function (Request $request) {
     $home = Home::find(1);
     // sleep 5 seconds
     sleep(5);
+    return response()->json($home);
+});
+Route::get('v1/nav-bars', function (Request $request) {
+    $home = Home::find(1);
+    return response()->json($home);
+});
+Route::get('v1/footers', function (Request $request) {
+    $home = Home::find(1);
     return response()->json($home);
 });
 Route::get('v1/carousels', function (Request $request) {
