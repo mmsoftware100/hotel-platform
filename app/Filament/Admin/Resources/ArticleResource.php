@@ -18,6 +18,10 @@ use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\BooleanColumn;
 class ArticleResource extends Resource
 {
+    protected static ?string $navigationGroup = 'Articles';
+    protected static ?string $label = 'Article';
+    protected static ?string $pluralLabel = 'Articles';
+    protected static ?int $navigationSort = 1408;
     protected static ?string $model = Article::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
