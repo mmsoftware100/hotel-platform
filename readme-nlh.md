@@ -1,0 +1,42 @@
+-install filament
+composer require filament/filament:"^3.2" -W
+
+-panal install
+php artisan filament:install --panels
+
+-migration/model ဆောက်ပြီးသားမို့
+php artisan make:model Article ရေးဖို့မလိုတော့ပါ။
+php artisan make:filament-resource ArticleResource
+
+
+
+
+## Adding New Panel
+
+```bash
+php artisan make:filament-panel manager
+```
+
+
+## Adding Middleware for panel
+
+## Page ကို Panel Provider မှာ Register လုပ်ရန်။
+
+php artisan make:filament-widget OverviewStatus --stats-overview --panel=manager
+
+
+## Manager Panel တွင် Dashboard အသစ်ထည့်သွင်းခြင်း
+
+1. Widget တစ်ခု create လုပ်ပါ။
+```bash
+php artisan make:filament-widget InstallationStatus --stats-overview --panel=manager
+```
+1. app/Filament/Manager/Pages တွင် Dashboard Page တစ်ခု create လုပ်ပါ။ ဉပမာ InstallationDashboard.php
+2. Dashboard Page တွင် Widget ထည့်သွင်းပါ။
+```php
+protected function getFooterWidgets(): array
+{
+    return [
+        InstallationStatus::class,
+    ];
+}
