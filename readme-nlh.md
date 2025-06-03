@@ -8,10 +8,12 @@ php artisan filament:install --panels
 php artisan make:model Article ရေးဖို့မလိုတော့ပါ။
 php artisan make:filament-resource ArticleResource
 
+php artisan make:filament-resource ArticleCategory --view
+php artisan make:filament-resource RoleCategory --view
+app->filment->admin->RoleCategoryResource folder နဲ့ RoleCategoryResource.php ဖြစ်လာတယ်။
 
 
-
-## Adding New Panel
+<!-- ## Adding New Panel
 
 ```bash
 php artisan make:filament-panel manager
@@ -39,4 +41,4 @@ protected function getFooterWidgets(): array
     return [
         InstallationStatus::class,
     ];
-}
+} -->

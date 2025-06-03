@@ -6,6 +6,7 @@ use App\Filament\Admin\Resources\UserResource\Pages;
 use App\Filament\Admin\Resources\UserResource\RelationManagers;
 use App\Models\User;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -25,6 +26,17 @@ class UserResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')->required(),
+                TextInput::make('email')->required(),
+                TextInput::make('password')->required(),
+                Select::make('role')
+                    ->label('Role')
+                    ->options([
+                        'admin' => 'Admin',
+                        'user' => 'User',
+                        'editor' => 'Editor',
+                    ])
+                    ->default('user')
+                    ->required(),
             ]);
     }
 
@@ -34,6 +46,23 @@ class UserResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('email')
+                    ->searchable()
+                    ->sortable(),
+                // Tables\Columns\TextColumn::make('role')
+                //     ->searchable()
+                //     ->sortable()
+                //     ->enum([
+                //         'admin' => 'Admin',
+                //         'user' => 'User',
+                //         'editor' => 'Editor',
+                //     ]),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime()
                     ->sortable(),
 
             ])

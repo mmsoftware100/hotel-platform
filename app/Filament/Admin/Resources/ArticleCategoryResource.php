@@ -38,21 +38,22 @@ class ArticleCategoryResource extends Resource
             ->schema([
 
                 TextInput::make('name')
-    ->required()
-    ->reactive()
-    ->afterStateUpdated(fn($state, callable $set) =>
-        $set('slug', Str::slug($state))
+                ->required()
+                ->reactive()
+                ->afterStateUpdated(fn($state, callable $set) =>
+                $set('slug', Str::slug($state))
     ),
 
-TextInput::make('slug')
-    ->required()
-    ->unique(ignoreRecord: true),
-            FileUpload::make('image_url')->image()->directory('articles'),
-            Textarea::make('description')->rows(5),
-            Toggle::make('is_active')->default(true),
-            Toggle::make('is_featured')->default(true),
+                TextInput::make('slug')
+                ->required()
+                ->unique(ignoreRecord: true),
+                FileUpload::make('image_url')->image()->directory('articles'),
+                Textarea::make('description')->rows(5),
+                Toggle::make('is_active')->default(true),
+                Toggle::make('is_featured')->default(true),
             ]);
     }
+
 
     public static function table(Table $table): Table
     {
