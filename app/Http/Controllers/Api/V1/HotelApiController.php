@@ -12,7 +12,8 @@ class HotelApiController extends Controller
      */
     public function index()
     {
-        //
+        // $datas = Hotel::all();
+        // return response()->json($datas);
     }
 
     /**

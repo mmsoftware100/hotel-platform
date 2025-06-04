@@ -1,5 +1,21 @@
 <?php
 
+use App\Http\Controllers\Api\TaskController;
+use App\Http\Controllers\Api\V1\ArticleCategoryApiController;
+use App\Http\Controllers\Api\V1\AttractionApiController;
+use App\Http\Controllers\Api\V1\AttractionCategoryApiController;
+use App\Http\Controllers\Api\V1\CityApiController;
+use App\Http\Controllers\Api\V1\CultureApiController;
+use App\Http\Controllers\Api\V1\CultureCategoryApiController;
+use App\Http\Controllers\Api\V1\DivisionApiController;
+use App\Http\Controllers\Api\V1\HomeApiController;
+use App\Http\Controllers\Api\V1\MyanmarEventApiController;
+use App\Http\Controllers\Api\V1\MyanmarEventCategoryApiController;
+use App\Http\Controllers\Api\V1\RegionApiController;
+use App\Http\Controllers\Api\V1\TownshipApiController;
+use App\Http\Controllers\Api\V1\UserApiController;
+use App\Http\Controllers\DestinationCategoryController;
+use App\Http\Controllers\DestinationController;
 use App\Http\Resources\DestinationResource;
 use App\Http\Resources\DivisionResource;
 use App\Models\Article;
@@ -30,7 +46,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('v1', function (Request $request) {
-    
+
     // should return available API endpoints
     $endpoints = [
         'home' => url('/api/v1/home'),
@@ -117,7 +133,7 @@ Route::get('v1/articles/{slug}', function ($slug) {
         return response()->json($article);
     } else {
         return response()->json(['message' => 'Article not found'], 404);
-    }           
+    }
 });
 Route::get('v1/attractions/{slug}', function ($slug) {
     $attraction = Attraction::where('slug', $slug)->first();
@@ -125,7 +141,7 @@ Route::get('v1/attractions/{slug}', function ($slug) {
         return response()->json($attraction);
     } else {
         return response()->json(['message' => 'Attraction not found'], 404);
-    }       
+    }
 });
 Route::get('v1/cultures/{slug}', function ($slug) {
     $culture = Culture::where('slug', $slug)->first();
@@ -151,7 +167,7 @@ Route::get('v1/destinations', function (Request $request) {
 });
 Route::get('v1/articles', function (Request $request) {
     $articles = Article::all();
-    return response()->json($articles); 
+    return response()->json($articles);
 });
 Route::get('v1/attractions', function (Request $request) {
     $attractions = Attraction::all();
@@ -163,7 +179,7 @@ Route::get('v1/cultures', function (Request $request) {
 });
 Route::get('v1/events', function (Request $request) {
     $events = MyanmarEvent::all();
-    return response()->json($events);   
+    return response()->json($events);
 });
 
 
@@ -237,3 +253,43 @@ Route::delete('v1/hotels/{id}', function ($id) {
         return response()->json(['message' => 'Hotel not found'], 404);
     }
 });
+
+// Route::get('v1/test', function (Request $request) {
+//    return response()->json([
+//         'message' => 'This is a test endpoint',
+//         'status' => 'success',
+//         'data' => []
+//     ]);
+// });
+
+
+
+Route::get('v1/home', [HomeApiController::class, 'index']);
+
+Route::get('v1/article-category', [ArticleCategoryApiController::class, 'index']);
+
+Route::get('v1/destination-category',[DestinationCategoryController::class,'index']);
+
+Route::get('v1/destination',[DestinationController::class,'index']);
+
+Route::get('v1/attraction-category',[AttractionCategoryApiController::class,'index']);
+
+Route::get('v1/attraction',[AttractionApiController::class,'index']);
+
+Route::get('v1/culture-category',[CultureCategoryApiController::class,'index']);
+
+Route::get('v1/culture',[CultureApiController::class,'index']);
+
+Route::get('v1/myanmar-event-category',[MyanmarEventCategoryApiController::class,'index']);
+
+Route::get('v1/myanmar-event',[MyanmarEventApiController::class,'index']);
+
+Route::get('v1/user',[UserApiController::class,'index']);
+
+Route::get('v1/division',[DivisionApiController::class,'index']);
+
+Route::get('v1/region',[RegionApiController::class,'index']);
+
+Route::get('v1/city',[CityApiController::class,'index']);
+
+Route::get('v1/township',[TownshipApiController::class,'index']);

@@ -25,19 +25,10 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('name')->required(),
+                Select::make('name')->label('Name')->relationship('role','name')->nullable(),
                 TextInput::make('email')->required(),
                 TextInput::make('password')->required(),
-                Select::make('role')
-                    ->label('Role')
-                    ->options([
-                        'admin' => 'Admin',
-                        'user' => 'User',
-                        'editor' => 'Editor',
-                    ])
-                    ->default('user')
-                    ->required(),
-            ]);
+                ]);
     }
 
     public static function table(Table $table): Table
@@ -91,9 +82,9 @@ class UserResource extends Resource
     {
         return [
             'index' => Pages\ListUsers::route('/'),
-            'create' => Pages\CreateUser::route('/create'),
-            'view' => Pages\ViewUser::route('/{record}'),
-            'edit' => Pages\EditUser::route('/{record}/edit'),
+            // 'create' => Pages\CreateUser::route('/create'),
+            // 'view' => Pages\ViewUser::route('/{record}'),
+            // 'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
     }
 }

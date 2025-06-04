@@ -1,21 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Home;
 use Illuminate\Http\Request;
 
-class HomeApiController extends Controller
+class TaskController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        // This method can be used to return a list of resources or a welcome message
-        $datas = Home::all();
-        return response()->json($datas);
+        //
     }
 
     /**
@@ -31,12 +28,7 @@ class HomeApiController extends Controller
      */
     public function show(string $id)
     {
-        $data = Home::find($id);
-        if ($data) {
-            return response()->json($data);
-        } else {
-            return response()->json(['message' => 'Home not found'], 404);
-        }
+        //
     }
 
     /**
