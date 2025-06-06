@@ -51,6 +51,7 @@ Route::get('v1', function (Request $request) {
 
     // should return available API endpoints
     $endpoints = [
+        'documentation' => url('/api/v1'),
         'home' => url('/api/v1/home'),
         'nav-bars' => url('/api/v1/nav-bars'),
         'footers' => url('/api/v1/footers'),
@@ -60,6 +61,7 @@ Route::get('v1', function (Request $request) {
         'featured-attractions' => url('/api/v1/featured-attractions'),
         'featured-cultures' => url('/api/v1/featured-cultures'),
         'featured-events' => url('/api/v1/featured-events'),
+        'search' => url('/api/v1/search'),
 
         'destinations' => url('/api/v1/destinations'),
         'destination-detail' => url('/api/v1/destinations/{slug}'),
@@ -68,10 +70,36 @@ Route::get('v1', function (Request $request) {
 
         'articles' => url('/api/v1/articles'),
         'article-detail' => url('/api/v1/articles/{slug}'),
+        'article-categories' => url('/api/v1/article-categories'),
+        'article-category-detail' => url('/api/v1/article-categories/{slug}'),
 
         'attractions' => url('/api/v1/attractions'),
+        'attraction-detail' => url('/api/v1/attractions/{slug}'),
+        'attraction-categories' => url('/api/v1/attraction-categories'),
+        'attraction-category-detail' => url('/api/v1/attraction-categories/{slug}'),
+
+
         'cultures' => url('/api/v1/cultures'),
+        'culture-detail' => url('/api/v1/cultures/{slug}'),
+        'culture-categories' => url('/api/v1/culture-categories'),
+        'culture-category-detail' => url('/api/v1/culture-categories/{slug}'),
+
+
         'events' => url('/api/v1/events'),
+        'event-detail' => url('/api/v1/cultures/{slug}'),
+        'event-categories' => url('/api/v1/event-categories'),
+        'event-category-detail' => url('/api/v1/event-categories/{slug}'),
+
+        'divisions' => url('/api/v1/divisions'),
+        'division-detail' => url('/api/v1/divisions/{slug}'),
+        'regions' => url('/api/v1/regions'),
+        'region-detail' => url('/api/v1/regions/{slug}'),
+        'cities' => url('/api/v1/cities'),
+        'city-detail' => url('/api/v1/cities/{slug}'),
+        'townships' => url('/api/v1/townships'),
+        'township-detail' => url('/api/v1/townships/{slug}'),
+        'villages' => url('/api/v1/villages'),
+        'village-detail' => url('/api/v1/villages/{slug}'),
     ];
     return response()->json([
         'message' => 'Welcome to the API',
