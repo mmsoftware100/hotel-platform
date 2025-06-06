@@ -6,6 +6,7 @@ use App\Filament\Admin\Resources\ArticleResource\Pages;
 use App\Filament\Admin\Resources\ArticleResource\RelationManagers;
 use App\Models\Article;
 use Filament\Forms;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -32,7 +33,19 @@ class ArticleResource extends Resource
             TextInput::make('name')->required(),
             TextInput::make('slug')->unique(ignoreRecord: true),
             FileUpload::make('image_url')->image()->directory('articles'),
-            Textarea::make('description')->rows(5),
+            // Textarea::make('description')->rows(5),
+            RichEditor::make('description')
+                ->toolbarButtons([
+                    'bold',
+                    'italic',
+                    'underline',
+                    'link',
+                    'bulletList',
+                    'numberedList',
+                    'blockquote',
+                    'codeBlock',
+                ])
+                ->required(),
             Toggle::make('is_active')->default(true),
             Toggle::make('is_featured')->default(true),
             Select::make('article_category_id')
