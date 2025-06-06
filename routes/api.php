@@ -58,9 +58,15 @@ Route::get('v1', function (Request $request) {
         'featured-attractions' => url('/api/v1/featured-attractions'),
         'featured-cultures' => url('/api/v1/featured-cultures'),
         'featured-events' => url('/api/v1/featured-events'),
+
         'destinations' => url('/api/v1/destinations'),
         'destination-detail' => url('/api/v1/destinations/{slug}'),
+        'destination-categories' => url('/api/v1/destination-categories'),
+        'destination-category-detail' => url('/api/v1/destination-categories/{slug}'),
+
         'articles' => url('/api/v1/articles'),
+        'article-detail' => url('/api/v1/articles/{slug}'),
+
         'attractions' => url('/api/v1/attractions'),
         'cultures' => url('/api/v1/cultures'),
         'events' => url('/api/v1/events'),
@@ -211,6 +217,7 @@ Route::get('v1/article-categories', [ArticleCategoryApiController::class, 'index
 Route::get('v1/article-categories/{slug}', [ArticleCategoryApiController::class, 'show']);
 
 Route::get('v1/destination-categories',[DestinationCategoryController::class,'index']);
+Route::get('v1/destination-categories/{slug}',[DestinationCategoryController::class,'show']);
 
 Route::get('v1/destinations',[DestinationController::class,'index']);
 

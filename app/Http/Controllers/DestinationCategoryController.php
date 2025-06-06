@@ -13,4 +13,15 @@ class DestinationCategoryController extends Controller
         $data = DestinationCategory::all();
         return response()->json($data);
     }
+
+
+    public function show(Request $request, $slug)
+    {
+        $destinationCategory = DestinationCategory::where('slug', $slug)->first();
+        if ($destinationCategory) {
+            return response()->json($destinationCategory);
+        } else {
+            return response()->json(['message' => 'Destination Category not found'], 404);
+        }
+    }
 }
