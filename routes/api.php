@@ -266,30 +266,30 @@ Route::delete('v1/hotels/{id}', function ($id) {
 
 Route::get('v1/home', [HomeApiController::class, 'index']);
 
-Route::get('v1/article-category', [ArticleCategoryApiController::class, 'index']);
+Route::get('v1/article-categories', [ArticleCategoryApiController::class, 'index']);
 
-Route::get('v1/destination-category',[DestinationCategoryController::class,'index']);
+Route::get('v1/destination-categories',[DestinationCategoryController::class,'index']);
 
-Route::get('v1/destination',[DestinationController::class,'index']);
+Route::get('v1/destinations',[DestinationController::class,'index']);
 
-Route::get('v1/attraction-category',[AttractionCategoryApiController::class,'index']);
+Route::get('v1/attraction-categories',[AttractionCategoryApiController::class,'index']);
 
-Route::get('v1/attraction',[AttractionApiController::class,'index']);
+Route::get('v1/attractions',[AttractionApiController::class,'index']);
 
-Route::get('v1/culture-category',[CultureCategoryApiController::class,'index']);
+Route::get('v1/culture-categories',[CultureCategoryApiController::class,'index']);
 
 Route::get('v1/culture',[CultureApiController::class,'index']);
 
-Route::get('v1/myanmar-event-category',[MyanmarEventCategoryApiController::class,'index']);
+Route::get('v1/myanmar-event-categories',[MyanmarEventCategoryApiController::class,'index']);
 
-Route::get('v1/myanmar-event',[MyanmarEventApiController::class,'index']);
+Route::get('v1/myanmar-events',[MyanmarEventApiController::class,'index']);
 
-Route::get('v1/user',[UserApiController::class,'index']);
+// Route::get('v1/user',[UserApiController::class,'index']);
 
-Route::get('v1/division',[DivisionApiController::class,'index']);
+Route::get('v1/divisions',[DivisionApiController::class,'index']);
 
-Route::get('v1/region',[RegionApiController::class,'index']);
+Route::get('v1/regions',[RegionApiController::class,'index']);
 
-Route::get('v1/city',[CityApiController::class,'index']);
+Route::get('v1/citys',[CityApiController::class,'index']);
 
-Route::get('v1/township',[TownshipApiController::class,'index']);
+Route::get('v1/townships',[TownshipApiController::class,'index']);
