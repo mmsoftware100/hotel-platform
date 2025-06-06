@@ -95,6 +95,11 @@ php artisan make:controller Api/V1/HotelApiController --api
 php artisan make:controller Api/V1/HomeApiController --api
 php artisan make:controller Api/V1/DestinationApiController --api
 php artisan make:controller Api/V1/VillageApiController --api
+
+php artisan make:resource ArticleCategoryLiteResource
+php artisan make:resource ArticleCategoryLiteResource
+php artisan make:resource ArticleLiteResource
+php artisan make:resource ArticleDetailResource
 ```
 
 ## Main Module List
