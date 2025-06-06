@@ -14,13 +14,14 @@ class CultureApiController extends Controller
         return response()->json($datas);
     }
 
-    public function show($id)
+    public function show($slug)
     {
-        $data = Culture::find($id);
-        if ($data) {
-            return response()->json($data);
+        $culture = Culture::where('slug', $slug)->first();
+        if ($culture) {
+            return response()->json($culture);
         } else {
             return response()->json(['message' => 'Culture not found'], 404);
         }
     }
+
 }

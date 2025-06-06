@@ -14,13 +14,14 @@ class DestinationCategoryApiController extends Controller
         return response()->json($datas);
     }
 
-    public function show($id)
+    public function show($slug)
     {
-        $data = DestinationCategory::find($id);
-        if ($data) {
-            return response()->json($data);
+        $destinationCategory = DestinationCategory::where('slug', $slug)->first();
+        if ($destinationCategory) {
+            return response()->json($destinationCategory);
         } else {
             return response()->json(['message' => 'Destination Category not found'], 404);
         }
     }
+
 }

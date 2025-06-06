@@ -14,13 +14,9 @@ class ArticleApiController extends Controller
             return response()->json($datas);
         }
 
-    public function show($id)
+    public function show($slug)
         {
-            $data = Article::find($id);
-            if ($data) {
-                return response()->json($data);
-            } else {
-                return response()->json(['message' => 'Article not found'], 404);
-            }
+            $article = Article::where('slug', $slug)->first();
+            return response()->json($article);
         }
 }

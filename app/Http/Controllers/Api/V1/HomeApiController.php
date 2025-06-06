@@ -29,11 +29,11 @@ class HomeApiController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $slug)
     {
-        $data = Home::find($id);
-        if ($data) {
-            return response()->json($data);
+        $home = Home::where('slug', $slug)->first();
+        if ($home) {
+            return response()->json($home);
         } else {
             return response()->json(['message' => 'Home not found'], 404);
         }

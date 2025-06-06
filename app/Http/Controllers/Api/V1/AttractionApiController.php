@@ -14,12 +14,14 @@ class AttractionApiController extends Controller
         return response()->json($datas);
     }
 
-    public function show($id){
-        $data = Attraction::find($id);
-       if ($data) {
-            return response()->json($data);
+    public function show($slug)
+    {
+        $attraction = Attraction::where('slug', $slug)->first();
+        if ($attraction) {
+            return response()->json($attraction);
         } else {
             return response()->json(['message' => 'Attraction not found'], 404);
         }
+
     }
 }

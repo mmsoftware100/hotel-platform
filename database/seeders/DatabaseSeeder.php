@@ -7,6 +7,7 @@ namespace Database\Seeders;
 use App\Models\FacilityHotel;
 use App\Models\HighlightHotel;
 use Illuminate\Database\Seeder;
+use Symfony\Component\Mailer\Transport;
 
 class DatabaseSeeder extends Seeder
 {
@@ -27,7 +28,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
 
             HomeSeeder::class,
-            
+
 
             ArticleCategorySeeder::class,
             ArticleSeeder::class,
@@ -42,14 +43,23 @@ class DatabaseSeeder extends Seeder
 
             AttractionCategorySeeder::class,
             AttractionSeeder::class,
-            
-            
+
+
 
             CultureCategorySeeder::class,
             CultureSeeder::class,
-            
+
             MyanmarEventCategorySeeder::class,
             MyanmarEventSeeder::class,
+
+            HotelSeeder::class,
+            HotelCategorySeeder::class,
+
+            RestaurantSeeder::class,
+            RestaurantCategorySeeder::class,
+
+            TransportationSeeder::class,
+            TransportationCategorySeeder::class,
 
 
 

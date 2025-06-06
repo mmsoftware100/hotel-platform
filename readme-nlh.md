@@ -10,8 +10,15 @@ php artisan make:filament-resource ArticleResource
 
 php artisan make:filament-resource ArticleCategory --view
 php artisan make:filament-resource RoleCategory --view
-app->filment->admin->RoleCategoryResource folder နဲ့ RoleCategoryResource.php ဖြစ်လာတယ်။
+app->filment->admin->Resources->RoleCategoryResource folder နဲ့ RoleCategoryResource.php ဖြစ်လာတယ်။
 
+
+---------------------
+6.6.2025
+php artisan make:model Transportation --migration
+hotel db:seed error
+php artisan make:filament-resource Transportation --view
+php artisan make:controller Api/V1/TransportationApiController
 
 <!-- ## Adding New Panel
 

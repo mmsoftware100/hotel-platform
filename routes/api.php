@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\TaskController;
+use App\Http\Controllers\Api\V1\ArticleApiController;
 use App\Http\Controllers\Api\V1\ArticleCategoryApiController;
 use App\Http\Controllers\Api\V1\AttractionApiController;
 use App\Http\Controllers\Api\V1\AttractionCategoryApiController;
@@ -10,10 +11,16 @@ use App\Http\Controllers\Api\V1\CultureCategoryApiController;
 use App\Http\Controllers\Api\V1\DestinationApiController;
 use App\Http\Controllers\Api\V1\DivisionApiController;
 use App\Http\Controllers\Api\V1\HomeApiController;
+use App\Http\Controllers\Api\V1\HotelApiCategoryController;
+use App\Http\Controllers\Api\V1\HotelApiController;
 use App\Http\Controllers\Api\V1\MyanmarEventApiController;
 use App\Http\Controllers\Api\V1\MyanmarEventCategoryApiController;
 use App\Http\Controllers\Api\V1\RegionApiController;
+use App\Http\Controllers\Api\V1\RestaurantApiController;
+use App\Http\Controllers\Api\V1\RestaurantCategoryApiController;
 use App\Http\Controllers\Api\V1\TownshipApiController;
+use App\Http\Controllers\Api\V1\TransportationApiController;
+use App\Http\Controllers\Api\V1\TransportationCategoryApiController;
 use App\Http\Controllers\Api\V1\UserApiController;
 use App\Http\Controllers\Api\V1\VillageApiController;
 use App\Http\Controllers\DestinationCategoryController;
@@ -241,47 +248,91 @@ Route::get('v1/search', function (Request $request) {
 
 
 
-Route::get('v1/home', [HomeApiController::class, 'index']);
+
+
+//
+Route::get('v1/article', [ArticleApiController::class, 'index']);
+Route::get('v1/article/{slug}', [ArticleApiController::class, 'show']);
 
 Route::get('v1/article-categories', [ArticleCategoryApiController::class, 'index']);
 Route::get('v1/article-categories/{slug}', [ArticleCategoryApiController::class, 'show']);
-
-Route::get('v1/destination-categories',[DestinationApiController::class,'index']);
-Route::get('v1/destination-categories/{slug}',[DestinationApiController::class,'show']);
-
+// --
+//
+Route::get('v1/attractions',[AttractionApiController::class,'index']);
+Route::get('v1/attractions/{slug}',[AttractionApiController::class,'show']);
 
 Route::get('v1/attraction-categories',[AttractionCategoryApiController::class,'index']);
 Route::get('v1/attraction-categories/{slug}',[AttractionCategoryApiController::class,'show']);
-
-
+//
+//
+Route::get('v1/cities',[CityApiController::class,'index']);
+Route::get('v1/cities/{slug}',[CityApiController::class,'show']);
+//
+//
 Route::get('v1/culture-categories',[CultureCategoryApiController::class,'index']);
 Route::get('v1/culture-categories/{slug}',[CultureCategoryApiController::class,'show']);
+//
+//
+Route::get('v1/destination-categories',[DestinationApiController::class,'index']);
+Route::get('v1/destination-categories/{slug}',[DestinationApiController::class,'show']);
+//
+//
+Route::get('v1/divisions',[DivisionApiController::class,'index']);
+Route::get('v1/divisions/{slug}',[DivisionApiController::class,'show']);
+//
+//
+Route::get('v1/home', [HomeApiController::class, 'index']);
+Route::get('v1/home/{slug}', [HomeApiController::class, 'show']);
+//
+//
+Route::get('v1/hotels',[HotelApiController::class,'index']);
+Route::get('v1/hotels/{slug}',[HotelApiController::class,'show']);
 
+Route::get('v1/hotel-categories',[HotelApiCategoryController::class,'index']);
+Route::get('v1/hotel-categories/{slug}',[HotelApiCategoryController::class,'show']);
+//
+//
+Route::get('v1/myanmar-events',[MyanmarEventApiController::class,'index']);
+Route::get('v1/myanmar-events/{slug}',[MyanmarEventApiController::class,'show']);
 
 Route::get('v1/myanmar-event-categories',[MyanmarEventCategoryApiController::class,'index']);
 Route::get('v1/myanmar-event-categories/{slug}',[MyanmarEventCategoryApiController::class,'show']);
-
-Route::get('v1/divisions',[DivisionApiController::class,'index']);
-Route::get('v1/divisions/{slug}',[DivisionApiController::class,'show']);
-
+//
+//
 Route::get('v1/regions',[RegionApiController::class,'index']);
 Route::get('v1/regions/{slug}',[RegionApiController::class,'show']);
+//
+//
+Route::get('v1/Restaurants',[RestaurantApiController::class,'index']);
+Route::get('v1/Restaurants/{slug}',[RestaurantApiController::class,'show']);
 
-Route::get('v1/cities',[CityApiController::class,'index']);
-Route::get('v1/cities/{slug}',[CityApiController::class,'show']);
-
+Route::get('v1/restaurant-categories',[RestaurantCategoryApiController::class,'index']);
+Route::get('v1/restaurant-categories/{slug}',[RestaurantCategoryApiController::class,'show']);
+//
+//
 Route::get('v1/townships',[TownshipApiController::class,'index']);
 Route::get('v1/townships/{slug}',[TownshipApiController::class,'show']);
+//
+//
+Route::get('v1/Transportation',[TransportationApiController::class,'index']);
+Route::get('v1/Transportation/{slug}',[TransportationApiController::class,'show']);
 
+Route::get('v1/Transportation-categories',[TransportationCategoryApiController::class,'index']);
+Route::get('v1/Transportation-categories/{slug}',[TransportationCategoryApiController::class,'show']);
+//
+Route::get('v1/users',[UserApiController::class,'index']);
+Route::get('v1/users/{id}',[UserApiController::class,'show']);
+//
+//
 Route::get('v1/villages',[VillageApiController::class,'index']);
 Route::get('v1/villages/{slug}',[VillageApiController::class,'show']);
-
+//
 
 // Route::get('v1/destinations',[DestinationController::class,'index']);
 // Route::get('v1/attractions',[AttractionApiController::class,'index']);
 
 
-// Route::get('v1/culture',[CultureApiController::class,'index']);
+
 
 
 // Route::get('v1/myanmar-events',[MyanmarEventApiController::class,'index']);
