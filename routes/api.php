@@ -59,6 +59,7 @@ Route::get('v1', function (Request $request) {
         'featured-cultures' => url('/api/v1/featured-cultures'),
         'featured-events' => url('/api/v1/featured-events'),
         'destinations' => url('/api/v1/destinations'),
+        'destination-detail' => url('/api/v1/destinations/{slug}'),
         'articles' => url('/api/v1/articles'),
         'attractions' => url('/api/v1/attractions'),
         'cultures' => url('/api/v1/cultures'),
