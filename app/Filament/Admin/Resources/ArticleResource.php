@@ -35,16 +35,6 @@ class ArticleResource extends Resource
             FileUpload::make('image_url')->image()->directory('articles'),
             // Textarea::make('description')->rows(5),
             RichEditor::make('description')
-                ->toolbarButtons([
-                    'bold',
-                    'italic',
-                    'underline',
-                    'link',
-                    'bulletList',
-                    'numberedList',
-                    'blockquote',
-                    'codeBlock',
-                ])
                 ->required(),
             Toggle::make('is_active')->default(true),
             Toggle::make('is_featured')->default(true),
