@@ -13,11 +13,12 @@ class DivisionApiController extends Controller
         $datas = Division::all();
         return response()->json($datas);
     }
-    public function show($id)
+    
+    public function show(Request $request, $slug)
     {
-        $data = Division::find($id);
-        if ($data) {
-            return response()->json($data);
+        $division = Division::where('slug', $slug)->first();
+        if ($division) {
+            return response()->json($division);
         } else {
             return response()->json(['message' => 'Division not found'], 404);
         }

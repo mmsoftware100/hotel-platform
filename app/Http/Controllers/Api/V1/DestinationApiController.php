@@ -11,17 +11,18 @@ class DestinationApiController extends Controller
 {
     public function index(Request $request)
     {
-        $datas = Destination::all();
-        return response()->json($datas);
+        $data = DestinationCategory::all();
+        return response()->json($data);
     }
 
-    public function show($id)
+
+    public function show(Request $request, $slug)
     {
-        $data = Destination::find($id);
-        if($data){
-            return response()->json($data);
-        }else{
-            return response()->json(['message' => 'Destination not found'], 404);
+        $destinationCategory = DestinationCategory::where('slug', $slug)->first();
+        if ($destinationCategory) {
+            return response()->json($destinationCategory);
+        } else {
+            return response()->json(['message' => 'Destination Category not found'], 404);
         }
     }
 }

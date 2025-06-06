@@ -93,6 +93,8 @@ https://github.com/mmsoftware100/hotel-platform
 ```bash
 php artisan make:controller Api/V1/HotelApiController --api
 php artisan make:controller Api/V1/HomeApiController --api
+php artisan make:controller Api/V1/DestinationApiController --api
+php artisan make:controller Api/V1/VillageApiController --api
 ```
 
 ## Main Module List

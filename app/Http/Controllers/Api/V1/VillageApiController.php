@@ -13,13 +13,13 @@ class VillageApiController extends Controller
         $datas = Village::all();
         return response()->json($datas);
     }
-
-    public function show($id)
+    
+    
+    public function show(Request $request, $slug)
     {
-        $data = Village::findOrFail($id);
-        //  return response()->json($data);
-        if($data) {
-            return response()->json($data);
+        $village = Village::where('slug', $slug)->first();
+        if ($village) {
+            return response()->json($village);
         } else {
             return response()->json(['message' => 'Village not found'], 404);
         }

@@ -14,10 +14,13 @@ class RegionApiController extends Controller
         return response()->json($datas);
     }
 
-    public function show($id){
-        $data = Region::findOrFail($id);
-       if($data) {
-            return response()->json($data);
+    
+    
+    public function show(Request $request, $slug)
+    {
+        $region = Region::where('slug', $slug)->first();
+        if ($region) {
+            return response()->json($region);
         } else {
             return response()->json(['message' => 'Region not found'], 404);
         }

@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\V1\AttractionCategoryApiController;
 use App\Http\Controllers\Api\V1\CityApiController;
 use App\Http\Controllers\Api\V1\CultureApiController;
 use App\Http\Controllers\Api\V1\CultureCategoryApiController;
+use App\Http\Controllers\Api\V1\DestinationApiController;
 use App\Http\Controllers\Api\V1\DivisionApiController;
 use App\Http\Controllers\Api\V1\HomeApiController;
 use App\Http\Controllers\Api\V1\MyanmarEventApiController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\Api\V1\MyanmarEventCategoryApiController;
 use App\Http\Controllers\Api\V1\RegionApiController;
 use App\Http\Controllers\Api\V1\TownshipApiController;
 use App\Http\Controllers\Api\V1\UserApiController;
+use App\Http\Controllers\Api\V1\VillageApiController;
 use App\Http\Controllers\DestinationCategoryController;
 use App\Http\Controllers\DestinationController;
 use App\Http\Resources\DestinationResource;
@@ -168,10 +170,10 @@ Route::get('v1/events/{slug}', function ($slug) {
 });
 
 // get all destinations
-// Route::get('v1/destinations', function (Request $request) {
-//     $destinations = Destination::all();
-//     return response()->json($destinations);
-// });
+Route::get('v1/destinations', function (Request $request) {
+    $destinations = Destination::all();
+    return response()->json($destinations);
+});
 Route::get('v1/articles', function (Request $request) {
     $articles = Article::all();
     return response()->json($articles);
@@ -216,29 +218,44 @@ Route::get('v1/home', [HomeApiController::class, 'index']);
 Route::get('v1/article-categories', [ArticleCategoryApiController::class, 'index']);
 Route::get('v1/article-categories/{slug}', [ArticleCategoryApiController::class, 'show']);
 
-Route::get('v1/destination-categories',[DestinationCategoryController::class,'index']);
-Route::get('v1/destination-categories/{slug}',[DestinationCategoryController::class,'show']);
+Route::get('v1/destination-categories',[DestinationApiController::class,'index']);
+Route::get('v1/destination-categories/{slug}',[DestinationApiController::class,'show']);
 
-Route::get('v1/destinations',[DestinationController::class,'index']);
 
 Route::get('v1/attraction-categories',[AttractionCategoryApiController::class,'index']);
+Route::get('v1/attraction-categories/{slug}',[AttractionCategoryApiController::class,'show']);
 
-Route::get('v1/attractions',[AttractionApiController::class,'index']);
 
 Route::get('v1/culture-categories',[CultureCategoryApiController::class,'index']);
+Route::get('v1/culture-categories/{slug}',[CultureCategoryApiController::class,'show']);
 
-Route::get('v1/culture',[CultureApiController::class,'index']);
 
 Route::get('v1/myanmar-event-categories',[MyanmarEventCategoryApiController::class,'index']);
-
-Route::get('v1/myanmar-events',[MyanmarEventApiController::class,'index']);
-
-// Route::get('v1/user',[UserApiController::class,'index']);
+Route::get('v1/myanmar-event-categories/{slug}',[MyanmarEventCategoryApiController::class,'show']);
 
 Route::get('v1/divisions',[DivisionApiController::class,'index']);
+Route::get('v1/divisions/{slug}',[DivisionApiController::class,'show']);
 
 Route::get('v1/regions',[RegionApiController::class,'index']);
+Route::get('v1/regions/{slug}',[RegionApiController::class,'show']);
 
-Route::get('v1/citys',[CityApiController::class,'index']);
+Route::get('v1/cities',[CityApiController::class,'index']);
+Route::get('v1/cities/{slug}',[CityApiController::class,'show']);
 
 Route::get('v1/townships',[TownshipApiController::class,'index']);
+Route::get('v1/townships/{slug}',[TownshipApiController::class,'show']);
+
+Route::get('v1/villages',[VillageApiController::class,'index']);
+Route::get('v1/villages/{slug}',[VillageApiController::class,'show']);
+
+
+// Route::get('v1/destinations',[DestinationController::class,'index']);
+// Route::get('v1/attractions',[AttractionApiController::class,'index']);
+
+
+// Route::get('v1/culture',[CultureApiController::class,'index']);
+
+
+// Route::get('v1/myanmar-events',[MyanmarEventApiController::class,'index']);
+
+// Route::get('v1/user',[UserApiController::class,'index']);

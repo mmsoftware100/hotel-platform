@@ -13,13 +13,14 @@ class CityApiController extends Controller
         $datas = City::all();
         return response()->json($datas);
     }
-
-    public function show($id)
+    
+    public function show(Request $request, $slug)
     {
-       $data = City::findOrFail($id);
-        if($data){
-            return response()->json($data);
+        $city = City::where('slug', $slug)->first();
+        if ($city) {
+            return response()->json($city);
+        } else {
+            return response()->json(['message' => 'City not found'], 404);
         }
-        return response()->json(['message' => 'City not found'], 404);
     }
 }

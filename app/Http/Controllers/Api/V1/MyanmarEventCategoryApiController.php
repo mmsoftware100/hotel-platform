@@ -14,11 +14,12 @@ class MyanmarEventCategoryApiController extends Controller
         return response()->json($datas);
     }
 
-    public function show($id)
+    
+    public function show(Request $request, $slug)
     {
-        $data = MyanmarEventCategory::find($id);
-        if($data) {
-            return response()->json($data);
+        $myanmarEventCategory = MyanmarEventCategory::where('slug', $slug)->first();
+        if ($myanmarEventCategory) {
+            return response()->json($myanmarEventCategory);
         } else {
             return response()->json(['message' => 'Myanmar Event Category not found'], 404);
         }

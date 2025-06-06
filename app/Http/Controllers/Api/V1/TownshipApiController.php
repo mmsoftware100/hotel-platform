@@ -13,12 +13,13 @@ class TownshipApiController extends Controller
         $datas = Township::all();
         return response()->json($datas);
     }
-
-    public function show($id)
+    
+    
+    public function show(Request $request, $slug)
     {
-        $data = Township::findOrFail($id);
-        if($data) {
-            return response()->json($data);
+        $township = Township::where('slug', $slug)->first();
+        if ($township) {
+            return response()->json($township);
         } else {
             return response()->json(['message' => 'Township not found'], 404);
         }

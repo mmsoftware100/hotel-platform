@@ -13,12 +13,12 @@ class AttractionCategoryApiController extends Controller
         $datas = AttractionCategory::all();
         return response()->json($datas);
     }
-
-    public function show($id)
+    
+    public function show(Request $request, $slug)
     {
-        $data = AttractionCategory::find($id);
-        if ($data) {
-            return response()->json($data);
+        $attractionCategory = AttractionCategory::where('slug', $slug)->first();
+        if ($attractionCategory) {
+            return response()->json($attractionCategory);
         } else {
             return response()->json(['message' => 'Attraction Category not found'], 404);
         }
