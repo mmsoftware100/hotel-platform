@@ -208,6 +208,7 @@ Route::get('v1/search', function (Request $request) {
 Route::get('v1/home', [HomeApiController::class, 'index']);
 
 Route::get('v1/article-categories', [ArticleCategoryApiController::class, 'index']);
+Route::get('v1/article-categories/{slug}', [ArticleCategoryApiController::class, 'show']);
 
 Route::get('v1/destination-categories',[DestinationCategoryController::class,'index']);
 
