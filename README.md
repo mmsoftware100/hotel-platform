@@ -250,4 +250,14 @@ Nav Bar , Footer က ပြမယ့် စာရင်းကို Static / အ
 ကြိုရေးထားတာမျိုးပေါ့။
 
 
+## 2025-06-07 
+
+- [ ] Category နဲ့ Content relationship ထည့်ရန်။
+- [ ] CRUD စစ်ရန်။
+- [ ] foreign key များတွင် nullable ထည့်ရန်။
+- [ ] Select API များတွင် Pagination, Filtering ထည့်ရန်
+- [ ] API Response များတွင် Resource အသုံးပြုပြီး ပြန်ပေးရန်။
+
+
+
 
