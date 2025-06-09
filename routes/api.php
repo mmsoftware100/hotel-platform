@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\V1\CityApiController;
 use App\Http\Controllers\Api\V1\CultureApiController;
 use App\Http\Controllers\Api\V1\CultureCategoryApiController;
 use App\Http\Controllers\Api\V1\DestinationApiController;
+use App\Http\Controllers\Api\V1\DestinationCategoryApiController;
 use App\Http\Controllers\Api\V1\DivisionApiController;
 use App\Http\Controllers\Api\V1\HomeApiController;
 use App\Http\Controllers\Api\V1\HotelApiCategoryController;
@@ -23,6 +24,7 @@ use App\Http\Controllers\Api\V1\TransportationApiController;
 use App\Http\Controllers\Api\V1\TransportationCategoryApiController;
 use App\Http\Controllers\Api\V1\UserApiController;
 use App\Http\Controllers\Api\V1\VillageApiController;
+use App\Http\Controllers\CultureController;
 use App\Http\Controllers\DestinationCategoryController;
 use App\Http\Controllers\DestinationController;
 use App\Http\Resources\DestinationResource;
@@ -269,12 +271,19 @@ Route::get('v1/cities',[CityApiController::class,'index']);
 Route::get('v1/cities/{slug}',[CityApiController::class,'show']);
 //
 //
+Route::get('v1/cultures',[CultureApiController::class,'index']);
+Route::get('v1/cultures/{slug}',[CultureApiController::class,'show']);
+
 Route::get('v1/culture-categories',[CultureCategoryApiController::class,'index']);
 Route::get('v1/culture-categories/{slug}',[CultureCategoryApiController::class,'show']);
 //
 //
-Route::get('v1/destination-categories',[DestinationApiController::class,'index']);
-Route::get('v1/destination-categories/{slug}',[DestinationApiController::class,'show']);
+Route::get('v1/destinations',[DestinationApiController::class,'index']);
+Route::get('v1/destinations/{slug}',[DestinationApiController::class,'show']);
+
+
+Route::get('v1/destination-categories',[DestinationCategoryApiController::class,'index']);
+Route::get('v1/destination-categories/{slug}',[DestinationCategoryApiController::class,'show']);
 //
 //
 Route::get('v1/divisions',[DivisionApiController::class,'index']);
@@ -303,8 +312,8 @@ Route::get('v1/regions',[RegionApiController::class,'index']);
 Route::get('v1/regions/{slug}',[RegionApiController::class,'show']);
 //
 //
-Route::get('v1/Restaurants',[RestaurantApiController::class,'index']);
-Route::get('v1/Restaurants/{slug}',[RestaurantApiController::class,'show']);
+Route::get('v1/restaurants',[RestaurantApiController::class,'index']);
+Route::get('v1/restaurants/{slug}',[RestaurantApiController::class,'show']);
 
 Route::get('v1/restaurant-categories',[RestaurantCategoryApiController::class,'index']);
 Route::get('v1/restaurant-categories/{slug}',[RestaurantCategoryApiController::class,'show']);
@@ -314,11 +323,11 @@ Route::get('v1/townships',[TownshipApiController::class,'index']);
 Route::get('v1/townships/{slug}',[TownshipApiController::class,'show']);
 //
 //
-Route::get('v1/Transportation',[TransportationApiController::class,'index']);
-Route::get('v1/Transportation/{slug}',[TransportationApiController::class,'show']);
+Route::get('v1/transportations',[TransportationApiController::class,'index']);
+Route::get('v1/transportations/{slug}',[TransportationApiController::class,'show']);
 
-Route::get('v1/Transportation-categories',[TransportationCategoryApiController::class,'index']);
-Route::get('v1/Transportation-categories/{slug}',[TransportationCategoryApiController::class,'show']);
+Route::get('v1/transportation-categories',[TransportationCategoryApiController::class,'index']);
+Route::get('v1/transportation-categories/{slug}',[TransportationCategoryApiController::class,'show']);
 //
 Route::get('v1/users',[UserApiController::class,'index']);
 Route::get('v1/users/{id}',[UserApiController::class,'show']);

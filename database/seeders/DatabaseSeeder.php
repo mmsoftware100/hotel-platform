@@ -52,16 +52,16 @@ class DatabaseSeeder extends Seeder
             MyanmarEventCategorySeeder::class,
             MyanmarEventSeeder::class,
 
-            HotelSeeder::class,
             HotelCategorySeeder::class,
+            HotelSeeder::class,
 
-            RestaurantSeeder::class,
             RestaurantCategorySeeder::class,
+            RestaurantSeeder::class,
 
-            TransportationSeeder::class,
             TransportationCategorySeeder::class,
+            TransportationSeeder::class,
 
-
+            VillageSeeder::class,
 
 
             // CountrySeeder::class,
