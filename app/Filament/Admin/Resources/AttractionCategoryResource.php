@@ -7,13 +7,19 @@ use App\Filament\Admin\Resources\AttractionCategoryResource\RelationManagers;
 use App\Models\AttractionCategory;
 use Dom\Text;
 use Filament\Forms;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\BooleanColumn;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Illuminate\Support\Str;
 
 class AttractionCategoryResource extends Resource
@@ -40,18 +46,19 @@ class AttractionCategoryResource extends Resource
                 ->required()
                 ->unique(ignoreRecord: true),
 
-                Forms\Components\FileUpload::make('image_url')
+                FileUpload::make('image_url')
                     ->image()
                     ->directory('attractions')
                     ->nullable(),
 
-                Forms\Components\Textarea::make('description')
-                    ->rows(5)
-                    ->nullable(),
-                Forms\Components\Toggle::make('is_active')
+                RichEditor::make('description')
+                ->required(),
+
+                Toggle::make('is_active')
                     ->default(true)
                     ->label('Active'),
-                Forms\Components\Toggle::make('is_featured')
+
+                Toggle::make('is_featured')
                     ->default(true)
                     ->label('Featured'),
             ]);
@@ -61,21 +68,21 @@ class AttractionCategoryResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
+                TextColumn::make('name')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('slug')
+                TextColumn::make('slug')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\ImageColumn::make('image_url')
+                ImageColumn::make('image_url')
                     ->disk('public')
                     ->circular()
                     ->size(50),
-                Tables\Columns\BooleanColumn::make('is_active')
+                BooleanColumn::make('is_active')
                     ->label('Active'),
-                Tables\Columns\BooleanColumn::make('is_featured')
+                BooleanColumn::make('is_featured')
                     ->label('Featured'),
-                Tables\Columns\TextColumn::make('created_at')
+                TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable(),
             ])

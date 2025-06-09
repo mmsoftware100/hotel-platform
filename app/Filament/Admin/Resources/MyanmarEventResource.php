@@ -10,6 +10,7 @@ use Faker\Provider\Image;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -66,9 +67,8 @@ class MyanmarEventResource extends Resource
                 FileUpload::make('image_url')->directory('myanmar-events')
                     ->nullable(),
 
-                Textarea::make('description')
-                    ->rows(5)
-                    ->nullable(),
+                RichEditor::make('description')
+                ->required(),
 
                 Toggle::make('is_active')
                     ->default(true)

@@ -7,7 +7,11 @@ use App\Filament\Admin\Resources\CultureResource\RelationManagers;
 use App\Models\Culture;
 use Dom\Text;
 use Filament\Forms;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -53,45 +57,44 @@ class CultureResource extends Resource
                 TextInput::make('slug')
                     ->required()
                     ->unique(ignoreRecord: true),
-                Forms\Components\FileUpload::make('image_url')
+                FileUpload::make('image_url')
                     ->image()->directory('cultures')
                     ->nullable(),
-                Forms\Components\Textarea::make('description')
-                    ->rows(5)
-                    ->nullable(),
-                Forms\Components\Toggle::make('is_active')
+                RichEditor::make('description')
+                ->required(),
+                Toggle::make('is_active')
                     ->default(true)
                     ->label('Active'),
-                Forms\Components\Select::make('division_id')
+                Select::make('division_id')
                     ->label('Division')
                     ->relationship('division', 'name')
                     // ->required(),
                     ->nullable(),
-                Forms\Components\Select::make('region_id')
+                Select::make('region_id')
                     ->label('Region')
                     ->relationship('region', 'name')
                     // ->required(),
                     ->nullable(),
-                Forms\Components\Select::make('city_id')
+                Select::make('city_id')
                     ->label('City')
                     ->relationship('city', 'name')
                     ->required(),
-                Forms\Components\Select::make('township_id')
+                Select::make('township_id')
                     ->label('Township')
                     ->relationship('township', 'name')
                     // ->required(),
                     ->nullable(),
-                Forms\Components\Select::make('village_id')
+                Select::make('village_id')
                     ->label('Village')
                     ->relationship('village', 'name')
                     // ->required(),
                     ->nullable(),
-                Forms\Components\Select::make('culture_category_id')
+                Select::make('culture_category_id')
                     ->label('Culture Category')
                     ->relationship('Category', 'name')
                     // ->required(),
                     ->nullable(),
-                Forms\Components\Toggle::make('is_featured')
+                Toggle::make('is_featured')
                     ->default(false)
                     ->label('Featured'),
             ]);

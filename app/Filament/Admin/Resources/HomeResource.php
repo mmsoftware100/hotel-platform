@@ -7,10 +7,16 @@ use App\Filament\Admin\Resources\HomeResource\RelationManagers;
 use App\Models\Home;
 use Dom\Text;
 use Filament\Forms;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\BooleanColumn;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use File;
 use Illuminate\Database\Eloquent\Builder;
@@ -45,17 +51,16 @@ class HomeResource extends Resource
                 TextInput::make('slug')
                     ->required()
                     ->unique(ignoreRecord: true),
-                Forms\Components\FileUpload::make('image_url')
+                FileUpload::make('image_url')
                     ->image()
                     ->directory('homes')
                     ->nullable(),
-                Forms\Components\FileUpload::make('video_url')
+                FileUpload::make('video_url')
                     ->directory('homes/videos')
                     ->nullable(),
-                Forms\Components\Textarea::make('description')
-                    ->rows(5)
-                    ->nullable(),
-                Forms\Components\Toggle::make('is_active')
+                RichEditor::make('description')
+                ->required(),
+                Toggle::make('is_active')
                     ->default(true)
                     ->label('Active'),
             ]);
@@ -65,19 +70,19 @@ class HomeResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title')
+                TextColumn::make('title')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('slug')
+                TextColumn::make('slug')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\ImageColumn::make('image_url')
+                ImageColumn::make('image_url')
                     ->disk('public')
                     ->label('Image'),
-                Tables\Columns\TextColumn::make('video_url')
+                TextColumn::make('video_url')
                     ->url(fn ($record) => $record->video_url)
                     ->label('Video URL'),
-                Tables\Columns\BooleanColumn::make('is_active')
+                BooleanColumn::make('is_active')
                     ->label('Active'),
             ])
             ->filters([

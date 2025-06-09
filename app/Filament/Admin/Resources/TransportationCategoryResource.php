@@ -8,6 +8,7 @@ use App\Models\Transportation;
 use App\Models\TransportationCategory;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -47,9 +48,8 @@ class TransportationCategoryResource extends Resource
                     ->image()
                     ->directory('divisions')
                     ->nullable(),
-                Textarea::make('description')
-                    ->rows(5)
-                    ->nullable(),
+                RichEditor::make('description')
+                ->required(),
                 Toggle::make('is_active')
                     ->default(true)
                     ->label('Active'),

@@ -6,10 +6,16 @@ use App\Filament\Admin\Resources\CultureCategoryResource\Pages;
 use App\Filament\Admin\Resources\CultureCategoryResource\RelationManagers;
 use App\Models\CultureCategory;
 use Filament\Forms;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\BooleanColumn;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -40,17 +46,16 @@ class CultureCategoryResource extends Resource
                 TextInput::make('slug')
                     ->required()
                     ->unique(ignoreRecord: true),
-                Forms\Components\FileUpload::make('image_url')
+                FileUpload::make('image_url')
                     ->image()
                     ->directory('cultures')
                     ->nullable(),
-                Forms\Components\Textarea::make('description')
-                    ->rows(5)
-                    ->nullable(),
-                Forms\Components\Toggle::make('is_active')
+                RichEditor::make('description')
+                ->required(),
+                Toggle::make('is_active')
                     ->default(true)
                     ->label('Active'),
-                Forms\Components\Toggle::make('is_featured')
+                Toggle::make('is_featured')
                     ->default(true)
                     ->label('Featured'),
             ]);

@@ -7,6 +7,7 @@ use App\Filament\Admin\Resources\ArticleCategoryResource\RelationManagers;
 use App\Models\ArticleCategory;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -48,7 +49,8 @@ class ArticleCategoryResource extends Resource
                 ->required()
                 ->unique(ignoreRecord: true),
                 FileUpload::make('image_url')->image()->directory('articles'),
-                Textarea::make('description')->rows(5),
+                RichEditor::make('description')
+                ->required(),
                 Toggle::make('is_active')->default(true),
                 Toggle::make('is_featured')->default(true),
             ]);

@@ -6,10 +6,17 @@ use App\Filament\Admin\Resources\AttractionResource\Pages;
 use App\Filament\Admin\Resources\AttractionResource\RelationManagers;
 use App\Models\Attraction;
 use Filament\Forms;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\BooleanColumn;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -52,47 +59,46 @@ class AttractionResource extends Resource
                 TextInput::make('slug')
                     ->required()
                     ->unique(ignoreRecord: true),
-                Forms\Components\FileUpload::make('image_url')
+                FileUpload::make('image_url')
                     ->image()
                     ->directory('attractions')
                     ->nullable(),
-                Forms\Components\Textarea::make('description')
-                    ->rows(5)
-                    ->nullable(),
-                Forms\Components\Toggle::make('is_active')
+                RichEditor::make('description')
+                ->required(),
+                Toggle::make('is_active')
                     ->default(true)
                     ->label('Active'),
-                Forms\Components\Select::make('division_id')
+                Select::make('division_id')
                     ->label('Division')
                     ->relationship('division', 'name')
                     // ->required(),
                     ->nullable(),
-                Forms\Components\Select::make('region_id')
+                Select::make('region_id')
                     ->label('Region')
                     ->relationship('region', 'name')
                     // ->required(),
                     ->nullable(),
-                Forms\Components\Select::make('city_id')
+                Select::make('city_id')
                     ->label('City')
                     ->relationship('city', 'name')
                     // ->required(),
                     ->nullable(),
-                Forms\Components\Select::make('township_id')
+                Select::make('township_id')
                     ->label('Township')
                     ->relationship('township', 'name')
                     // ->required(),
                     ->nullable(),
-                Forms\Components\Select::make('village_id')
+                Select::make('village_id')
                     ->label('Village')
                     ->relationship('village', 'name')
                     // ->required(),
                     ->nullable(),
-                Forms\Components\Select::make('attraction_category_id')
+                Select::make('attraction_category_id')
                     ->label('Category')
                     ->relationship('category', 'name')
                     // ->required(),
                     ->nullable(),
-                Forms\Components\Toggle::make('is_featured')
+                Toggle::make('is_featured')
                     ->default(false)
                     ->label('Featured'),
             ]);
@@ -170,47 +176,47 @@ class AttractionResource extends Resource
             return $table
                 ->columns([
 
-                    Tables\Columns\TextColumn::make('name')
+                    TextColumn::make('name')
                         ->searchable()
                         ->sortable(),
-                    Tables\Columns\TextColumn::make('slug')
+                    TextColumn::make('slug')
                         ->searchable()
                         ->sortable(),
-                    Tables\Columns\ImageColumn::make('image_url')
+                    ImageColumn::make('image_url')
                         ->disk('public')
                         ->label('Image'),
-                    Tables\Columns\TextColumn::make('description')
+                    TextColumn::make('description')
                         ->limit(50)
                         ->sortable(),
-                    Tables\Columns\BooleanColumn::make('is_active')
+                    BooleanColumn::make('is_active')
                         ->label('Active'),
-                    Tables\Columns\BooleanColumn::make('is_featured')
+                    BooleanColumn::make('is_featured')
                         ->label('Featured'),
-                    Tables\Columns\TextColumn::make('region.name')
+                    TextColumn::make('region.name')
                         ->label('Region')
                         ->searchable()
                         ->sortable(),
-                    Tables\Columns\TextColumn::make('city.name')
+                    TextColumn::make('city.name')
                         ->label('City')
                         ->searchable()
                         ->sortable(),
-                    Tables\Columns\TextColumn::make('township.name')
+                    TextColumn::make('township.name')
                         ->label('Township')
                         ->searchable()
                         ->sortable(),
-                    Tables\Columns\TextColumn::make('village.name')
+                    TextColumn::make('village.name')
                         ->label('Village')
                         ->searchable()
                         ->sortable(),
-                    Tables\Columns\TextColumn::make('attraction_category.name')
+                    TextColumn::make('attraction_category.name')
                         ->label('Category')
                         ->searchable()
                         ->sortable(),
-                    Tables\Columns\TextColumn::make('created_at')
+                    TextColumn::make('created_at')
                         ->label('Created At')
                         ->dateTime()
                         ->sortable(),
-                    Tables\Columns\TextColumn::make('updated_at')
+                    TextColumn::make('updated_at')
                         ->label('Updated At')
                         ->dateTime()
                         ->sortable(),

@@ -6,7 +6,11 @@ use App\Filament\Admin\Resources\DestinationResource\Pages;
 use App\Filament\Admin\Resources\DestinationResource\RelationManagers;
 use App\Models\Destination;
 use Filament\Forms;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -51,56 +55,55 @@ class DestinationResource extends Resource
                     ->required()
                     ->unique(ignoreRecord: true),
 
-                Forms\Components\FileUpload::make('image_url')
+                FileUpload::make('image_url')
                     ->image()
                     ->directory('destinations')
                     ->nullable(),
 
-                Forms\Components\Textarea::make('description')
-                    ->rows(5)
-                    ->nullable(),
+                RichEditor::make('description')
+                ->required(),
 
-                Forms\Components\Toggle::make('is_active')
+                Toggle::make('is_active')
                     ->default(true)
                     ->label('Active'),
 
-                Forms\Components\Select::make('division_id')
+                Select::make('division_id')
                     ->label('Division')
                     ->relationship('division', 'name')
                     // ->required(),
                     ->nullable(),
 
-                Forms\Components\Select::make('region_id')
+                Select::make('region_id')
                     ->label('Region')
                     ->relationship('region', 'name')
                     // ->required(),
                     ->nullable(),
 
-                Forms\Components\Select::make('city_id')
+                Select::make('city_id')
                     ->label('City')
                     ->relationship('city', 'name')
                     // ->required(),
                     ->nullable(),
 
-                Forms\Components\Select::make('township_id')
+                Select::make('township_id')
                     ->label('Township')
                     ->relationship('township', 'name')
                     // ->required(),
                     ->nullable(),
 
-                Forms\Components\Select::make('village_id')
+                Select::make('village_id')
                     ->label('Village')
                     ->relationship('village', 'name')
                     // ->required(),
                     ->nullable(),
 
-                Forms\Components\Select::make('destination_category_id')
+                Select::make('destination_category_id')
                     ->label('Category')
                     ->relationship('category', 'name')
                     // ->required(),
                     ->nullable(),
 
-                Forms\Components\Toggle::make('is_featured')
+                Toggle::make('is_featured')
                     ->default(false)
                     ->label('Featured'),
             ]);

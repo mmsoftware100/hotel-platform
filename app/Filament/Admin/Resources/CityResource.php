@@ -6,11 +6,17 @@ use App\Filament\Admin\Resources\CityResource\Pages;
 use App\Filament\Admin\Resources\CityResource\RelationManagers;
 use App\Models\City;
 use Filament\Forms;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\BooleanColumn;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -46,24 +52,23 @@ class CityResource extends Resource
                 TextInput::make('slug')
                     ->required()
                     ->unique(ignoreRecord: true),
-                Forms\Components\FileUpload::make('image_url')
+                FileUpload::make('image_url')
                     ->image()
                     ->directory('cities')
                     ->nullable(),
-                Forms\Components\Textarea::make('description')
-                    ->rows(5)
-                    ->nullable(),
-                Forms\Components\Toggle::make('is_active')
+                RichEditor::make('description')
+                ->required(),
+                Toggle::make('is_active')
                     ->default(true)
                     ->label('Active'),
                 Select::make('region_id')
                     ->label('Region')
                     ->relationship('region', 'name')
                     ->required(),
-                Forms\Components\Toggle::make('is_capital')
+                Toggle::make('is_capital')
                     ->default(false)
                     ->label('Capital City'),
-                Forms\Components\Toggle::make('is_featured')
+                Toggle::make('is_featured')
                     ->default(false)
                     ->label('Featured'),
             ]);
@@ -73,24 +78,24 @@ class CityResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
+                TextColumn::make('name')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('slug')
+                TextColumn::make('slug')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\ImageColumn::make('image_url')
+                ImageColumn::make('image_url')
                     ->disk('public')
                     ->label('Image'),
-                Tables\Columns\TextColumn::make('region.name')
+                TextColumn::make('region.name')
                     ->label('Region')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\BooleanColumn::make('is_active')
+                BooleanColumn::make('is_active')
                     ->label('Active'),
-                Tables\Columns\BooleanColumn::make('is_capital')
+                BooleanColumn::make('is_capital')
                     ->label('Capital City'),
-                Tables\Columns\BooleanColumn::make('is_featured')
+                BooleanColumn::make('is_featured')
                     ->label('Featured'),
             ])
             ->filters([
