@@ -5,6 +5,7 @@ namespace App\Filament\Admin\Resources;
 use App\Filament\Admin\Resources\UserResource\Pages;
 use App\Filament\Admin\Resources\UserResource\RelationManagers;
 use App\Models\User;
+use Dom\Text;
 use Filament\Forms;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
@@ -14,6 +15,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\TextColumn;
 
 class UserResource extends Resource
 {
@@ -25,7 +27,11 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                Select::make('name')->label('Name')->relationship('role','name')->nullable(),
+                TextInput::make('name')
+                    ->required()
+                    ->maxLength(255)
+                    ->label('Full Name'),
+                Select::make('role_id')->label('Name')->relationship('role','name')->nullable(),
                 TextInput::make('email')->required(),
                 TextInput::make('password')->required(),
                 ]);
@@ -35,10 +41,14 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
+                TextColumn::make('name')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('email')
+                TextColumn::make('email')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('role.name')
+                    ->label('Role')
                     ->searchable()
                     ->sortable(),
                 // Tables\Columns\TextColumn::make('role')
@@ -61,12 +71,12 @@ class UserResource extends Resource
                 //
             ])
             ->actions([
-                // Tables\Actions\ViewAction::make(),
-                // Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
+                Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    // Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }
