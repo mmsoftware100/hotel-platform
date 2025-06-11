@@ -11,7 +11,67 @@
 
 
 - [ ] Home Page
+- [ ] Region | City | Attraction  (It's all about destination )
+- [ ] Article | Category 
 - [ ] 
+
+
+Directions
+Region
+City
+Township
+Village
+
+
+
+
+Destination , self reference 
+
+## 2025-05-30 Fri
+
+mock api ထုတ်ပေးရန်။
+
+- [ ] /home
+- [ ] /destinations-by-regions
+- [ ] /articles
+- [ ] /curltures
+- [ ] /events
+
+
+
+
+Entity တစ်ခုတည်းကိုပဲ မျိုးစုံသုံးနိုင်ရင်တော့ ပိုအဆင်ပြေမယ်။
+
+အဓိက 
+
+Catgory | Article
+
+ဒီနှစ်ခုနဲ့ သွားမလား?
+
+လောလောဆယ် ရှင်းအောင်
+
+တစ်ခုစီပဲ ခွဲထားမယ်။
+
+ပွဲတော်များ Events
+လည်ပတ်စရာ နေရာများ Destination | Attraction 
+
+Region အလိုက်ဆိုတော့ Region | City | Township 
+
+ဒါတွေနဲ့ Destination ( မြို့ , area တစ်ခု ) ကို အရင်ချိတ်
+
+ပြီးမှ Attraction (ဒါက တကယ့် နေရာ )
+
+
+
+## ပြည်နယ်/တိုင်း
+## မြို့တော် 
+## နေရာများ
+
+## Rules
+
+- [ ] entity detail တွေကို slug နဲ့ပဲ သွားမယ်။
+
+
 
 ```bash
 # migration
