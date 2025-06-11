@@ -30,6 +30,7 @@ use App\Http\Controllers\DestinationController;
 use App\Http\Resources\DestinationResource;
 use App\Http\Resources\DivisionResource;
 use App\Models\Article;
+use App\Models\ArticleCategory;
 use App\Models\Attraction;
 use App\Models\Culture;
 use App\Models\Destination;
@@ -176,6 +177,7 @@ Route::get('v1/destinations/{slug}', function ($slug) {
 Route::get('v1/articles/{slug}', function ($slug) {
     $article = Article::where('slug', $slug)->first();
     if ($article) {
+        $article->load('category'); // Load the category relationship
         return response()->json($article);
     } else {
         return response()->json(['message' => 'Article not found'], 404);
