@@ -10,10 +10,11 @@ class CityApiController extends Controller
 {
    public function index(Request $request)
     {
-        $datas = City::all();
-        return response()->json($datas);
+        $perpage = 2; // Number of items per page
+        $cities = City::paginate($perpage);
+        return response()->json($cities);
     }
-    
+
     public function show(Request $request, $slug)
     {
         $city = City::where('slug', $slug)->first();

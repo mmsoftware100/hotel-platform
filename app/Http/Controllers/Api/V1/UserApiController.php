@@ -10,8 +10,9 @@ class UserApiController extends Controller
 {
     public function index(Request $request)
     {
-        $datas = User::all();
-        return response()->json($datas);
+        $perPage = 2; // Number of items per page
+        $users = User::paginate($perPage);
+        return response()->json($users);
     }
 
     public function show($id){

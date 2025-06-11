@@ -10,8 +10,9 @@ class ArticleApiController extends Controller
 {
     public function index(Request $request)
         {
-            $datas = Article::all();
-            return response()->json($datas);
+            $perPage = 2; // Number of items per page
+            $articles = Article::paginate($perPage);
+            return response()->json($articles);
         }
 
     public function show($slug)

@@ -13,9 +13,13 @@ class ArticleCategoryApiController extends Controller
 {
     public function index(Request $request)
     {
-        $data = ArticleCategory::all();
-        $articleCategoriesData = ArticleCategoryLiteResource::collection($data);
-        return response()->json($articleCategoriesData);
+        // $data = ArticleCategory::all();
+        // $articleCategoriesData = ArticleCategoryLiteResource::collection($data);
+        // return response()->json($articleCategoriesData);
+
+        $perPage = 2; // Number of items per page
+        $articleCategories = ArticleCategory::paginate($perPage);
+        return response()->json($articleCategories);
     }
 
     public function show(Request $request, $slug)

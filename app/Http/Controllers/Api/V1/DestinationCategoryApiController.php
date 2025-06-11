@@ -10,8 +10,9 @@ class DestinationCategoryApiController extends Controller
 {
     public function index(Request $request)
     {
-        $datas = DestinationCategory::all();
-        return response()->json($datas);
+        $perpage = 2; // Number of items per page
+        $destinationCategories = DestinationCategory::paginate($perpage);
+        return response()->json($destinationCategories);
     }
 
     public function show($slug)

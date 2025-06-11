@@ -10,8 +10,9 @@ class AttractionApiController extends Controller
 {
     public function index(Request $request)
     {
-        $datas = Attraction::all();
-        return response()->json($datas);
+        $perPage = 2; // Number of items per page
+        $attractions = Attraction::paginate($perPage);
+        return response()->json($attractions);
     }
 
     public function show($slug)

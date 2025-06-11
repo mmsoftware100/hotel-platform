@@ -9,7 +9,8 @@ use Illuminate\Http\Request;
 class HotelApiCategoryController extends Controller
 {
     public function index(){
-        $hotelCategories = HotelCategory::all();
+        $perPage = 2; // Number of items per page
+        $hotelCategories = HotelCategory::paginate($perPage);
         return response()->json($hotelCategories);
     }
 

@@ -8,8 +8,9 @@ use App\Models\Transportation; // Assuming you have a Transportation model
 class TransportationApiController extends Controller
 {
     public function index(){
-        $transportation = Transportation::all();
-        return response()->json($transportation);
+        $parPage = 2; // Number of items per page
+        $transportations = Transportation::paginate($parPage);
+        return response()->json($transportations);
     }
 
     public function show(string $slug)

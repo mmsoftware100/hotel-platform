@@ -10,11 +10,12 @@ class TownshipApiController extends Controller
 {
     public function index(Request $request)
     {
-        $datas = Township::all();
-        return response()->json($datas);
+        $perPage = 2; // Number of items per page
+        $townships = Township::paginate($perPage);
+        return response()->json($townships);
     }
-    
-    
+
+
     public function show(Request $request, $slug)
     {
         $township = Township::where('slug', $slug)->first();

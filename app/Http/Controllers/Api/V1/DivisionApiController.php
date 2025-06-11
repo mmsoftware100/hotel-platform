@@ -10,10 +10,11 @@ class DivisionApiController extends Controller
 {
     public function index(Request $request)
     {
-        $datas = Division::all();
-        return response()->json($datas);
+        $perpage = 2; // Number of items per page
+        $divisions = Division::paginate($perpage);
+        return response()->json($divisions);
     }
-    
+
     public function show(Request $request, $slug)
     {
         $division = Division::where('slug', $slug)->first();

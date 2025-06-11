@@ -10,8 +10,9 @@ class MyanmarEventApiController extends Controller
 {
     public function index(Request $request)
     {
-        $datas = MyanmarEvent::all();
-        return response()->json($datas);
+        $perPage = 2; // Number of items per page
+        $myanmarEvents = MyanmarEvent::paginate($perPage);
+        return response()->json($myanmarEvents);
     }
 
     public function show($slug)

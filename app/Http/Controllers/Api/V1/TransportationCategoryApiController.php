@@ -9,8 +9,9 @@ use App\Models\TransportationCategory; // Assuming you have a TransportationCate
 class TransportationCategoryApiController extends Controller
 {
     public function index(){
-        $transportationCategory = TransportationCategory::all();
-        return response()->json($transportationCategory);
+        $perPage = 2; // Number of items per page
+        $transportationCategories = TransportationCategory::paginate($perPage);
+        return response()->json($transportationCategories);
     }
 
     public function show(string $slug)

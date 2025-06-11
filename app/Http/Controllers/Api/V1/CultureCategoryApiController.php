@@ -10,11 +10,12 @@ class CultureCategoryApiController extends Controller
 {
     public function index(Request $request)
     {
-        $datas = CultureCategory::all();
-        return response()->json($datas);
+        $perpage = 2; // Number of items per page
+        $cultureCategories = CultureCategory::paginate($perpage);
+        return response()->json($cultureCategories);
     }
 
-    
+
     public function show(Request $request, $slug)
     {
         $cultureCategory = CultureCategory::where('slug', $slug)->first();

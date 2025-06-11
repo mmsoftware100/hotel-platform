@@ -10,10 +10,11 @@ class AttractionCategoryApiController extends Controller
 {
     public function index(Request $request)
     {
-        $datas = AttractionCategory::all();
-        return response()->json($datas);
+        $perpage = 2; // Number of items per page
+        $attractionCategories = AttractionCategory::paginate($perpage);
+        return response()->json($attractionCategories);
     }
-    
+
     public function show(Request $request, $slug)
     {
         $attractionCategory = AttractionCategory::where('slug', $slug)->first();

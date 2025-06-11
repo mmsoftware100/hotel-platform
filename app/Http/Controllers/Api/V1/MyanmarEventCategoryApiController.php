@@ -10,11 +10,12 @@ class MyanmarEventCategoryApiController extends Controller
 {
     public function index(Request $request)
     {
-        $datas = MyanmarEventCategory::all();
-        return response()->json($datas);
+        $perPage = 2; // Number of items per page
+        $myanmarEventCategories = MyanmarEventCategory::paginate($perPage);
+        return response()->json($myanmarEventCategories);
     }
 
-    
+
     public function show(Request $request, $slug)
     {
         $myanmarEventCategory = MyanmarEventCategory::where('slug', $slug)->first();

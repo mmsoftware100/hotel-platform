@@ -10,11 +10,12 @@ class VillageApiController extends Controller
 {
     public function index(Request $request)
     {
-        $datas = Village::all();
-        return response()->json($datas);
+        $perPage = 2; // Number of items per page
+        $villages = Village::paginate($perPage);
+        return response()->json($villages);
     }
-    
-    
+
+
     public function show(Request $request, $slug)
     {
         $village = Village::where('slug', $slug)->first();

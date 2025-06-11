@@ -9,8 +9,9 @@ use Illuminate\Http\Request;
 class RestaurantCategoryApiController extends Controller
 {
     public function index(){
-        $resturantCategories = RestaurantCategory::all();
-        return response()->json($resturantCategories);
+        $perPage = 2; // Number of items per page
+        $restaurantCategories = RestaurantCategory::paginate($perPage);
+        return response()->json($restaurantCategories);
     }
 
     public function show(string $slug)

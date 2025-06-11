@@ -10,8 +10,9 @@ class CultureApiController extends Controller
 {
     public function index(Request $request)
     {
-        $datas = Culture::all();
-        return response()->json($datas);
+        $perpage = 2; // Number of items per page
+        $cultures = Culture::paginate($perpage);
+        return response()->json($cultures);
     }
 
     public function show($slug)

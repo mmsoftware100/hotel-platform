@@ -10,12 +10,13 @@ class RegionApiController extends Controller
 {
     public function index(Request $request)
     {
-        $datas = Region::all();
-        return response()->json($datas);
+        $perPage = 2; // Number of items per page
+        $regions = Region::paginate($perPage);
+        return response()->json($regions);
     }
 
-    
-    
+
+
     public function show(Request $request, $slug)
     {
         $region = Region::where('slug', $slug)->first();

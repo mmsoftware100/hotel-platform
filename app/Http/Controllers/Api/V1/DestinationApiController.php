@@ -11,8 +11,9 @@ class DestinationApiController extends Controller
 {
     public function index(Request $request)
     {
-        $data = DestinationCategory::all();
-        return response()->json($data);
+        $perpage = 2; // Number of items per page
+        $destination = Destination::paginate($perpage);
+        return response()->json($destination);
     }
 
 
