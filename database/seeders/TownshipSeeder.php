@@ -3,8 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\Township;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Region;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class TownshipSeeder extends Seeder
 {
@@ -14,19 +15,41 @@ class TownshipSeeder extends Seeder
     public function run(): void
     {
         $townships = [
-            // For Yangon (e.g., state_id = 5)
-            ['name' => 'Hlaing', 'state_id' => 5],
-            ['name' => 'Insein', 'state_id' => 5],
-            ['name' => 'Mayangone', 'state_id' => 5],
-
-            // For Mandalay (e.g., state_id = 6)
-            ['name' => 'Chanayethazan', 'state_id' => 6],
-            ['name' => 'Aungmyaythazan', 'state_id' => 6],
-
-            // For California (e.g., state_id = 1)
-            ['name' => 'Los Angeles', 'state_id' => 1],
-            ['name' => 'San Francisco', 'state_id' => 1],
+            ['name' => 'Hpa-An', 'region' => 'Kayin State'],
+            ['name' => 'Loikaw', 'region' => 'Kayah State'],
+            ['name' => 'Myitkyina', 'region' => 'Kachin State'],
+            ['name' => 'Hakha', 'region' => 'Chin State'],
+            ['name' => 'Sittwe', 'region' => 'Rakhine State'],
+            ['name' => 'Mawlamyine', 'region' => 'Mon State'],
+            ['name' => 'Taunggyi', 'region' => 'Shan State'],
+            ['name' => 'Sagaing', 'region' => 'Sagaing Division'],
+            ['name' => 'Dawei', 'region' => 'Tanintharyi Division'],
+            ['name' => 'Pyay', 'region' => 'Bago Division'],
+            ['name' => 'Magway', 'region' => 'Magway Division'],
+            ['name' => 'Mandalay', 'region' => 'Mandalay Division'],
+            ['name' => 'Yangon', 'region' => 'Yangon Division'],
+            ['name' => 'Pathein', 'region' => 'Ayeyarwady Division'],
+            ['name' => 'Lashio', 'region' => 'Shan State'],
+            ['name' => 'Thandwe', 'region' => 'Rakhine State'],
+            ['name' => 'Monywa', 'region' => 'Sagaing Division'],
+            ['name' => 'Meiktila', 'region' => 'Mandalay Division'],
+            ['name' => 'Thaton', 'region' => 'Mon State'],
+            ['name' => 'Bago', 'region' => 'Bago Division'],
         ];
-        Township::insert($townships);
+
+        foreach ($townships as $data) {
+            $region = Region::where('name', $data['region'])->first();
+
+            if ($region) {
+                Township::create([
+                    'name' => $data['name'],
+                    'slug' => Str::slug($data['name']),
+                    'image_url' => 'https://placehold.co/400?text=' . urlencode($data['name']),
+                    'description' => 'A major township in ' . $data['region'],
+                    'is_active' => true,
+                    'region_id' => $region->id,
+                ]);
+            }
+        }
     }
 }

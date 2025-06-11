@@ -7,6 +7,7 @@ namespace Database\Seeders;
 use App\Models\FacilityHotel;
 use App\Models\HighlightHotel;
 use Illuminate\Database\Seeder;
+use Symfony\Component\Mailer\Transport;
 
 class DatabaseSeeder extends Seeder
 {
@@ -25,30 +26,68 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RoleSeeder::class,
             UserSeeder::class,
-            CountrySeeder::class,
-            StateSeeder::class,
+
+            HomeSeeder::class,
+
+
+            ArticleCategorySeeder::class,
+            ArticleSeeder::class,
+
+            DivisionSeeder::class,
+            RegionSeeder::class,
+            CitySeeder::class,
             TownshipSeeder::class,
+
+            DestinationCategorySeeder::class,
+            DestinationSeeder::class,
+
+            AttractionCategorySeeder::class,
+            AttractionSeeder::class,
+
+
+
+            CultureCategorySeeder::class,
+            CultureSeeder::class,
+
+            MyanmarEventCategorySeeder::class,
+            MyanmarEventSeeder::class,
+
+            HotelCategorySeeder::class,
             HotelSeeder::class,
 
-            HotelMediaSeeder::class,
-            FacilitySeeder::class,
-            FacilityHotelSeeder::class,
+            RestaurantCategorySeeder::class,
+            RestaurantSeeder::class,
 
-            HighlightSeeder::class,
-            HighlightHotelSeeder::class,
+            TransportationCategorySeeder::class,
+            TransportationSeeder::class,
 
-            RoomTypeSeeder::class,
-            HotelRoomTypeSeeder::class,
-            PricingSeeder::class,
+            VillageSeeder::class,
 
-            RoomFacilityTypeSeeder::class,
-            RoomFacilitySeeder::class,
 
-            RoomFacilityRoomTypeSeeder::class,
-            RoomSeeder::class,
+            // CountrySeeder::class,
+            // StateSeeder::class,
+            // TownshipSeeder::class,
+            // HotelSeeder::class,
 
-            BookingStatusSeeder::class,
-            BookingSeeder::class,
+            // HotelMediaSeeder::class,
+            // FacilitySeeder::class,
+            // FacilityHotelSeeder::class,
+
+            // HighlightSeeder::class,
+            // HighlightHotelSeeder::class,
+
+            // RoomTypeSeeder::class,
+            // HotelRoomTypeSeeder::class,
+            // PricingSeeder::class,
+
+            // RoomFacilityTypeSeeder::class,
+            // RoomFacilitySeeder::class,
+
+            // RoomFacilityRoomTypeSeeder::class,
+            // RoomSeeder::class,
+
+            // BookingStatusSeeder::class,
+            // BookingSeeder::class,
         ]);
     }
 }
