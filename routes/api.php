@@ -214,7 +214,7 @@ Route::get('v1/destinations', function (Request $request) {
     return response()->json($destinations);
 });
 Route::get('v1/articles', function (Request $request) {
-    $perPage = 2; // Number of items per page
+    $perPage = $request->get('per_page',2); // Number of items per page
     $articles = Article::paginate($perPage);
     return response()->json($articles);
 });
