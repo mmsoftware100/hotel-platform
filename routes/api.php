@@ -241,6 +241,22 @@ Route::get('v1/search', function (Request $request) {
     return response()->json($destinations);
 });
 
+// Route::get('a/{slug}', function (Request $request,$slug) {
+//     // return all articles
+// //    $article = Article::where('slug', $slug)->first();
+// //             return response()->json($article);
+
+//     $article = Article::where('slug', $slug)->first();
+//     if ($article) {
+//         $article->load('category'); // Load the category relationship
+//         return response()->json($article);
+//     } else {
+//         return response()->json(['message' => 'Article not found'], 404);
+//     }
+
+// });
+
+
 
 
 // Route::get('v1/test', function (Request $request) {

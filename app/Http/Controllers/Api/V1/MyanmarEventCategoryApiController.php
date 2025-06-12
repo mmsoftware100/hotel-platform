@@ -18,7 +18,14 @@ class MyanmarEventCategoryApiController extends Controller
 
     public function show(Request $request, $slug)
     {
-        $myanmarEventCategory = MyanmarEventCategory::where('slug', $slug)->first();
+        // $myanmarEventCategory = MyanmarEventCategory::where('slug', $slug)->first();
+        // if ($myanmarEventCategory) {
+        //     return response()->json($myanmarEventCategory);
+        // } else {
+        //     return response()->json(['message' => 'Myanmar Event Category not found'], 404);
+        // }
+
+        $myanmarEventCategory = MyanmarEventCategory::where('slug', $slug)->with('myanmarEvents')->first();
         if ($myanmarEventCategory) {
             return response()->json($myanmarEventCategory);
         } else {

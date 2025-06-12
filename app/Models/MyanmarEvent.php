@@ -100,4 +100,9 @@ class MyanmarEvent extends Model
     {
         return $this->belongsTo(Village::class);
     }
+
+    public function myanmarEventCategory()
+    {
+        return $this->belongsTo(MyanmarEventCategory::class, 'myanmar_event_category_id');
+    }
 }

@@ -18,7 +18,14 @@ class CultureCategoryApiController extends Controller
 
     public function show(Request $request, $slug)
     {
-        $cultureCategory = CultureCategory::where('slug', $slug)->first();
+        // $cultureCategory = CultureCategory::where('slug', $slug)->first();
+        // if ($cultureCategory) {
+        //     return response()->json($cultureCategory);
+        // } else {
+        //     return response()->json(['message' => 'Culture Category not found'], 404);
+        // }
+
+        $cultureCategory = CultureCategory::where('slug', $slug)->with('cultures')->first();
         if ($cultureCategory) {
             return response()->json($cultureCategory);
         } else {

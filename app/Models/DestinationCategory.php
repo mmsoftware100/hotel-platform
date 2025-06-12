@@ -23,4 +23,9 @@ class DestinationCategory extends Model
         'is_active' => 'boolean',
         'is_featured' => 'boolean',
     ];
+
+    public function destinations()
+    {
+        return $this->hasMany(Destination::class);
+    }
 }

@@ -60,4 +60,9 @@ class Culture extends Model
     {
         return $this->belongsTo(Village::class);
     }
+
+    public function cultureCategory()
+    {
+        return $this->belongsTo(CultureCategory::class, 'culture_category_id');
+    }
 }

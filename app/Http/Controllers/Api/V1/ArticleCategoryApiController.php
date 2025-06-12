@@ -25,12 +25,20 @@ class ArticleCategoryApiController extends Controller
     public function show(Request $request, $slug)
     {
         // $data = ArticleCategory::find($id);
+        // $articleCategory = ArticleCategory::where('slug', $slug)->with('articles')->first();
+        // if ($articleCategory) {
+        //     $articleCaegoryData = new ArticleCategoryDetailResource($articleCategory);
+        //     return response()->json($articleCaegoryData);
+        // } else {
+        //     return response()->json(['message' => 'Article not found'], 404);
+        // }
+
         $articleCategory = ArticleCategory::where('slug', $slug)->with('articles')->first();
         if ($articleCategory) {
-            $articleCaegoryData = new ArticleCategoryDetailResource($articleCategory);
-            return response()->json($articleCaegoryData);
+            $articleCategoryData = new ArticleCategoryDetailResource($articleCategory);
+            return response()->json($articleCategoryData);
         } else {
-            return response()->json(['message' => 'Article not found'], 404);
+            return response()->json(['message' => 'Article category not found'], 404);
         }
     }
 

@@ -17,7 +17,21 @@ class ArticleApiController extends Controller
 
     public function show($slug)
         {
-            $article = Article::where('slug', $slug)->first();
-            return response()->json($article);
+            // $article = Article::where('slug', $slug)->first();
+            // return response()->json($article);
+
+            // $article = Article::where('slug', $slug)->first();
+            // if ($article) {
+            //     $article->load('category'); // Load the category relationship
+            //     return response()->json($article);
+            // } else {
+            //     return response()->json(['message' => 'Article not found'], 404);
+            // }
+
+            $article = Article::with('category')->where('slug', $slug)->first();
+            if ($article) {
+                return response()->json($article);
+            }
+            return response()->json(['message' => 'Article not found'], 404);
         }
 }

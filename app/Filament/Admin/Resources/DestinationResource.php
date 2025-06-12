@@ -14,6 +14,7 @@ use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\BooleanColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -126,12 +127,16 @@ class DestinationResource extends Resource
                     ->label('Region')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('is_active')
+                BooleanColumn::make('is_active')
                     ->label('Active')
-                    ->boolean(),
-                TextColumn::make('is_featured')
+                    ->trueIcon('heroicon-o-check-circle')
+                    ->falseIcon('heroicon-o-x-circle')
+                    ->sortable(),
+                BooleanColumn::make('is_featured')
                     ->label('Featured')
-                    ->boolean(),
+                    ->trueIcon('heroicon-o-check-circle')
+                    ->falseIcon('heroicon-o-x-circle')
+                    ->sortable(),
                 TextColumn::make('created_at')
                     ->label('Created At')
                     ->dateTime()

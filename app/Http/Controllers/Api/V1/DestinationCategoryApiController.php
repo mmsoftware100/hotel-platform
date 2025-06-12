@@ -17,12 +17,18 @@ class DestinationCategoryApiController extends Controller
 
     public function show($slug)
     {
-        $destinationCategory = DestinationCategory::where('slug', $slug)->first();
-        if ($destinationCategory) {
-            return response()->json($destinationCategory);
-        } else {
-            return response()->json(['message' => 'Destination Category not found'], 404);
+    //     $destinationCategory = DestinationCategory::where('slug', $slug)->first();
+    //     if ($destinationCategory) {
+    //         return response()->json($destinationCategory);
+    //     } else {
+    //         return response()->json(['message' => 'Destination Category not found'], 404);
+    //     }
+
+        $desinationCategory = DestinationCategory::with('destinations')->where('slug', $slug)->first();
+        if ($desinationCategory) {
+            return response()->json($desinationCategory);
         }
+        return response()->json(['message' => 'Destination Category not found'], 404);
     }
 
 }
