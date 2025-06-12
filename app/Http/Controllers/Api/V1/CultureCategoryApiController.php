@@ -32,4 +32,14 @@ class CultureCategoryApiController extends Controller
             return response()->json(['message' => 'Culture Category not found'], 404);
         }
     }
+
+    public function show($id)
+    {
+        $data = CultureCategory::find($id);
+        if ($data) {
+            return response()->json($data);
+        } else {
+            return response()->json(['message' => 'Not Found'], 404);
+        }
+    }
 }
