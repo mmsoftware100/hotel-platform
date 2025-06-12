@@ -35,8 +35,8 @@ class ArticleCategoryApiController extends Controller
 
         $articleCategory = ArticleCategory::where('slug', $slug)->with('articles')->first();
         if ($articleCategory) {
-            $articleCategoryData = new ArticleCategoryDetailResource($articleCategory);
-            return response()->json($articleCategoryData);
+            // $articleCategoryData = new ArticleCategoryDetailResource($articleCategory);
+            return response()->json($articleCategory);
         } else {
             return response()->json(['message' => 'Article category not found'], 404);
         }
