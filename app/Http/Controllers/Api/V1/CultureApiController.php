@@ -8,14 +8,14 @@ use Illuminate\Http\Request;
 
 class CultureApiController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request ,$perPage=2)
     {
-        $perpage = 2; // Number of items per page
-        $cultures = Culture::paginate($perpage);
+        // $perpage = 2; // Number of items per page
+        $cultures = Culture::paginate($perPage);
         return response()->json($cultures);
     }
 
-    public function show($slug)
+    public function show($slug ,$perPage=2)
     {
         $culture = Culture::where('slug', $slug)->first();
         if ($culture) {

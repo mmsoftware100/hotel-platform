@@ -8,14 +8,14 @@ use Illuminate\Http\Request;
 
 class MyanmarEventApiController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request ,$perPage=2)
     {
-        $perPage = 2; // Number of items per page
+
         $myanmarEvents = MyanmarEvent::paginate($perPage);
         return response()->json($myanmarEvents);
     }
 
-    public function show($slug)
+    public function show($slug ,$perPage=2)
     {
         $myanmarEvent = MyanmarEvent::where('slug', $slug)->first();
         if ($myanmarEvent) {

@@ -8,14 +8,14 @@ use Illuminate\Http\Request;
 
 class AttractionApiController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request ,$perPage=2)
     {
-        $perPage = 2; // Number of items per page
+        // $perPage = 2; // Number of items per page
         $attractions = Attraction::paginate($perPage);
         return response()->json($attractions);
     }
 
-    public function show($slug)
+    public function show($slug ,$perPage=2)
     {
         $attraction = Attraction::where('slug', $slug)->first();
         if ($attraction) {

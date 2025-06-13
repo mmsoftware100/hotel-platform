@@ -11,18 +11,17 @@ use Illuminate\Http\Request;
 
 class ArticleCategoryApiController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request, $perPage = 2)
     {
         // $data = ArticleCategory::all();
         // $articleCategoriesData = ArticleCategoryLiteResource::collection($data);
         // return response()->json($articleCategoriesData);
 
-        $perPage = 2; // Number of items per page
         $articleCategories = ArticleCategory::paginate($perPage);
         return response()->json($articleCategories);
     }
 
-    public function show(Request $request, $slug)
+    public function show(Request $request, $slug, $perPage=2)
     {
         // $data = ArticleCategory::find($id);
         // $articleCategory = ArticleCategory::where('slug', $slug)->with('articles')->first();

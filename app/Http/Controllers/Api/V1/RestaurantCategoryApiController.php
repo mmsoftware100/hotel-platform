@@ -8,13 +8,13 @@ use Illuminate\Http\Request;
 
 class RestaurantCategoryApiController extends Controller
 {
-    public function index(){
-        $perPage = 2; // Number of items per page
+    public function index(Request $request ,$perPage=2){
+        // $perPage = 2; // Number of items per page
         $restaurantCategories = RestaurantCategory::paginate($perPage);
         return response()->json($restaurantCategories);
     }
 
-    public function show(string $slug)
+    public function show(string $slug ,$perPage=2)
     {
         $restaurantCategory = RestaurantCategory::where('slug', $slug)->first();
         if ($restaurantCategory) {

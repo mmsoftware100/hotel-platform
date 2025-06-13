@@ -8,14 +8,14 @@ use Illuminate\Http\Request;
 
 class DivisionApiController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request ,$perPage=2)
     {
-        $perpage = 2; // Number of items per page
-        $divisions = Division::paginate($perpage);
+        // $perpage = 2; // Number of items per page
+        $divisions = Division::paginate($perPage);
         return response()->json($divisions);
     }
 
-    public function show(Request $request, $slug)
+    public function show(Request $request, $slug ,$perPage=2)
     {
         $division = Division::where('slug', $slug)->first();
         if ($division) {

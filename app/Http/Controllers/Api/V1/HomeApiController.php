@@ -11,7 +11,7 @@ class HomeApiController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request ,$perPage=2)
     {
         // This method can be used to return a list of resources or a welcome message
         $datas = Home::all();
@@ -29,7 +29,7 @@ class HomeApiController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $slug)
+    public function show(string $slug ,$perPage=2)
     {
         $home = Home::where('slug', $slug)->first();
         if ($home) {

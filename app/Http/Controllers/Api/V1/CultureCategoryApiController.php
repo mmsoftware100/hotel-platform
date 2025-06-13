@@ -8,15 +8,15 @@ use Illuminate\Http\Request;
 
 class CultureCategoryApiController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request ,$perPage=2)
     {
-        $perpage = 2; // Number of items per page
-        $cultureCategories = CultureCategory::paginate($perpage);
+        // $perpage = 2; // Number of items per page
+        $cultureCategories = CultureCategory::paginate($perPage);
         return response()->json($cultureCategories);
     }
 
 
-    public function show(Request $request, $slug)
+    public function show(Request $request, $slug ,$perPage=2)
     {
         // $cultureCategory = CultureCategory::where('slug', $slug)->first();
         // if ($cultureCategory) {
@@ -33,13 +33,13 @@ class CultureCategoryApiController extends Controller
         }
     }
 
-    public function show($id)
-    {
-        $data = CultureCategory::find($id);
-        if ($data) {
-            return response()->json($data);
-        } else {
-            return response()->json(['message' => 'Not Found'], 404);
-        }
-    }
+    // public function show($id)
+    // {
+    //     $data = CultureCategory::find($id);
+    //     if ($data) {
+    //         return response()->json($data);
+    //     } else {
+    //         return response()->json(['message' => 'Not Found'], 404);
+    //     }
+    // }
 }

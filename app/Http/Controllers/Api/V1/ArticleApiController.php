@@ -8,9 +8,15 @@ use Illuminate\Http\Request;
 
 class ArticleApiController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request, $perPage=2)
         {
-            $perPage = 2; // Number of items per page
+            // $data = Article::all();
+            // $articlesData = ArticleLiteResource::collection($data);
+            // return response()->json($articlesData);
+
+            // $perPage = $request->input('per_page', 2); // Default to 2 if not provided
+
+             // Number of items per page
             $articles = Article::paginate($perPage);
             return response()->json($articles);
         }

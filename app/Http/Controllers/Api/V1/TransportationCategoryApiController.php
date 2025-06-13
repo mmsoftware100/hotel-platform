@@ -8,8 +8,8 @@ use App\Models\TransportationCategory; // Assuming you have a TransportationCate
 
 class TransportationCategoryApiController extends Controller
 {
-    public function index(){
-        $perPage = 2; // Number of items per page
+    public function index(Request $request ,$perPage=2){
+        // $perPage = 2; // Number of items per page
         $transportationCategories = TransportationCategory::paginate($perPage);
         return response()->json($transportationCategories);
     }

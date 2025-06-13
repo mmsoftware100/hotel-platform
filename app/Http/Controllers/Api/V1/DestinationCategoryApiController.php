@@ -8,14 +8,14 @@ use Illuminate\Http\Request;
 
 class DestinationCategoryApiController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request ,$perPage=2)
     {
-        $perpage = 2; // Number of items per page
-        $destinationCategories = DestinationCategory::paginate($perpage);
+        // $perpage = 2; // Number of items per page
+        $destinationCategories = DestinationCategory::paginate($perPage);
         return response()->json($destinationCategories);
     }
 
-    public function show($slug)
+    public function show($slug ,$perPage=2)
     {
     //     $destinationCategory = DestinationCategory::where('slug', $slug)->first();
     //     if ($destinationCategory) {

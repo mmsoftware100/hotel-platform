@@ -9,15 +9,15 @@ use Illuminate\Http\Request;
 
 class DestinationApiController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request ,$perPage=2)
     {
-        $perpage = 2; // Number of items per page
-        $destination = Destination::paginate($perpage);
+        // $perpage = 2; // Number of items per page
+        $destination = Destination::paginate($perPage);
         return response()->json($destination);
     }
 
 
-    public function show(Request $request, $slug)
+    public function show(Request $request, $slug ,$perPage=2)
     {
         // $destination = Destination::where('slug', $slug)->first();
         // if ($destination) {

@@ -8,9 +8,9 @@ use Illuminate\Http\Request;
 
 class VillageApiController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request ,$perPage=2)
     {
-        $perPage = 2; // Number of items per page
+        // $perPage = 2; // Number of items per page
         $villages = Village::paginate($perPage);
         return response()->json($villages);
     }

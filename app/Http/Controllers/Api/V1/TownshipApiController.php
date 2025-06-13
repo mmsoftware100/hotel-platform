@@ -8,15 +8,15 @@ use Illuminate\Http\Request;
 
 class TownshipApiController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request ,$perPage=2)
     {
-        $perPage = 2; // Number of items per page
+        // $perPage = 2; // Number of items per page
         $townships = Township::paginate($perPage);
         return response()->json($townships);
     }
 
 
-    public function show(Request $request, $slug)
+    public function show(Request $request, $slug ,$perPage=2)
     {
         $township = Township::where('slug', $slug)->first();
         if ($township) {

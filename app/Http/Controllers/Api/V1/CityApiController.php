@@ -8,14 +8,14 @@ use Illuminate\Http\Request;
 
 class CityApiController extends Controller
 {
-   public function index(Request $request)
+   public function index(Request $request ,$perPage=2)
     {
-        $perpage = 2; // Number of items per page
-        $cities = City::paginate($perpage);
+        // $perpage = 2; // Number of items per page
+        $cities = City::paginate($perPage);
         return response()->json($cities);
     }
 
-    public function show(Request $request, $slug)
+    public function show(Request $request, $slug ,$perPage=2)
     {
         $city = City::where('slug', $slug)->first();
         if ($city) {

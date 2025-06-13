@@ -8,15 +8,15 @@ use Illuminate\Http\Request;
 
 class MyanmarEventCategoryApiController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request ,$perPage=2)
     {
-        $perPage = 2; // Number of items per page
+
         $myanmarEventCategories = MyanmarEventCategory::paginate($perPage);
         return response()->json($myanmarEventCategories);
     }
 
 
-    public function show(Request $request, $slug)
+    public function show(Request $request, $slug ,$perPage=2)
     {
         // $myanmarEventCategory = MyanmarEventCategory::where('slug', $slug)->first();
         // if ($myanmarEventCategory) {
