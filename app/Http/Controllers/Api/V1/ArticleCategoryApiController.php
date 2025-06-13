@@ -32,7 +32,7 @@ class ArticleCategoryApiController extends Controller
         //     return response()->json(['message' => 'Article not found'], 404);
         // }
 
-        $articleCategory = ArticleCategory::where('slug', $slug)->with('articles')->first();
+        $articleCategory = ArticleCategory::where('slug', $slug)->with('articles')->paginate($perPage);
         if ($articleCategory) {
             // $articleCategoryData = new ArticleCategoryDetailResource($articleCategory);
             return response()->json($articleCategory);

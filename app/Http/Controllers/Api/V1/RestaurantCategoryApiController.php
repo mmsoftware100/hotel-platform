@@ -16,7 +16,7 @@ class RestaurantCategoryApiController extends Controller
 
     public function show(string $slug ,$perPage=2)
     {
-        $restaurantCategory = RestaurantCategory::where('slug', $slug)->first();
+        $restaurantCategory = RestaurantCategory::where('slug', $slug)->paginate($perPage);
         if ($restaurantCategory) {
             return response()->json($restaurantCategory);
         } else {

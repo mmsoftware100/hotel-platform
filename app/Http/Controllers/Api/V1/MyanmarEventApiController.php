@@ -17,7 +17,7 @@ class MyanmarEventApiController extends Controller
 
     public function show($slug ,$perPage=2)
     {
-        $myanmarEvent = MyanmarEvent::where('slug', $slug)->first();
+        $myanmarEvent = MyanmarEvent::where('slug', $slug)->paginate($perPage);
         if ($myanmarEvent) {
             return response()->json($myanmarEvent);
         } else {

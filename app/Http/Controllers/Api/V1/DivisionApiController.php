@@ -17,7 +17,7 @@ class DivisionApiController extends Controller
 
     public function show(Request $request, $slug ,$perPage=2)
     {
-        $division = Division::where('slug', $slug)->first();
+        $division = Division::where('slug', $slug)->paginate($perPage);
         if ($division) {
             return response()->json($division);
         } else {

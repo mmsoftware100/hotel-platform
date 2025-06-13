@@ -17,7 +17,7 @@ class AttractionCategoryApiController extends Controller
 
     public function show(Request $request, $slug ,$perPage=2)
     {
-        $attractionCategory = AttractionCategory::where('slug', $slug)->first();
+        $attractionCategory = AttractionCategory::where('slug', $slug)->paginate($perPage);
         if ($attractionCategory) {
             return response()->json($attractionCategory);
         } else {

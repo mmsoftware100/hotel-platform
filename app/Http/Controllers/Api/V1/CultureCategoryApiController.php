@@ -25,7 +25,7 @@ class CultureCategoryApiController extends Controller
         //     return response()->json(['message' => 'Culture Category not found'], 404);
         // }
 
-        $cultureCategory = CultureCategory::where('slug', $slug)->with('cultures')->first();
+        $cultureCategory = CultureCategory::where('slug', $slug)->with('cultures')->paginate($perPage);
         if ($cultureCategory) {
             return response()->json($cultureCategory);
         } else {

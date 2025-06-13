@@ -25,7 +25,7 @@ class MyanmarEventCategoryApiController extends Controller
         //     return response()->json(['message' => 'Myanmar Event Category not found'], 404);
         // }
 
-        $myanmarEventCategory = MyanmarEventCategory::where('slug', $slug)->with('myanmarEvents')->first();
+        $myanmarEventCategory = MyanmarEventCategory::where('slug', $slug)->with('myanmarEvents')->paginate($perPage);
         if ($myanmarEventCategory) {
             return response()->json($myanmarEventCategory);
         } else {

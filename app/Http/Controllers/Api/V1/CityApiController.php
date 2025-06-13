@@ -17,7 +17,7 @@ class CityApiController extends Controller
 
     public function show(Request $request, $slug ,$perPage=2)
     {
-        $city = City::where('slug', $slug)->first();
+        $city = City::where('slug', $slug)->paginate($perPage);
         if ($city) {
             return response()->json($city);
         } else {

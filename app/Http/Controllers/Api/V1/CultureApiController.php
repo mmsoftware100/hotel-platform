@@ -17,7 +17,7 @@ class CultureApiController extends Controller
 
     public function show($slug ,$perPage=2)
     {
-        $culture = Culture::where('slug', $slug)->first();
+        $culture = Culture::where('slug', $slug)->paginate($perPage);
         if ($culture) {
             return response()->json($culture);
         } else {

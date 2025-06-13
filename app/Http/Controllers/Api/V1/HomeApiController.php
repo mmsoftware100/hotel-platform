@@ -31,7 +31,7 @@ class HomeApiController extends Controller
      */
     public function show(string $slug ,$perPage=2)
     {
-        $home = Home::where('slug', $slug)->first();
+        $home = Home::where('slug', $slug)->paginate($perPage);
         if ($home) {
             return response()->json($home);
         } else {

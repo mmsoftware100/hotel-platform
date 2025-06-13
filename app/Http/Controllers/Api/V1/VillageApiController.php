@@ -16,9 +16,9 @@ class VillageApiController extends Controller
     }
 
 
-    public function show(Request $request, $slug)
+    public function show(Request $request, $slug,$perPage=2)
     {
-        $village = Village::where('slug', $slug)->first();
+        $village = Village::where('slug', $slug)->paginate($perPage);
         if ($village) {
             return response()->json($village);
         } else {

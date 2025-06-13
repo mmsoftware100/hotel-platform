@@ -26,7 +26,7 @@ class DestinationApiController extends Controller
         //     return response()->json(['message' => 'Destination Category not found'], 404);
         // }
 
-        $destination = Destination::with('category')->where('slug', $slug)->first();
+        $destination = Destination::with('category')->where('slug', $slug)->paginate($perPage);
         if ($destination) {
             return response()->json($destination);
         }

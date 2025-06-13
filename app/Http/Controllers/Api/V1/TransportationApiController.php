@@ -15,7 +15,7 @@ class TransportationApiController extends Controller
 
     public function show(string $slug ,$perPage=2)
     {
-        $transportation = Transportation::where('slug', $slug)->first();
+        $transportation = Transportation::where('slug', $slug)->paginate($perPage);
         if ($transportation) {
             return response()->json($transportation);
         } else {

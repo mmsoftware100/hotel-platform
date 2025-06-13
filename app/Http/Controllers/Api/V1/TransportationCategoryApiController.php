@@ -14,9 +14,9 @@ class TransportationCategoryApiController extends Controller
         return response()->json($transportationCategories);
     }
 
-    public function show(string $slug)
+    public function show(string $slug,$perPage=2)
     {
-        $transportationCategory = TransportationCategory::where('slug', $slug)->first();
+        $transportationCategory = TransportationCategory::where('slug', $slug)->paginate($perPage);
         if ($transportationCategory) {
             return response()->json($transportationCategory);
         } else {

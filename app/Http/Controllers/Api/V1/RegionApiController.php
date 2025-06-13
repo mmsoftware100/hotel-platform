@@ -17,9 +17,9 @@ class RegionApiController extends Controller
 
 
 
-    public function show(Request $request, $slug)
+    public function show(Request $request, $slug, $perPage=2)
     {
-        $region = Region::where('slug', $slug)->first();
+        $region = Region::where('slug', $slug)->paginate($perPage);
         if ($region) {
             return response()->json($region);
         } else {

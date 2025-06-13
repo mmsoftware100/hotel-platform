@@ -16,7 +16,7 @@ class HotelApiCategoryController extends Controller
 
     public function show(string $slug ,$perPage=2)
     {
-        $hotelCategory = HotelCategory::where('slug', $slug)->first();
+        $hotelCategory = HotelCategory::where('slug', $slug)->paginate($perPage);
         if ($hotelCategory) {
             return response()->json($hotelCategory);
         } else {

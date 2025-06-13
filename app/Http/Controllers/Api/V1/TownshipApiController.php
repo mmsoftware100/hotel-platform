@@ -18,7 +18,7 @@ class TownshipApiController extends Controller
 
     public function show(Request $request, $slug ,$perPage=2)
     {
-        $township = Township::where('slug', $slug)->first();
+        $township = Township::where('slug', $slug)->paginate($perPage);
         if ($township) {
             return response()->json($township);
         } else {

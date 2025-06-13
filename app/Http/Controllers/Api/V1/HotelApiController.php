@@ -21,7 +21,7 @@ class HotelApiController extends Controller
 
     public function show(string $slug ,$perPage=2)
     {
-        $hotel = Hotel::where('slug', $slug)->first();
+        $hotel = Hotel::where('slug', $slug)->paginate($perPage);
         if ($hotel) {
             return response()->json($hotel);
         } else {
