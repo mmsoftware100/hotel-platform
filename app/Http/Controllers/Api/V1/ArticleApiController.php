@@ -17,7 +17,10 @@ class ArticleApiController extends Controller
             // $perPage = $request->input('per_page', 2); // Default to 2 if not provided
 
              // Number of items per page
+
+             
             $articles = Article::paginate($perPage);
+
             return response()->json($articles);
         }
 
@@ -40,4 +43,13 @@ class ArticleApiController extends Controller
             }
             return response()->json(['message' => 'Article not found'], 404);
         }
+        public function detail($slug)
+            {
+                // with('category')->
+                $article = Article::with('category')->where('slug', $slug)->first();
+                if ($article) {
+                    return response()->json($article);
+                }
+                return response()->json(['message' => 'Article not found'], 404);
+            }
 }

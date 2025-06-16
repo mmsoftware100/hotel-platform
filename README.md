@@ -162,6 +162,9 @@ php artisan make:controller Api/V1/HomeApiController --api
 php artisan make:controller Api/V1/DestinationApiController --api
 php artisan make:controller Api/V1/VillageApiController --api
 
+
+php artisan make:controller Api/V1/ArticleApiController --api
+
 php artisan make:resource ArticleCategoryLiteResource
 php artisan make:resource ArticleCategoryLiteResource
 php artisan make:resource ArticleLiteResource

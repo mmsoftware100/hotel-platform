@@ -271,8 +271,10 @@ Route::get('v1/search', function (Request $request) {
 
 
 
-//
-Route::get('v1/articles/{perPage?}', [ArticleApiController::class, 'index']);
+
+
+Route::get('v1/articles', [ArticleApiController::class, 'index']);
+Route::get('v1/articles/{slug}', [ArticleApiController::class, 'detail']);
 Route::get('v1/articles-detail/{slug}/{perPage?}', [ArticleApiController::class, 'show']);
 
 Route::get('v1/article-categories/{perPage?}', [ArticleCategoryApiController::class, 'index']);
