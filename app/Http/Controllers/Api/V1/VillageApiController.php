@@ -8,17 +8,17 @@ use Illuminate\Http\Request;
 
 class VillageApiController extends Controller
 {
-    public function index(Request $request ,$perPage=2)
+    public function index(Request $request)
     {
         // $perPage = 2; // Number of items per page
-        $villages = Village::paginate($perPage);
-        return response()->json($villages);
+        // $villages = Village::paginate($perPage);
+        // return response()->json($villages);
     }
 
 
-    public function show(Request $request, $slug,$perPage=2)
+    public function show(Request $request, $slug)
     {
-        $village = Village::where('slug', $slug)->paginate($perPage);
+        $village = Village::where('slug', $slug)->first();
         if ($village) {
             return response()->json($village);
         } else {

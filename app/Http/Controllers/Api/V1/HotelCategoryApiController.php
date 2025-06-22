@@ -3,22 +3,20 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Models\Hotel;
+use App\Models\HotelCategory;
 use Illuminate\Http\Request;
 
-class HotelApiController extends Controller
+class HotelCategoryApiController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index(Request $request)
-    {
-        // Validate request inputs
+    public function index( Request $request,$perPage=2){
+        // $perPage = 2; // Number of items per page
+        // $hotelCategories = HotelCategory::paginate($perPage);
+        // return response()->json($hotelCategories);
         $validated = $request->validate([
             'page' => 'integer|min:1',
             'per_page' => 'integer|min:1|max:100',
             'q' => 'nullable|string',
-            'article_category_id' => 'nullable|integer|exists:article_categories,id',
+            // 'article_category_id' => 'nullable|integer|exists:article_categories,id',
             'is_featured' => 'nullable|boolean', // New validation for boolean
         ]);
 
@@ -29,7 +27,7 @@ class HotelApiController extends Controller
         // $categoryId = $validated['article_category_id'] ?? null;
         $isFeatured = $validated['is_featured'] ?? null;
 
-        $query = Hotel::query();
+        $query = HotelCategory::query();
 
         // Search filter
         if ($search) {
@@ -47,12 +45,12 @@ class HotelApiController extends Controller
 
         $total = $query->count(); // total after filters applied
 
-        $articles = $query->skip(($page - 1) * $perPage)
+        $hotelCategories = $query->skip(($page - 1) * $perPage)
             ->take($perPage)
             ->get();
 
         $response = [
-            'data' => $articles,
+            'data' => $hotelCategories,
             'meta' => [
                 'current_page' => $page,
                 'per_page' => $perPage,
@@ -61,17 +59,16 @@ class HotelApiController extends Controller
         ];
 
         return response()->json($response);
-    }
 
+    }
 
     public function show(string $slug)
     {
-        $hotel = Hotel::where('slug', $slug)->first();
-        if ($hotel) {
-            return response()->json($hotel);
+        $hotelCategory = HotelCategory::where('slug', $slug)->first();
+        if ($hotelCategory) {
+            return response()->json($hotelCategory);
         } else {
-            return response()->json(['message' => 'Hotel not found'], 404);
+            return response()->json(['message' => 'Hotel Category not found'], 404);
         }
     }
-
 }

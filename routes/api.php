@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\V1\DivisionApiController;
 use App\Http\Controllers\Api\V1\HomeApiController;
 use App\Http\Controllers\Api\V1\HotelApiCategoryController;
 use App\Http\Controllers\Api\V1\HotelApiController;
+use App\Http\Controllers\Api\V1\HotelCategoryApiController;
 use App\Http\Controllers\Api\V1\MyanmarEventApiController;
 use App\Http\Controllers\Api\V1\MyanmarEventCategoryApiController;
 use App\Http\Controllers\Api\V1\RegionApiController;
@@ -272,88 +273,88 @@ Route::get('v1/search', function (Request $request) {
 
 
 //
-Route::get('v1/articles/{perPage?}', [ArticleApiController::class, 'index']);
-Route::get('v1/articles-detail/{slug}/{perPage?}', [ArticleApiController::class, 'show']);
+Route::get('v1/articles', [ArticleApiController::class, 'index']);
+Route::get('v1/articles/{slug}', [ArticleApiController::class, 'show']);
 
-Route::get('v1/article-categories/{perPage?}', [ArticleCategoryApiController::class, 'index']);
-Route::get('v1/article-categories-detail/{slug}/{perPage?}', [ArticleCategoryApiController::class, 'show']);
+Route::get('v1/article-categories', [ArticleCategoryApiController::class, 'index']);
+Route::get('v1/article-categories/{slug}', [ArticleCategoryApiController::class, 'show']);
 // --
 //
-Route::get('v1/attractions/{perPage?}',[AttractionApiController::class,'index']);
-Route::get('v1/attractions-detail/{slug}/{perPage?}',[AttractionApiController::class,'show']);
+Route::get('v1/attractions',[AttractionApiController::class,'index']);
+Route::get('v1/attractions/{slug}',[AttractionApiController::class,'show']);
 
-Route::get('v1/attraction-categories/{perPage?}',[AttractionCategoryApiController::class,'index']);
-Route::get('v1/attraction-categories-detail/{slug}/{perPage?}',[AttractionCategoryApiController::class,'show']);
+Route::get('v1/attraction-categories',[AttractionCategoryApiController::class,'index']);
+Route::get('v1/attraction-categories/{slug}',[AttractionCategoryApiController::class,'show']);
 //
 //
-Route::get('v1/cities/{perPage?}',[CityApiController::class,'index']);
-Route::get('v1/cities-detail/{slug}/{perPage?}',[CityApiController::class,'show']);
+Route::get('v1/cities',[CityApiController::class,'index']);
+Route::get('v1/cities/{slug}',[CityApiController::class,'show']);
 //
 //
-Route::get('v1/cultures/{perPage?}',[CultureApiController::class,'index']);
-Route::get('v1/cultures-detail/{slug}/{perPage?}',[CultureApiController::class,'show']);
+Route::get('v1/cultures',[CultureApiController::class,'index']);
+Route::get('v1/cultures/{slug}',[CultureApiController::class,'show']);
 
 Route::get('v1/culture-categories',[CultureCategoryApiController::class,'index']);
-Route::get('v1/culture-categories-detail/{slug}/{perPage?}',[CultureCategoryApiController::class,'show']);
+Route::get('v1/culture-categories/{slug}',[CultureCategoryApiController::class,'show']);
 //
 //
-Route::get('v1/destinations/{perPage?}',[DestinationApiController::class,'index']);
-Route::get('v1/destinations-detail/{slug}/{perPage?}',[DestinationApiController::class,'show']);
+Route::get('v1/destinations',[DestinationApiController::class,'index']);
+Route::get('v1/destinations/{slug}',[DestinationApiController::class,'show']);
 
 
 Route::get('v1/destination-categories/{perPage?}',[DestinationCategoryApiController::class,'index']);
-Route::get('v1/destination-categories-detail/{slug}/{perPage?}',[DestinationCategoryApiController::class,'show']);
+Route::get('v1/destination-categories/{slug}',[DestinationCategoryApiController::class,'show']);
 //
 //
-Route::get('v1/divisions/{perPage?}',[DivisionApiController::class,'index']);
-Route::get('v1/divisions-detail/{slug}/{perPage?}',[DivisionApiController::class,'show']);
+Route::get('v1/divisions',[DivisionApiController::class,'index']);
+Route::get('v1/divisions/{slug}',[DivisionApiController::class,'show']);
 //
 //
-Route::get('v1/home/{perPage?}', [HomeApiController::class, 'index']);
-Route::get('v1/home-detail/{slug}/{perPage}', [HomeApiController::class, 'show']);
+Route::get('v1/home', [HomeApiController::class, 'index']);
+Route::get('v1/home/{slug}', [HomeApiController::class, 'show']);
 //
 //
-Route::get('v1/hotels/{perPage?}',[HotelApiController::class,'index']);
-Route::get('v1/hotels-detail/{slug}/{perPage?}',[HotelApiController::class,'show']);
+Route::get('v1/hotels',[HotelApiController::class,'index']);
+Route::get('v1/hotels/{slug}',[HotelApiController::class,'show']);
 
-Route::get('v1/hotel-categories/{perPage?}',[HotelApiCategoryController::class,'index']);
-Route::get('v1/hotel-categories-detail/{slug}/{perPage?}',[HotelApiCategoryController::class,'show']);
+Route::get('v1/hotel-categories',[HotelCategoryApiController::class,'index']);
+Route::get('v1/hotel-categories/{slug}',[HotelCategoryApiController::class,'show']);
 //
 //
-Route::get('v1/events/{perPage?}',[MyanmarEventApiController::class,'index']);
-Route::get('v1/events-detail/{slug}/{perPage?}',[MyanmarEventApiController::class,'show']);
+Route::get('v1/events',[MyanmarEventApiController::class,'index']);
+Route::get('v1/events/{slug}',[MyanmarEventApiController::class,'show']);
 
-Route::get('v1/event-categories/{perPage?}',[MyanmarEventCategoryApiController::class,'index']);
-Route::get('v1/event-categories-detail/{slug}/{perPage?}',[MyanmarEventCategoryApiController::class,'show']);
+Route::get('v1/event-categories',[MyanmarEventCategoryApiController::class,'index']);
+Route::get('v1/event-categories/{slug}',[MyanmarEventCategoryApiController::class,'show']);
 //
 //
-Route::get('v1/regions/{perPage?}',[RegionApiController::class,'index']);
-Route::get('v1/regions-detail/{slug}/{perPage?}',[RegionApiController::class,'show']);
+Route::get('v1/regions',[RegionApiController::class,'index']);
+Route::get('v1/regions/{slug}',[RegionApiController::class,'show']);
 //
 //
-Route::get('v1/restaurants/{perPage?}',[RestaurantApiController::class,'index']);
-Route::get('v1/restaurants-detail/{slug}/{perPage?}',[RestaurantApiController::class,'show']);
+Route::get('v1/restaurants',[RestaurantApiController::class,'index']);
+Route::get('v1/restaurants/{slug}',[RestaurantApiController::class,'show']);
 
-Route::get('v1/restaurant-categories/{perPage?}',[RestaurantCategoryApiController::class,'index']);
-Route::get('v1/restaurant-categories-detail/{slug}/{perPage?}',[RestaurantCategoryApiController::class,'show']);
+Route::get('v1/restaurant-categories',[RestaurantCategoryApiController::class,'index']);
+Route::get('v1/restaurant-categories/{slug}',[RestaurantCategoryApiController::class,'show']);
 //
 //
-Route::get('v1/townships/{perPage?}',[TownshipApiController::class,'index']);
-Route::get('v1/townships-detail/{slug}/{perPage?}',[TownshipApiController::class,'show']);
+Route::get('v1/townships',[TownshipApiController::class,'index']);
+Route::get('v1/townships/{slug}',[TownshipApiController::class,'show']);
 //
 //
-Route::get('v1/transportations/{perPage?}',[TransportationApiController::class,'index']);
-Route::get('v1/transportations-detail/{slug}/{perPage?}',[TransportationApiController::class,'show']);
+Route::get('v1/transportations',[TransportationApiController::class,'index']);
+Route::get('v1/transportations/{slug}',[TransportationApiController::class,'show']);
 
-Route::get('v1/transportation-categories/{perPage?}',[TransportationCategoryApiController::class,'index']);
-Route::get('v1/transportation-categories-detail/{slug}/{perPage?}',[TransportationCategoryApiController::class,'show']);
+Route::get('v1/transportation-categories',[TransportationCategoryApiController::class,'index']);
+Route::get('v1/transportation-categories/{slug}',[TransportationCategoryApiController::class,'show']);
 //
 Route::get('v1/users',[UserApiController::class,'index']);
-Route::get('v1/users-detail/{id}',[UserApiController::class,'show']);
+Route::get('v1/users/{id}',[UserApiController::class,'show']);
 //
 //
-Route::get('v1/villages/{perPage?}',[VillageApiController::class,'index']);
-Route::get('v1/villages-detail/{slug}/{perPage?}',[VillageApiController::class,'show']);
+Route::get('v1/villages',[VillageApiController::class,'index']);
+Route::get('v1/villages/{slug}',[VillageApiController::class,'show']);
 //
 
 // Route::get('v1/destinations',[DestinationController::class,'index']);

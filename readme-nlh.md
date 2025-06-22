@@ -19,7 +19,10 @@ php artisan make:model Transportation --migration
 hotel db:seed error
 php artisan make:filament-resource Transportation --view
 php artisan make:controller Api/V1/TransportationApiController
-
+------------------------
+19.6.2025
+HotelApiCategoryController to HotelCategoryApiController
+HotelApiController
 <!-- ## Adding New Panel
 
 ```bash

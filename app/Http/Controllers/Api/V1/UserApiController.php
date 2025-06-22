@@ -8,10 +8,9 @@ use Illuminate\Http\Request;
 
 class UserApiController extends Controller
 {
-    public function index(Request $request ,$perPage=2)
+    public function index(Request $request)
     {
-        // $perPage = 2; // Number of items per page
-        $users = User::paginate($perPage);
+        $users = User::all();
         return response()->json($users);
     }
 
