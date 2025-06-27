@@ -64,32 +64,6 @@ class DatabaseSeeder extends Seeder
             ArticleCategorySeeder::class,
             ArticleSeeder::class,
 
-
-
-            // CountrySeeder::class,
-            // StateSeeder::class,
-            // TownshipSeeder::class,
-            // HotelSeeder::class,
-
-            // HotelMediaSeeder::class,
-            // FacilitySeeder::class,
-            // FacilityHotelSeeder::class,
-
-            // HighlightSeeder::class,
-            // HighlightHotelSeeder::class,
-
-            // RoomTypeSeeder::class,
-            // HotelRoomTypeSeeder::class,
-            // PricingSeeder::class,
-
-            // RoomFacilityTypeSeeder::class,
-            // RoomFacilitySeeder::class,
-
-            // RoomFacilityRoomTypeSeeder::class,
-            // RoomSeeder::class,
-
-            // BookingStatusSeeder::class,
-            // BookingSeeder::class,
         ]);
     }
 }

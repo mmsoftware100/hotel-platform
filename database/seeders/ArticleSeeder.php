@@ -3,6 +3,12 @@
 namespace Database\Seeders;
 
 use App\Models\Article;
+use App\Models\City;
+use App\Models\Destination;
+use App\Models\Division;
+use App\Models\Region;
+use App\Models\Township;
+use App\Models\Village;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
@@ -98,6 +104,106 @@ class ArticleSeeder extends Seeder
 
         foreach ($articles as $article) {
             Article::create($article);
+        }
+
+        // let's crate some more articles for each category, divisions, regions
+
+
+        $divisions = Division::all();
+        foreach ($divisions as $division) {
+            for ($i = 0; $i < 5; $i++) {
+                Article::create([
+                    'name' => "Sample Article {$i} in division {$division->name}",
+                    // add random number to the slug to avoid duplicates
+                    'slug' => Str::slug("Sample Article {$i} in {$division->name}" . rand(1, 100)),
+                    'image_url' => 'https://placehold.co/400?text=Sample+Article',
+                    // generate very long description
+                    'description' => "<p>This is a sample article description for article {$i} in division {$division->name}. " . str_repeat('Lorem ipsum dolor sit amet, consectetur adipiscing elit. ', 10) . "</p>",
+                    'is_active' => true,
+                    'article_category_id' => rand(1, 4), // Random category
+                    'division_id' => $division->id,
+                ]);
+            }
+        }
+
+        $regions = Region::all();
+        foreach ($regions as $region) {
+            for ($i = 0; $i < 5; $i++) {
+                Article::create([
+                    'name' => "Sample Article {$i} in region {$region->name}",
+                    'slug' => Str::slug("Sample Article {$i} in {$region->name}" . rand(1, 100)),
+                    'image_url' => 'https://placehold.co/400?text=Sample+Article',
+                    // generate very long description
+                    'description' => "<p>This is a sample article description for article {$i} in region {$region->name}. " . str_repeat('Lorem ipsum dolor sit amet, consectetur adipiscing elit. ', 10) . "</p>",
+                    'is_active' => true,
+                    'article_category_id' => rand(1, 4), // Random category
+                    'region_id' => $region->id,
+                ]);
+            }
+        }
+
+        $cities = City::all();
+        foreach ($cities as $city) {
+            for ($i = 0; $i < 5; $i++) {
+                Article::create([
+                    'name' => "Sample Article {$i} in city {$city->name}",
+                    'slug' => Str::slug("Sample Article {$i} in {$city->name}" . rand(1, 100)),
+                    'image_url' => 'https://placehold.co/400?text=Sample+Article',
+                    // generate very long description
+                    'description' => "<p>This is a sample article description for city {$i} in {$city->name}. " . str_repeat('Lorem ipsum dolor sit amet, consectetur adipiscing elit. ', 10) . "</p>",
+                    'is_active' => true,
+                    'article_category_id' => rand(1, 4), // Random category
+                    'city_id' => $city->id,
+                ]);
+            }
+        }
+
+        $townships = Township::all();
+        foreach ($townships as $township) {
+            for ($i = 0; $i < 5; $i++) {
+                Article::create([
+                    'name' => "Sample Article {$i} in township {$city->township}",
+                    'slug' => Str::slug("Sample Article {$i} in {$township->name}" . rand(1, 100)),
+                    'image_url' => 'https://placehold.co/400?text=Sample+Article',
+                    // generate very long description
+                    'description' => "<p>This is a sample article description for township {$i} in {$township->name}. " . str_repeat('Lorem ipsum dolor sit amet, consectetur adipiscing elit. ', 10) . "</p>",
+                    'is_active' => true,
+                    'article_category_id' => rand(1, 4), // Random category
+                    'township_id' => $township->id,
+                ]);
+            }
+        }
+
+        $villages = Village::all();
+        foreach ($villages as $village) {
+            for ($i = 0; $i < 5; $i++) {
+                Article::create([
+                    'name' => "Sample Article {$i} in village {$village->township}",
+                    'slug' => Str::slug("Sample Article {$i} in {$village->name}" . rand(1, 100)),
+                    'image_url' => 'https://placehold.co/400?text=Sample+Article',
+                    // generate very long description
+                    'description' => "<p>This is a sample article description for village {$i} in {$village->name}. " . str_repeat('Lorem ipsum dolor sit amet, consectetur adipiscing elit. ', 10) . "</p>",
+                    'is_active' => true,
+                    'article_category_id' => rand(1, 4), // Random category
+                    'village_id' => $village->id,
+                ]);
+            }
+        }
+
+        $destinations = Destination::all();
+        foreach ($destinations as $destination) {
+            for ($i = 0; $i < 5; $i++) {
+                Article::create([
+                    'name' => "Sample Article {$i} in destination {$destination->township}",
+                    'slug' => Str::slug("Sample Article {$i} in {$destination->name}" . rand(1, 100)),
+                    'image_url' => 'https://placehold.co/400?text=Sample+Article',
+                    // generate very long description
+                    'description' => "<p>This is a sample article description for vildestinationlage {$i} in {$destination->name}. " . str_repeat('Lorem ipsum dolor sit amet, consectetur adipiscing elit. ', 10) . "</p>",
+                    'is_active' => true,
+                    'article_category_id' => rand(1, 4), // Random category
+                    'destination_id' => $destination->id,
+                ]);
+            }
         }
     }
 }

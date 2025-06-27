@@ -4,8 +4,8 @@
 ## 2025-06-27 
 
 ```php
-
-
+            $table->string('google_map_label')->nullable();
+            $table->string('google_map_link')->nullable();
             $table->foreignId('destination_id')->nullable()->constrained('destinations', 'id')->restrictOnUpdate()->restrictOnDelete();
             $table->foreignId('division_id')->nullable()->constrained('divisions', 'id')->restrictOnUpdate()->restrictOnDelete();
             $table->foreignId('region_id')->nullable()->constrained('regions', 'id')->restrictOnUpdate()->restrictOnDelete();
@@ -20,6 +20,7 @@ model,
 api နဲ့
 admin panel တွေမှာ လိုက်တိုးပေးထားပါ
 
+- [x] see complete mock data set for each migrations
 
 ## Tasks
 
