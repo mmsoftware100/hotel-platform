@@ -26,7 +26,9 @@ return new class extends Migration
             $table->foreignId('township_id')->nullable()->constrained('townships', 'id')->restrictOnUpdate()->restrictOnDelete();
             $table->foreignId('village_id')->nullable()->constrained('villages', 'id')->restrictOnUpdate()->restrictOnDelete();
             $table->foreignId('destination_category_id')->nullable()->constrained('destination_categories', 'id')->restrictOnUpdate()->restrictOnDelete();
-            
+
+            $table->string('google_map_label')->nullable();
+            $table->string('google_map_link')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

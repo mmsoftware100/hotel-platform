@@ -20,6 +20,19 @@ return new class extends Migration
             $table->boolean('is_active')->nullable()->default(true);
             $table->boolean('is_featured')->nullable()->default(true);
             $table->foreignId('article_category_id')->nullable()->constrained('article_categories', 'id')->restrictOnUpdate()->restrictOnDelete();
+
+
+            $table->string('google_map_label')->nullable();
+            $table->string('google_map_link')->nullable();
+
+            $table->foreignId('destination_id')->nullable()->constrained('destinations', 'id')->restrictOnUpdate()->restrictOnDelete();
+            $table->foreignId('division_id')->nullable()->constrained('divisions', 'id')->restrictOnUpdate()->restrictOnDelete();
+            $table->foreignId('region_id')->nullable()->constrained('regions', 'id')->restrictOnUpdate()->restrictOnDelete();
+            $table->foreignId('city_id')->nullable()->constrained('cities', 'id')->restrictOnUpdate()->restrictOnDelete();
+            $table->foreignId('township_id')->nullable()->constrained('townships', 'id')->restrictOnUpdate()->restrictOnDelete();
+            $table->foreignId('village_id')->nullable()->constrained('villages', 'id')->restrictOnUpdate()->restrictOnDelete();
+            $table->foreignId('attraction_category_id')->nullable()->constrained('attraction_categories', 'id')->restrictOnUpdate()->restrictOnDelete();
+
             $table->softDeletes();
             $table->timestamps();
         });

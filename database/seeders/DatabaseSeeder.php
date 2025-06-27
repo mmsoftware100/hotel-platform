@@ -29,14 +29,11 @@ class DatabaseSeeder extends Seeder
 
             HomeSeeder::class,
 
-
-            ArticleCategorySeeder::class,
-            ArticleSeeder::class,
-
             DivisionSeeder::class,
             RegionSeeder::class,
             CitySeeder::class,
             TownshipSeeder::class,
+            VillageSeeder::class,
 
             DestinationCategorySeeder::class,
             DestinationSeeder::class,
@@ -61,7 +58,12 @@ class DatabaseSeeder extends Seeder
             TransportationCategorySeeder::class,
             TransportationSeeder::class,
 
-            VillageSeeder::class,
+
+
+
+            ArticleCategorySeeder::class,
+            ArticleSeeder::class,
+
 
 
             // CountrySeeder::class,

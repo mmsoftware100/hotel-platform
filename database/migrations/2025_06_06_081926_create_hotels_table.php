@@ -23,10 +23,23 @@ return new class extends Migration
             $table->decimal('lng', 10, 7)->nullable();
             $table->string('google_map_label')->nullable();
             $table->string('google_map_link')->nullable();
-            $table->foreignId('township_id')->constrained()->onDelete('cascade');
+            // $table->foreignId('township_id')->constrained()->onDelete('cascade');
             $table->string('image_url')->nullable();
             $table->boolean('is_featured')->default(false);
             $table->boolean('is_active')->default(true);
+
+
+
+            $table->foreignId('destination_id')->nullable()->constrained('destinations', 'id')->restrictOnUpdate()->restrictOnDelete();
+            $table->foreignId('division_id')->nullable()->constrained('divisions', 'id')->restrictOnUpdate()->restrictOnDelete();
+            $table->foreignId('region_id')->nullable()->constrained('regions', 'id')->restrictOnUpdate()->restrictOnDelete();
+            $table->foreignId('city_id')->nullable()->constrained('cities', 'id')->restrictOnUpdate()->restrictOnDelete();
+            $table->foreignId('township_id')->nullable()->constrained('townships', 'id')->restrictOnUpdate()->restrictOnDelete();
+            $table->foreignId('village_id')->nullable()->constrained('villages', 'id')->restrictOnUpdate()->restrictOnDelete();
+            $table->foreignId('hotel_category_id')->nullable()->constrained('hotel_categories', 'id')->restrictOnUpdate()->restrictOnDelete();
+
+
+
             $table->timestamps();
         });
 
