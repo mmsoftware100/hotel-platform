@@ -8,6 +8,7 @@ use App\Models\Hotel;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -55,6 +56,54 @@ class HotelResource extends Resource
                 Toggle::make('is_featured')
                     ->default(true)
                     ->label('Featured'),
+                TextInput::make('google_map_label')
+                    ->label('Google Map Label')
+                    ->nullable(),
+                TextInput::make('google_map_link')
+                    // ->url()
+                    ->label('Google Map URL')
+                    ->nullable(),
+                Select::make('division_id')
+                    ->relationship('division', 'name')
+                    ->searchable()
+                    ->preload()
+                    ->nullable()
+                    ->label('Division'),
+                Select::make('region_id')
+                    ->relationship('region', 'name')
+                    ->searchable()
+                    ->preload()
+                    ->nullable()
+                    ->label('Region'),
+                Select::make('city_id')
+                    ->relationship('city', 'name')
+                    ->searchable()
+                    ->preload()
+                    ->nullable()
+                    ->label('City'),
+                Select::make('township_id')
+                    ->relationship('township', 'name')
+                    ->searchable()
+                    ->preload()
+                    ->nullable()
+                    ->label('Township'),
+                Select::make('village_id')
+                    ->relationship('village', 'name')
+                    ->searchable()
+                    ->preload()
+                    ->nullable()
+                    ->label('Village'),
+                Select::make('hotel_category_id')
+                    ->relationship('hotelCategory', 'name')
+                    ->searchable()
+                    ->preload()
+                    // ->required()
+                    ->nullable()
+                    ->label('Hotel Category'),
+                TextInput::make('destination_id')
+                    ->label('Destination ID')
+                    ->nullable(),
+
             ]);
     }
 
@@ -78,6 +127,40 @@ class HotelResource extends Resource
                     ->label('Active'),
                 BooleanColumn::make('is_featured')
                     ->label('Featured'),
+                TextColumn::make('google_map_label')
+                    ->label('Google Map Label'),
+                TextColumn::make('google_map_link')
+                    // ->url(fn ($record) => $record->google_map_link)
+                    ->label('Google Map URL'),
+                TextColumn::make('division.name')
+                    ->label('Division')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('region.name')
+                    ->label('Region')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('city.name')
+                    ->label('City')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('township.name')
+                    ->label('Township')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('village.name')
+                    ->label('Village')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('hotelCategory.name')
+                    ->label('Hotel Category')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->label('Created At'),
+                TextColumn::make('destination_id')
             ])
             ->filters([
                 //

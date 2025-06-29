@@ -18,6 +18,15 @@ class Article extends Model
         'is_active',
         'is_featured',
         'article_category_id',
+        'google_map_label',
+        'google_map_link',
+        'destination_id',
+        'division_id',
+        'region_id',
+        'city_id',
+        'township_id',
+        'village_id',
+        'attraction_category_id',
     ];
 
     protected $casts = [

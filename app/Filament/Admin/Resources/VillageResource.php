@@ -67,6 +67,13 @@ class VillageResource extends Resource
                     ->label('Township')
                     ->relationship('township', 'name')
                     ->required(),
+                TextInput::make('google_map_label')
+                    ->label('Google Map Label')
+                    ->nullable(),
+                TextInput::make('google_map_link')
+                    // ->url()
+                    ->label('Google Map URL')
+                    ->nullable(),
             ]);
     }
 
@@ -103,6 +110,18 @@ class VillageResource extends Resource
                     ->label('Updated At')
                     ->dateTime()
                     ->sortable(),
+                TextColumn::make('google_map_label')
+                    ->label('Google Map Label')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('google_map_link')
+                    ->label('Google Map URL')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->label('Created At'),
             ])
 
 

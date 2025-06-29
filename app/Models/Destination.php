@@ -23,6 +23,8 @@ class Destination extends Model
         'village_id',
         'destination_category_id',
         'is_featured',
+        'google_map_label',
+        'google_map_link',
     ];
 
     protected $casts = [

@@ -20,6 +20,8 @@ class Region extends Model
         'division_id',
         'is_state',
         'is_featured',
+        'google_map_label',
+        'google_map_link',
     ];
 
     protected $casts = [

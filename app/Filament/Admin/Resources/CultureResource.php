@@ -97,6 +97,16 @@ class CultureResource extends Resource
                 Toggle::make('is_featured')
                     ->default(false)
                     ->label('Featured'),
+                TextInput::make('google_map_label')
+                    ->label('Google Map Label')
+                    ->nullable(),
+                TextInput::make('google_map_link')
+                    // ->url()
+                    ->label('Google Map URL')
+                    ->nullable(),
+                TextInput::make('destination_id')
+                    ->label('Destination ID')
+                    ->nullable(),
             ]);
     }
 
@@ -200,6 +210,15 @@ class CultureResource extends Resource
                     ->label('Active'),
                 BooleanColumn::make('is_featured')
                     ->label('Featured'),
+                TextColumn::make('google_map_label')
+                    ->label('Google Map Label'),
+                TextColumn::make('google_map_link')
+                    // ->url(fn ($record) => $record->google_map_link)
+                    ->label('Google Map URL'),
+                TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->label('Created At'),
             ]);
     }
 

@@ -28,6 +28,9 @@ class Attraction extends Model
         'village_id',
         'attraction_category_id',
         'is_featured',
+        'google_map_label',
+        'google_map_link',
+        'destination_id', // Optional, if the attraction is part of a destination
     ];
 
     /**

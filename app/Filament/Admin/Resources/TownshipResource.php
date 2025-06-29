@@ -65,6 +65,13 @@ class TownshipResource extends Resource
                 Toggle::make('is_featured')
                     ->default(false)
                     ->label('Featured'),
+                TextInput::make('google_map_label')
+                    ->label('Google Map Label')
+                    ->nullable(),
+                TextInput::make('google_map_link')
+                    // ->url()
+                    ->label('Google Map URL')
+                    ->nullable(),
             ]);
     }
 

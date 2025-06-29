@@ -14,10 +14,10 @@ class VillageSeeder extends Seeder
     public function run(): void
     {
         Village::firstOrCreate([
-            'name' => 'Restaurant A',
-            'slug' => 'restaurant-a',
+            'name' => 'Village A',
+            'slug' => 'village-a',
             'image_url' => 'https://tourism-mm.vercel.app/myanmar.png',
-            'description' => 'Welcome to Restaurant A',
+            'description' => 'Welcome to village A',
             'is_active' => true,
             'is_featured' => true,
         ]);

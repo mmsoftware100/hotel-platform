@@ -19,6 +19,8 @@ class Village extends Model
         'is_active',
         'is_featured',
         'township_id',
+        'google_map_label',
+        'google_map_link',
     ];
     protected $casts = [
         'is_active' => 'boolean',
