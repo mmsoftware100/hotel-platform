@@ -71,4 +71,53 @@ class HotelCategoryApiController extends Controller
             return response()->json(['message' => 'Hotel Category not found'], 404);
         }
     }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:hotel_categories,slug',
+            'image_url' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'is_active' => 'boolean',
+            'is_featured' => 'boolean',
+        ]);
+
+        $hotelCategory = HotelCategory::create([
+            'name' => $validated['name'],
+            'slug' => $validated['slug'],
+            'image_url' => $validated['image_url'] ?? null,
+            'description' => $validated['description'] ?? null,
+            'is_active' => $validated['is_active'] ?? true,
+            'is_featured' => $validated['is_featured'] ?? true,
+        ]);
+
+        return response()->json($hotelCategory, 201);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $hotelCategory = HotelCategory::findOrFail($id);
+
+        $validated = $request->validate([
+            'name' => 'sometimes|required|string|max:255',
+            'slug' => 'sometimes|required|string|max:255|unique:hotel_categories,slug,' . $hotelCategory->id,
+            'image_url' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'is_active' => 'boolean',
+            'is_featured' => 'boolean',
+        ]);
+
+        $hotelCategory->update($validated);
+
+        return response()->json($hotelCategory);
+    }
+
+    public function destroy($id)
+    {
+        $hotelCategory = HotelCategory::findOrFail($id);
+        $hotelCategory->delete();
+
+        return response()->json(['message' => 'Hotel Category deleted successfully']);
+    }
 }

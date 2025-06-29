@@ -72,4 +72,62 @@ class AttractionCategoryApiController extends Controller
             return response()->json(['message' => 'Attraction Category not found'], 404);
         }
     }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:attraction_categories,slug',
+            'image_url' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'is_active' => 'boolean',
+            'is_featured' => 'boolean',
+        ]);
+
+        $attractionCategory = AttractionCategory::create([
+            'name' => $validated['name'],
+            'slug' => $validated['slug'],
+            'image_url' => $validated['image_url'] ?? null,
+            'description' => $validated['description'] ?? null,
+            'is_active' => $validated['is_active'] ?? true,
+            'is_featured' => $validated['is_featured'] ?? true,
+        ]);
+
+        return response()->json($attractionCategory, 201);
+    }
+
+    public function update(Request $request, $slug)
+    {
+        $attractionCategory = AttractionCategory::where('slug', $slug)->first();
+
+        if (!$attractionCategory) {
+            return response()->json(['message' => 'Attraction Category not found'], 404);
+        }
+
+        $validated = $request->validate([
+            'name' => 'sometimes|required|string|max:255',
+            'slug' => 'sometimes|required|string|max:255|unique:attraction_categories,slug,' . $attractionCategory->id,
+            'image_url' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'is_active' => 'boolean',
+            'is_featured' => 'boolean',
+        ]);
+
+        $attractionCategory->update($validated);
+
+        return response()->json($attractionCategory);
+    }
+
+    public function destroy($slug)
+    {
+        $attractionCategory = AttractionCategory::where('slug', $slug)->first();
+
+        if (!$attractionCategory) {
+            return response()->json(['message' => 'Attraction Category not found'], 404);
+        }
+
+        $attractionCategory->delete();
+
+        return response()->json(['message' => 'Attraction Category deleted successfully']);
+    }
 }

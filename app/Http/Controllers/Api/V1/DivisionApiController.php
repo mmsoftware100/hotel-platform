@@ -64,4 +64,59 @@ class DivisionApiController extends Controller
             return response()->json(['message' => 'Division not found'], 404);
         }
     }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:divisions,slug',
+            'image_url' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'is_active' => 'nullable|boolean',
+            'is_featured' => 'nullable|boolean',
+            'google_map_label' => 'nullable|string|max:255',
+            'google_map_link' => 'nullable|string|max:255',
+        ]);
+
+        $division = Division::create($validated);
+
+        return response()->json($division, 201);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $division = Division::find($id);
+
+        if (!$division) {
+            return response()->json(['message' => 'Division not found'], 404);
+        }
+
+        $validated = $request->validate([
+            'name' => 'sometimes|required|string|max:255',
+            'slug' => 'sometimes|required|string|max:255|unique:divisions,slug,' . $division->id,
+            'image_url' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'is_active' => 'nullable|boolean',
+            'is_featured' => 'nullable|boolean',
+            'google_map_label' => 'nullable|string|max:255',
+            'google_map_link' => 'nullable|string|max:255',
+        ]);
+
+        $division->update($validated);
+
+        return response()->json($division);
+    }
+
+    public function destroy($id)
+    {
+        $division = Division::find($id);
+
+        if (!$division) {
+            return response()->json(['message' => 'Division not found'], 404);
+        }
+
+        $division->delete();
+
+        return response()->json(['message' => 'Division deleted successfully']);
+    }
 }

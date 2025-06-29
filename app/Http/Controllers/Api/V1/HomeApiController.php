@@ -59,17 +59,6 @@ class HomeApiController extends Controller
             return response()->json($response);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(string $slug)
     {
         $home = Home::where('slug', $slug);
@@ -79,20 +68,45 @@ class HomeApiController extends Controller
             return response()->json(['message' => 'Home not found'], 404);
         }
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'nullable|string|max:255',
+            'slug' => 'nullable|string|max:255|unique:homes,slug',
+            'video_url' => 'nullable|string|max:255',
+            'image_url' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'is_active' => 'nullable|boolean',
+        ]);
+
+        $home = Home::create($validated);
+
+        return response()->json($home, 201);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $home = Home::findOrFail($id);
+
+        $validated = $request->validate([
+            'name' => 'nullable|string|max:255',
+            'slug' => 'nullable|string|max:255|unique:homes,slug,' . $home->id,
+            'video_url' => 'nullable|string|max:255',
+            'image_url' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'is_active' => 'nullable|boolean',
+        ]);
+
+        $home->update($validated);
+
+        return response()->json($home);
+    }
+
+    public function destroy($id)
+    {
+        $home = Home::findOrFail($id);
+        $home->delete();
+
+        return response()->json(['message' => 'Home deleted successfully']);
     }
 }

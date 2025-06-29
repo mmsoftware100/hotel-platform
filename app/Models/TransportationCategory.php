@@ -20,4 +20,9 @@ class TransportationCategory extends Model
         'is_featured' => 'boolean',
     ];
     use HasFactory;
+
+    public function transportations()
+    {
+        return $this->hasMany(Transportation::class);
+    }
 }

@@ -12,7 +12,7 @@ class TransportationCategoryApiController extends Controller
         // $perPage = 2; // Number of items per page
         // $transportationCategories = TransportationCategory::paginate($perPage);
         // return response()->json($transportationCategories);
-                $validated = $request->validate([
+        $validated = $request->validate([
             'page' => 'integer|min:1',
             'per_page' => 'integer|min:1|max:100',
             'q' => 'nullable|string',
@@ -64,4 +64,58 @@ class TransportationCategoryApiController extends Controller
             return response()->json(['message' => 'Transportation Category not found'], 404);
         }
     }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:transportation_categories,slug',
+            'image_url' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'is_active' => 'boolean',
+            'is_featured' => 'boolean',
+        ]);
+
+        $transportationCategory = TransportationCategory::create($validated);
+
+        return response()->json($transportationCategory, 201);
+    }
+
+    public function update(Request $request, string $slug)
+    {
+        $transportationCategory = TransportationCategory::where('slug', $slug)->first();
+
+        if (!$transportationCategory) {
+            return response()->json(['message' => 'Transportation Category not found'], 404);
+        }
+
+        $validated = $request->validate([
+            'name' => 'sometimes|required|string|max:255',
+            'slug' => 'sometimes|required|string|max:255|unique:transportation_categories,slug,' . $transportationCategory->id,
+            'image_url' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'is_active' => 'boolean',
+            'is_featured' => 'boolean',
+        ]);
+
+        $transportationCategory->update($validated);
+
+        return response()->json($transportationCategory);
+    }
+
+    public function destroy(string $slug)
+    {
+        $transportationCategory = TransportationCategory::where('slug', $slug)->first();
+
+        if (!$transportationCategory) {
+            return response()->json(['message' => 'Transportation Category not found'], 404);
+        }
+
+        $transportationCategory->delete();
+
+        return response()->json(['message' => 'Transportation Category deleted successfully']);
+    }
+
+
+
 }

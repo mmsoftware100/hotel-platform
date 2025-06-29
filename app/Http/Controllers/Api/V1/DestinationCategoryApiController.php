@@ -72,4 +72,47 @@ class DestinationCategoryApiController extends Controller
         return response()->json(['message' => 'Destination Category not found'], 404);
     }
 
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:destination_categories,slug',
+            'image_url' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'is_featured' => 'nullable|boolean',
+            'is_active' => 'nullable|boolean',
+        ]);
+
+        $destinationCategory = DestinationCategory::create($validated);
+
+        return response()->json($destinationCategory, 201);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $destinationCategory = DestinationCategory::findOrFail($id);
+
+        $validated = $request->validate([
+            'name' => 'sometimes|required|string|max:255',
+            'slug' => 'sometimes|required|string|max:255|unique:destination_categories,slug,' . $destinationCategory->id,
+            'image_url' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'is_featured' => 'nullable|boolean',
+            'is_active' => 'nullable|boolean',
+        ]);
+
+        $destinationCategory->update($validated);
+
+        return response()->json($destinationCategory);
+    }
+
+    public function destroy($id)
+    {
+        $destinationCategory = DestinationCategory::findOrFail($id);
+        $destinationCategory->delete();
+
+        return response()->json(['message' => 'Destination Category deleted successfully']);
+    }
+
+
 }

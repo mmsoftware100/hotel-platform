@@ -75,13 +75,59 @@ class CultureCategoryApiController extends Controller
         }
     }
 
-    // public function show($id)
-    // {
-    //     $data = CultureCategory::find($id);
-    //     if ($data) {
-    //         return response()->json($data);
-    //     } else {
-    //         return response()->json(['message' => 'Not Found'], 404);
-    //     }
-    // }
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:culture_categories,slug',
+            'image_url' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'is_active' => 'boolean',
+            'is_featured' => 'boolean',
+        ]);
+
+        $cultureCategory = CultureCategory::create([
+            'name' => $validated['name'],
+            'slug' => $validated['slug'],
+            'image_url' => $validated['image_url'] ?? null,
+            'description' => $validated['description'] ?? null,
+            'is_active' => $validated['is_active'] ?? true,
+            'is_featured' => $validated['is_featured'] ?? true,
+        ]);
+
+        return response()->json($cultureCategory, 201);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $cultureCategory = CultureCategory::find($id);
+        if (!$cultureCategory) {
+            return response()->json(['message' => 'Culture Category not found'], 404);
+        }
+
+        $validated = $request->validate([
+            'name' => 'sometimes|required|string|max:255',
+            'slug' => 'sometimes|required|string|max:255|unique:culture_categories,slug,' . $cultureCategory->id,
+            'image_url' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'is_active' => 'boolean',
+            'is_featured' => 'boolean',
+        ]);
+
+        $cultureCategory->update($validated);
+
+        return response()->json($cultureCategory);
+    }
+
+    public function destroy($id)
+    {
+        $cultureCategory = CultureCategory::find($id);
+        if (!$cultureCategory) {
+            return response()->json(['message' => 'Culture Category not found'], 404);
+        }
+
+        $cultureCategory->delete();
+
+        return response()->json(['message' => 'Culture Category deleted successfully']);
+    }
 }

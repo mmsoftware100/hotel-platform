@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
-            $table->string('slug')->nullable()->unique();
+            $table->string('name');
+            $table->string('slug')->unique();
             $table->string('image_url')->nullable();
             $table->mediumText('description')->nullable();
             $table->boolean('is_active')->nullable()->default(true);
             $table->boolean('is_featured')->nullable()->default(true);
-            $table->foreignId('article_category_id')->nullable()->constrained('article_categories', 'id')->restrictOnUpdate()->restrictOnDelete();
+            $table->foreignId('article_category_id')->nullable()->constrained('article_categories', 'id')->restrictOnUpdate()->restrictOnDelete()->nullable();
 
 
             $table->string('google_map_label')->nullable();

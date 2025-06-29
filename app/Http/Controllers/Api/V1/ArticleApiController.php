@@ -76,4 +76,72 @@ class ArticleApiController extends Controller
         }
         return response()->json(['message' => 'Article not found'], 404);
     }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'nullable|string|max:255',
+            'slug' => 'nullable|string|max:255|unique:articles,slug',
+            'image_url' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'is_active' => 'nullable|boolean',
+            'is_featured' => 'nullable|boolean',
+            'article_category_id' => 'nullable|integer|exists:article_categories,id',
+            'google_map_label' => 'nullable|string|max:255',
+            'google_map_link' => 'nullable|string|max:255',
+            'destination_id' => 'nullable|integer|exists:destinations,id',
+            'division_id' => 'nullable|integer|exists:divisions,id',
+            'region_id' => 'nullable|integer|exists:regions,id',
+            'city_id' => 'nullable|integer|exists:cities,id',
+            'township_id' => 'nullable|integer|exists:townships,id',
+            'village_id' => 'nullable|integer|exists:villages,id',
+            'attraction_category_id' => 'nullable|integer|exists:attraction_categories,id',
+        ]);
+
+        $article = Article::create($validated);
+
+        return response()->json($article, 201);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $article = Article::find($id);
+        if (!$article) {
+            return response()->json(['message' => 'Article not found'], 404);
+        }
+
+        $validated = $request->validate([
+            'name' => 'nullable|string|max:255',
+            'slug' => 'nullable|string|max:255|unique:articles,slug,' . $article->id,
+            'image_url' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'is_active' => 'nullable|boolean',
+            'is_featured' => 'nullable|boolean',
+            'article_category_id' => 'nullable|integer|exists:article_categories,id',
+            'google_map_label' => 'nullable|string|max:255',
+            'google_map_link' => 'nullable|string|max:255',
+            'destination_id' => 'nullable|integer|exists:destinations,id',
+            'division_id' => 'nullable|integer|exists:divisions,id',
+            'region_id' => 'nullable|integer|exists:regions,id',
+            'city_id' => 'nullable|integer|exists:cities,id',
+            'township_id' => 'nullable|integer|exists:townships,id',
+            'village_id' => 'nullable|integer|exists:villages,id',
+            'attraction_category_id' => 'nullable|integer|exists:attraction_categories,id',
+        ]);
+
+        $article->update($validated);
+
+        return response()->json($article);
+        // return response()->json($request->all()); // Placeholder for actual update logic
+    }
+
+    public function destroy($id)
+    {
+        $article = Article::find($id);
+        if (!$article) {
+            return response()->json(['message' => 'Article not found'], 404);
+        }
+        $article->delete();
+        return response()->json(['message' => 'Article deleted successfully']);
+    }
 }

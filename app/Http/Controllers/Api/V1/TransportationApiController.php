@@ -63,4 +63,49 @@ class TransportationApiController extends Controller
             return response()->json(['message' => 'Transportation not found'], 404);
         }
     }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:transportations,slug',
+            'transportation_category_id' => 'nullable|exists:transportation_categories,id',
+            'image_url' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'is_active' => 'boolean',
+            'is_featured' => 'boolean',
+        ]);
+
+        $transportation = Transportation::create($validated);
+
+        return response()->json($transportation, 201);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $transportation = Transportation::findOrFail($id);
+
+        $validated = $request->validate([
+            'name' => 'sometimes|required|string|max:255',
+            'slug' => 'sometimes|required|string|max:255|unique:transportations,slug,' . $transportation->id,
+            'transportation_category_id' => 'nullable|exists:transportation_categories,id',
+            'image_url' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'is_active' => 'boolean',
+            'is_featured' => 'boolean',
+        ]);
+
+        $transportation->update($validated);
+
+        return response()->json($transportation);
+    }
+
+    public function destroy($id)
+    {
+        $transportation = Transportation::findOrFail($id);
+        $transportation->delete();
+
+        return response()->json(['message' => 'Transportation deleted successfully']);
+    }
+
 }

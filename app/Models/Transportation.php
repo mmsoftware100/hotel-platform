@@ -10,6 +10,7 @@ class Transportation extends Model
     protected $fillable = [
         'name',
         'slug',
+        'transportation_category_id', // Assuming this is nullable
         'image_url',
         'description',
         'is_active',
@@ -20,4 +21,11 @@ class Transportation extends Model
         'is_featured' => 'boolean',
     ];
     use HasFactory;
+
+    public function category()
+    {
+        return $this->belongsTo(TransportationCategory::class);
+    }
+
+
 }

@@ -94,4 +94,64 @@ class AttractionApiController extends Controller
 
 
     }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:attractions,slug',
+            'image_url' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'is_active' => 'nullable|boolean',
+            'is_featured' => 'nullable|boolean',
+            'google_map_label' => 'nullable|string|max:255',
+            'google_map_link' => 'nullable|string|max:255',
+            'destination_id' => 'nullable|integer|exists:destinations,id',
+            'division_id' => 'nullable|integer|exists:divisions,id',
+            'region_id' => 'nullable|integer|exists:regions,id',
+            'city_id' => 'nullable|integer|exists:cities,id',
+            'township_id' => 'nullable|integer|exists:townships,id',
+            'village_id' => 'nullable|integer|exists:villages,id',
+            'attraction_category_id' => 'nullable|integer|exists:attraction_categories,id',
+        ]);
+
+        $attraction = Attraction::create($validated);
+
+        return response()->json($attraction, 201);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $attraction = Attraction::findOrFail($id);
+
+        $validated = $request->validate([
+            'name' => 'sometimes|required|string|max:255',
+            'slug' => 'sometimes|required|string|max:255|unique:attractions,slug,' . $attraction->id,
+            'image_url' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'is_active' => 'nullable|boolean',
+            'is_featured' => 'nullable|boolean',
+            'google_map_label' => 'nullable|string|max:255',
+            'google_map_link' => 'nullable|string|max:255',
+            'destination_id' => 'nullable|integer|exists:destinations,id',
+            'division_id' => 'nullable|integer|exists:divisions,id',
+            'region_id' => 'nullable|integer|exists:regions,id',
+            'city_id' => 'nullable|integer|exists:cities,id',
+            'township_id' => 'nullable|integer|exists:townships,id',
+            'village_id' => 'nullable|integer|exists:villages,id',
+            'attraction_category_id' => 'nullable|integer|exists:attraction_categories,id',
+        ]);
+
+        $attraction->update($validated);
+
+        return response()->json($attraction);
+    }
+
+    public function destroy($id)
+    {
+        $attraction = Attraction::findOrFail($id);
+        $attraction->delete();
+
+        return response()->json(['message' => 'Attraction deleted successfully.']);
+    }
 }

@@ -106,4 +106,62 @@ class DestinationApiController extends Controller
         }
         return response()->json(['message' => 'Destination not found'], 404);
     }
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:destinations,slug',
+            'image_url' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'is_active' => 'boolean',
+            'is_featured' => 'boolean',
+            'division_id' => 'nullable|integer|exists:divisions,id',
+            'region_id' => 'nullable|integer|exists:regions,id',
+            'city_id' => 'nullable|integer|exists:cities,id',
+            'township_id' => 'nullable|integer|exists:townships,id',
+            'village_id' => 'nullable|integer|exists:villages,id',
+            'destination_category_id' => 'nullable|integer|exists:destination_categories,id',
+            'google_map_label' => 'nullable|string|max:255',
+            'google_map_link' => 'nullable|string|max:255',
+        ]);
+
+        $destination = Destination::create($validated);
+
+        return response()->json($destination, 201);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $destination = Destination::findOrFail($id);
+
+        $validated = $request->validate([
+            'name' => 'sometimes|required|string|max:255',
+            'slug' => 'sometimes|required|string|max:255|unique:destinations,slug,' . $destination->id,
+            'image_url' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'is_active' => 'boolean',
+            'is_featured' => 'boolean',
+            'division_id' => 'nullable|integer|exists:divisions,id',
+            'region_id' => 'nullable|integer|exists:regions,id',
+            'city_id' => 'nullable|integer|exists:cities,id',
+            'township_id' => 'nullable|integer|exists:townships,id',
+            'village_id' => 'nullable|integer|exists:villages,id',
+            'destination_category_id' => 'nullable|integer|exists:destination_categories,id',
+            'google_map_label' => 'nullable|string|max:255',
+            'google_map_link' => 'nullable|string|max:255',
+        ]);
+
+        $destination->update($validated);
+
+        return response()->json($destination);
+    }
+
+    public function destroy($id)
+    {
+        $destination = Destination::findOrFail($id);
+        $destination->delete();
+
+        return response()->json(['message' => 'Destination deleted successfully.']);
+    }
+
 }

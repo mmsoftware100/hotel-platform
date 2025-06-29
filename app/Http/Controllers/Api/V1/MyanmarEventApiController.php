@@ -92,4 +92,6 @@ class MyanmarEventApiController extends Controller
             return response()->json(['message' => 'Event not found'], 404);
         }
     }
+
+
 }

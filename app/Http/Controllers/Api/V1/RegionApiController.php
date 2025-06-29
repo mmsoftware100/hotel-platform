@@ -67,4 +67,54 @@ class RegionApiController extends Controller
             return response()->json(['message' => 'Region not found'], 404);
         }
     }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:regions,slug',
+            'image_url' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'is_active' => 'boolean',
+            'is_featured' => 'boolean',
+            'division_id' => 'nullable|exists:divisions,id',
+            'is_state' => 'boolean',
+            'google_map_label' => 'nullable|string|max:255',
+            'google_map_link' => 'nullable|string|max:255',
+        ]);
+
+        $region = Region::create($validated);
+
+        return response()->json($region, 201);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $region = Region::findOrFail($id);
+
+        $validated = $request->validate([
+            'name' => 'sometimes|required|string|max:255',
+            'slug' => 'sometimes|required|string|max:255|unique:regions,slug,' . $region->id,
+            'image_url' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'is_active' => 'boolean',
+            'is_featured' => 'boolean',
+            'division_id' => 'nullable|exists:divisions,id',
+            'is_state' => 'boolean',
+            'google_map_label' => 'nullable|string|max:255',
+            'google_map_link' => 'nullable|string|max:255',
+        ]);
+
+        $region->update($validated);
+
+        return response()->json($region);
+    }
+
+    public function destroy($id)
+    {
+        $region = Region::findOrFail($id);
+        $region->delete();
+
+        return response()->json(['message' => 'Region deleted successfully']);
+    }
 }

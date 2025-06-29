@@ -67,4 +67,64 @@ class CityApiController extends Controller
         }
 
     }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:cities,slug',
+            'image_url' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'is_active' => 'boolean',
+            'is_capital' => 'boolean',
+            'is_featured' => 'boolean',
+            'region_id' => 'nullable|exists:regions,id',
+            'google_map_label' => 'nullable|string|max:255',
+            'google_map_link' => 'nullable|string|max:255',
+        ]);
+
+        $city = City::create($validated);
+
+        return response()->json($city, 201);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $city = City::find($id);
+
+        if (!$city) {
+            return response()->json(['message' => 'City not found'], 404);
+        }
+
+        $validated = $request->validate([
+            'name' => 'sometimes|required|string|max:255',
+            'slug' => 'sometimes|required|string|max:255|unique:cities,slug,' . $city->id,
+            'image_url' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'is_active' => 'boolean',
+            'is_capital' => 'boolean',
+            'is_featured' => 'boolean',
+            'region_id' => 'nullable|exists:regions,id',
+            'google_map_label' => 'nullable|string|max:255',
+            'google_map_link' => 'nullable|string|max:255',
+        ]);
+
+        $city->update($validated);
+
+        return response()->json($city);
+    }
+
+    public function destroy($id)
+    {
+        $city = City::find($id);
+
+        if (!$city) {
+            return response()->json(['message' => 'City not found'], 404);
+        }
+
+        $city->delete();
+
+        return response()->json(['message' => 'City deleted successfully']);
+    }
+
 }

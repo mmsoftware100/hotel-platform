@@ -100,4 +100,46 @@ class ArticleCategoryApiController extends Controller
 
     }
 
+    public function store(Request $request)
+        {
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'slug' => 'required|string|max:255|unique:article_categories,slug',
+                'image_url' => 'nullable|string|max:255',
+                'description' => 'nullable|string',
+                'is_active' => 'boolean',
+                'is_featured' => 'boolean',
+            ]);
+
+            $articleCategory = ArticleCategory::create($validated);
+
+            return response()->json($articleCategory, 201);
+        }
+
+        public function update(Request $request, $id)
+        {
+            $articleCategory = ArticleCategory::findOrFail($id);
+
+            $validated = $request->validate([
+                'name' => 'sometimes|required|string|max:255',
+                'slug' => 'sometimes|required|string|max:255|unique:article_categories,slug,' . $articleCategory->id,
+                'image_url' => 'nullable|string|max:255',
+                'description' => 'nullable|string',
+                'is_active' => 'boolean',
+                'is_featured' => 'boolean',
+            ]);
+
+            $articleCategory->update($validated);
+
+            return response()->json($articleCategory);
+        }
+
+        public function destroy($id)
+        {
+            $articleCategory = ArticleCategory::findOrFail($id);
+            $articleCategory->delete();
+
+            return response()->json(['message' => 'Article category deleted successfully.']);
+        }
+
 }

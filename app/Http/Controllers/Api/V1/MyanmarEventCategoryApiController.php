@@ -73,4 +73,54 @@ class MyanmarEventCategoryApiController extends Controller
             return response()->json(['message' => 'Myanmar Event Category not found'], 404);
         }
     }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:myanmar_event_categories,slug',
+            'image_url' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'is_active' => 'boolean',
+            'is_featured' => 'boolean',
+        ]);
+
+        $category = MyanmarEventCategory::create([
+            'name' => $validated['name'],
+            'slug' => $validated['slug'],
+            'image_url' => $validated['image_url'] ?? null,
+            'description' => $validated['description'] ?? null,
+            'is_active' => $validated['is_active'] ?? true,
+            'is_featured' => $validated['is_featured'] ?? true,
+        ]);
+
+        return response()->json($category, 201);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $category = MyanmarEventCategory::findOrFail($id);
+
+        $validated = $request->validate([
+            'name' => 'sometimes|required|string|max:255',
+            'slug' => 'sometimes|required|string|max:255|unique:myanmar_event_categories,slug,' . $category->id,
+            'image_url' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'is_active' => 'boolean',
+            'is_featured' => 'boolean',
+        ]);
+
+        $category->update($validated);
+
+        return response()->json($category);
+    }
+
+    public function destroy($id)
+    {
+        $category = MyanmarEventCategory::findOrFail($id);
+        $category->delete();
+
+        return response()->json(['message' => 'Myanmar Event Category deleted successfully.']);
+    }
+
 }

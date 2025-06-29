@@ -64,4 +64,58 @@ class RestaurantApiController extends Controller
             return response()->json(['message' => 'Restaurant not found'], 404);
         }
     }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:restaurants,slug',
+            'image_url' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'is_active' => 'boolean',
+            'is_featured' => 'boolean',
+            'destination_id' => 'nullable|exists:destinations,id',
+            'division_id' => 'nullable|exists:divisions,id',
+            'region_id' => 'nullable|exists:regions,id',
+            'city_id' => 'nullable|exists:cities,id',
+            'township_id' => 'nullable|exists:townships,id',
+            'village_id' => 'nullable|exists:villages,id',
+        ]);
+
+        $restaurant = Restaurant::create($validated);
+
+        return response()->json($restaurant, 201);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $restaurant = Restaurant::findOrFail($id);
+
+        $validated = $request->validate([
+            'name' => 'sometimes|required|string|max:255',
+            'slug' => 'sometimes|required|string|max:255|unique:restaurants,slug,' . $restaurant->id,
+            'image_url' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'is_active' => 'boolean',
+            'is_featured' => 'boolean',
+            'destination_id' => 'nullable|exists:destinations,id',
+            'division_id' => 'nullable|exists:divisions,id',
+            'region_id' => 'nullable|exists:regions,id',
+            'city_id' => 'nullable|exists:cities,id',
+            'township_id' => 'nullable|exists:townships,id',
+            'village_id' => 'nullable|exists:villages,id',
+        ]);
+
+        $restaurant->update($validated);
+
+        return response()->json($restaurant);
+    }
+
+    public function destroy($id)
+    {
+        $restaurant = Restaurant::findOrFail($id);
+        $restaurant->delete();
+
+        return response()->json(['message' => 'Restaurant deleted successfully']);
+    }
 }

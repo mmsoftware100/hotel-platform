@@ -66,4 +66,52 @@ class TownshipApiController extends Controller
             return response()->json(['message' => 'Township not found'], 404);
         }
     }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:townships,slug',
+            'image_url' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'is_active' => 'boolean',
+            'is_featured' => 'boolean',
+            'region_id' => 'nullable|exists:regions,id',
+            'google_map_label' => 'nullable|string|max:255',
+            'google_map_link' => 'nullable|string|max:255',
+        ]);
+
+        $township = Township::create($validated);
+
+        return response()->json($township, 201);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $township = Township::findOrFail($id);
+
+        $validated = $request->validate([
+            'name' => 'sometimes|required|string|max:255',
+            'slug' => 'sometimes|required|string|max:255|unique:townships,slug,' . $township->id,
+            'image_url' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'is_active' => 'boolean',
+            'is_featured' => 'boolean',
+            'region_id' => 'nullable|exists:regions,id',
+            'google_map_label' => 'nullable|string|max:255',
+            'google_map_link' => 'nullable|string|max:255',
+        ]);
+
+        $township->update($validated);
+
+        return response()->json($township);
+    }
+
+    public function destroy($id)
+    {
+        $township = Township::findOrFail($id);
+        $township->delete();
+
+        return response()->json(['message' => 'Township deleted successfully']);
+    }
 }
