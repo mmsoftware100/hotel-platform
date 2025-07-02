@@ -37,6 +37,9 @@ class MyanmarEvent extends Model
         'start_date',
         'end_date',
         'is_featured',
+        'google_map_label',
+        'google_map_link',
+        'destination_id', // Optional: if this event is part of a destination
     ];
 
     /**

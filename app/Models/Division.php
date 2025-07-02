@@ -17,6 +17,8 @@ class Division extends Model
         'description',
         'is_active',
         'is_featured',
+        'google_map_label',
+        'google_map_link',
     ];
 
     protected $casts = [

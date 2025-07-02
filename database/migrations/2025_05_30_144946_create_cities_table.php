@@ -21,7 +21,9 @@ return new class extends Migration
             $table->boolean('is_capital')->nullable()->default(true);
             $table->boolean('is_featured')->nullable()->default(true);
             $table->foreignId('region_id')->nullable()->constrained('regions', 'id')->restrictOnUpdate()->restrictOnDelete();
-            
+
+            $table->string('google_map_label')->nullable();
+            $table->string('google_map_link')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

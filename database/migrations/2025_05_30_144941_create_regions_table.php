@@ -21,7 +21,9 @@ return new class extends Migration
             $table->boolean('is_featured')->nullable()->default(true);
             $table->foreignId('division_id')->nullable()->constrained('divisions', 'id')->restrictOnUpdate()->restrictOnDelete();
             $table->boolean('is_state')->nullable()->default(true);
-            
+
+            $table->string('google_map_label')->nullable();
+            $table->string('google_map_link')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

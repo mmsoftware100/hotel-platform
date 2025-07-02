@@ -23,6 +23,9 @@ class Culture extends Model
         'village_id',
         'culture_category_id',
         'is_featured',
+        'google_map_label',
+        'google_map_link',
+        'destination_id', // Optional: if this culture is associated with a destination
     ];
 
     protected $casts = [

@@ -29,14 +29,11 @@ class DatabaseSeeder extends Seeder
 
             HomeSeeder::class,
 
-
-            ArticleCategorySeeder::class,
-            ArticleSeeder::class,
-
             DivisionSeeder::class,
             RegionSeeder::class,
             CitySeeder::class,
             TownshipSeeder::class,
+            VillageSeeder::class,
 
             DestinationCategorySeeder::class,
             DestinationSeeder::class,
@@ -61,33 +58,12 @@ class DatabaseSeeder extends Seeder
             TransportationCategorySeeder::class,
             TransportationSeeder::class,
 
-            VillageSeeder::class,
 
 
-            // CountrySeeder::class,
-            // StateSeeder::class,
-            // TownshipSeeder::class,
-            // HotelSeeder::class,
 
-            // HotelMediaSeeder::class,
-            // FacilitySeeder::class,
-            // FacilityHotelSeeder::class,
+            ArticleCategorySeeder::class,
+            ArticleSeeder::class,
 
-            // HighlightSeeder::class,
-            // HighlightHotelSeeder::class,
-
-            // RoomTypeSeeder::class,
-            // HotelRoomTypeSeeder::class,
-            // PricingSeeder::class,
-
-            // RoomFacilityTypeSeeder::class,
-            // RoomFacilitySeeder::class,
-
-            // RoomFacilityRoomTypeSeeder::class,
-            // RoomSeeder::class,
-
-            // BookingStatusSeeder::class,
-            // BookingSeeder::class,
         ]);
     }
 }

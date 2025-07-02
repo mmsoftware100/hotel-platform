@@ -8,6 +8,7 @@ use App\Models\RestaurantCategory;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -55,6 +56,42 @@ class RestaurantCategoryResource extends Resource
                 Toggle::make('is_featured')
                     ->default(true)
                     ->label('Featured'),
+                Select::make('destination_id')
+                        ->relationship('destination', 'name')
+                        ->searchable()
+                        ->preload()
+                        ->nullable()
+                        ->label('Destination'),
+                 Select::make('division_id')
+                        ->relationship('division', 'name')
+                        ->searchable()
+                        ->preload()
+                        ->nullable()
+                        ->label('Division'),
+                Select::make('region_id')
+                        ->relationship('region', 'name')
+                        ->searchable()
+                        ->preload()
+                        ->nullable()
+                        ->label('Region'),
+                Select::make('city_id')
+                        ->relationship('city', 'name')
+                        ->searchable()
+                        ->preload()
+                        ->nullable()
+                        ->label('City'),
+                Select::make('township_id')
+                        ->relationship('township', 'name')
+                        ->searchable()
+                        ->preload()
+                        ->nullable()
+                        ->label('Township'),
+                  Select::make('village_id')
+                        ->relationship('village', 'name')
+                        ->searchable()
+                        ->preload()
+                        ->nullable()
+                        ->label('Village'),
             ]);
     }
 
@@ -78,6 +115,30 @@ class RestaurantCategoryResource extends Resource
                     ->label('Active'),
                 BooleanColumn::make('is_featured')
                     ->label('Featured'),
+                    TextColumn::make('destination.name')
+                        ->label('Destination')
+                        ->sortable()
+                        ->searchable(),
+                    TextColumn::make('division.name')
+                        ->label('Division')
+                        ->sortable()
+                        ->searchable(),
+                    TextColumn::make('region.name')
+                        ->label('Region')
+                        ->sortable()
+                        ->searchable(),
+                    TextColumn::make('city.name')
+                        ->label('City')
+                        ->sortable()
+                        ->searchable(),
+                    TextColumn::make('township.name')
+                        ->label('Township')
+                        ->sortable()
+                        ->searchable(),
+                    TextColumn::make('village.name')
+                        ->label('Village')
+                        ->sortable()
+                        ->searchable(),
             ])
             ->filters([
                 //

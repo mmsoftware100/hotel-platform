@@ -18,6 +18,8 @@ class Township extends Model
         'is_active',
         'region_id',
         'is_featured',
+        'google_map_label',
+        'google_map_link',
     ];
 
     protected $casts = [

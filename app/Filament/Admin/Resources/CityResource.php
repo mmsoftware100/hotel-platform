@@ -5,6 +5,7 @@ namespace App\Filament\Admin\Resources;
 use App\Filament\Admin\Resources\CityResource\Pages;
 use App\Filament\Admin\Resources\CityResource\RelationManagers;
 use App\Models\City;
+use Dom\Text;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
@@ -71,6 +72,16 @@ class CityResource extends Resource
                 Toggle::make('is_featured')
                     ->default(false)
                     ->label('Featured'),
+                TextInput::make('google_map_label')
+                    ->label('Google Map Label')
+                    ->nullable(),
+                TextInput::make('google_map_link')
+                    // ->url()
+                    ->label('Google Map URL')
+                    ->nullable(),
+                TextInput::make('destination_id')
+                    ->label('Destination ID')
+                    ->nullable(),
             ]);
     }
 
@@ -97,6 +108,20 @@ class CityResource extends Resource
                     ->label('Capital City'),
                 BooleanColumn::make('is_featured')
                     ->label('Featured'),
+                TextColumn::make('google_map_label')
+                    ->label('Google Map Label'),
+                TextColumn::make('google_map_link')
+                    // ->url(fn ($record) => $record->google_map_link)
+                    ->label('Google Map URL'),
+                TextColumn::make('destination_id')
+                    ->label('Destination ID')
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->label('Created At'),
+
             ])
             ->filters([
                 //

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             // $table->string('name');
             // $table->foreignId('state_id')->nullable()->constrained('states', 'id')->restrictOnUpdate()->restrictOnDelete();
-            
+
             $table->string('name')->nullable();
             $table->string('slug')->nullable()->unique();
             $table->string('image_url')->nullable();
@@ -23,7 +23,9 @@ return new class extends Migration
             $table->boolean('is_active')->nullable()->default(true);
             $table->boolean('is_featured')->nullable()->default(true);
             $table->foreignId('region_id')->nullable()->constrained('regions', 'id')->restrictOnUpdate()->restrictOnDelete();
-            
+
+            $table->string('google_map_label')->nullable();
+            $table->string('google_map_link')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

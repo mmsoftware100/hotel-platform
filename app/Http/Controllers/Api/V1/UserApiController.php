@@ -8,10 +8,9 @@ use Illuminate\Http\Request;
 
 class UserApiController extends Controller
 {
-    public function index(Request $request ,$perPage=2)
+    public function index(Request $request)
     {
-        // $perPage = 2; // Number of items per page
-        $users = User::paginate($perPage);
+        $users = User::all();
         return response()->json($users);
     }
 
@@ -22,5 +21,58 @@ class UserApiController extends Controller
         } else {
             return response()->json(['message' => 'User not found'], 404);
         }
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6',
+            'role_id' => 'required|exists:roles,id',
+        ]);
+
+        $validated['password'] = bcrypt($validated['password']);
+
+        $user = User::create($validated);
+
+        return response()->json($user, 201);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        $validated = $request->validate([
+            'name' => 'sometimes|required|string|max:255',
+            'email' => 'sometimes|required|string|email|max:255|unique:users,email,' . $user->id,
+            'password' => 'sometimes|required|string|min:6',
+            'role_id' => 'sometimes|required|exists:roles,id',
+        ]);
+
+        if (isset($validated['password'])) {
+            $validated['password'] = bcrypt($validated['password']);
+        }
+
+        $user->update($validated);
+
+        return response()->json($user);
+    }
+
+    public function delete($id)
+    {
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        $user->delete();
+
+        return response()->json(['message' => 'User deleted successfully']);
     }
 }

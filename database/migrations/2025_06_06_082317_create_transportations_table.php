@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->string('slug')->nullable()->unique();
+            $table->foreignId('transportation_category_id')->constrained('transportation_categories')->onDelete('cascade')->onUpdate('cascade')->nullable();
             $table->string('image_url')->nullable();
             $table->mediumText('description')->nullable();
             $table->boolean('is_active')->nullable()->default(true);

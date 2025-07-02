@@ -118,6 +118,19 @@ class MyanmarEventResource extends Resource
                     ->default(false)
                     ->label('Featured'),
 
+                TextInput::make('google_map_label')
+                    ->label('Google Map Label')
+                    ->nullable(),
+
+                TextInput::make('google_map_link')
+                    // ->url()
+                    ->label('Google Map URL')
+                    ->nullable(),
+
+                TextInput::make('destination_id')
+                    ->label('Destination ID')
+                    ->nullable(),
+
             ]);
     }
 
@@ -172,6 +185,25 @@ class MyanmarEventResource extends Resource
                     ->label('Active'),
                 BooleanColumn::make('is_featured')
                     ->label('Featured'),
+
+                TextColumn::make('google_map_label')
+                    ->label('Google Map Label'),
+                TextColumn::make('google_map_link')
+                    // ->url(fn ($record) => $record->google_map_link)
+                    ->label('Google Map URL'),
+                TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->label('Created At'),
+                TextColumn::make('destination_id')
+                    ->label('Destination ID')
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->label('Updated At'),
+
 
             ])
             ->filters([

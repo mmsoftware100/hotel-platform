@@ -42,6 +42,36 @@ class ArticleResource extends Resource
                 ->relationship('category', 'name') // assumes `ArticleCategory` has a `name` column
                 ->searchable()
                 ->nullable(),
+                TextInput::make('google_map_label')->nullable(),
+                TextInput::make('google_map_link')->nullable(),
+                Select::make('destination_id')
+                    ->relationship('destination', 'name')
+                    ->searchable()
+                    ->nullable(),
+                Select::make('division_id')
+                    ->relationship('division', 'name')
+                    ->searchable()
+                    ->nullable(),
+                Select::make('region_id')
+                    ->relationship('region', 'name')
+                    ->searchable()
+                    ->nullable(),
+                Select::make('city_id')
+                    ->relationship('city', 'name')
+                    ->searchable()
+                    ->nullable(),
+                Select::make('township_id')
+                    ->relationship('township', 'name')
+                    ->searchable()
+                    ->nullable(),
+                Select::make('village_id')
+                    ->relationship('village', 'name')
+                    ->searchable()
+                    ->nullable(),
+                Select::make('attraction_category_id')
+                    ->relationship('attractionCategory', 'name')
+                    ->searchable()
+                    ->nullable(),
         ]);
     }
 
@@ -56,6 +86,16 @@ public static function table(Table $table): Table
             BooleanColumn::make('is_featured'),
             TextColumn::make('category.name')->label('Category'),
             TextColumn::make('created_at')->dateTime(),
+            TextColumn::make('google_map_label')->label('Map Label')->limit(20),
+            TextColumn::make('google_map_link')->label('Map Link')->limit(30)->url(fn ($record) => $record->google_map_link, true),
+            TextColumn::make('destination.name')->label('Destination'),
+            TextColumn::make('division.name')->label('Division'),
+            TextColumn::make('region.name')->label('Region'),
+            TextColumn::make('city.name')->label('City'),
+            TextColumn::make('township.name')->label('Township'),
+            TextColumn::make('village.name')->label('Village'),
+            TextColumn::make('attractionCategory.name')->label('Attraction Category'),
+
         ])
         ->filters([
             // Add filters if needed
