@@ -148,6 +148,12 @@ php artisan make:filament-resource User --view
 php artisan make:filament-resource Hotel --view
 php artisan make:filament-resource ArticleCategory --view
 
+
+php artisan make:filament-resource TestYl
+
+
+
+
 # user seeder
 
 php artisan make:seeder UserSeeder
@@ -328,5 +334,16 @@ Nav Bar , Footer က ပြမယ့် စာရင်းကို Static / အ
 - [ ] API Response များတွင် Resource အသုံးပြုပြီး ပြန်ပေးရန်။
 
 
+
+
+
+### Filament Admin Panel
+
+
+composer require filament/filament:"^3.3" -W
+
+php artisan filament:install --panels
+
+php artisan make:filament-resource User
 
 
