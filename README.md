@@ -1,6 +1,6 @@
 # Hotel Platform
 
-
+test
 ## 2025-06-27 
 
 ```php
