@@ -1,0 +1,12 @@
+<?php
+
+namespace App\Filament\Admin\Resources\HotelFacilityCategoryResource\Pages;
+
+use App\Filament\Admin\Resources\HotelFacilityCategoryResource;
+use Filament\Actions;
+use Filament\Resources\Pages\CreateRecord;
+
+class CreateHotelFacilityCategory extends CreateRecord
+{
+    protected static string $resource = HotelFacilityCategoryResource::class;
+}

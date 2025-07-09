@@ -37,8 +37,46 @@ class Article extends Model
     /**
      * Get the category that owns the article
      */
+
+
+    public function destination(): BelongsTo
+    {
+        return $this->belongsTo(Destination::class);
+    }
+
+    public function division(): BelongsTo
+    {
+        return $this->belongsTo(Division::class);
+    }
+
+    public function region(): BelongsTo
+    {
+        return $this->belongsTo(Region::class);
+    }
+
+    public function city(): BelongsTo
+    {
+        return $this->belongsTo(City::class);
+    }
+
+    public function township(): BelongsTo
+    {
+        return $this->belongsTo(Township::class);
+    }
+
+    public function village(): BelongsTo
+    {
+        return $this->belongsTo(Village::class);
+    }
+
+    public function attractionCategory(): BelongsTo
+    {
+        return $this->belongsTo(AttractionCategory::class, 'attraction_category_id');
+    }
+
     public function category(): BelongsTo
     {
         return $this->belongsTo(ArticleCategory::class, 'article_category_id');
     }
+
 }

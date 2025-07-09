@@ -44,4 +44,7 @@ class Division extends Model
         return $this->hasMany(Destination::class);
     }
 
+    public function articles(){
+        return $this->hasMany(Article::class);
+    }
 }

@@ -51,4 +51,9 @@ class Region extends Model
         return $this->hasMany(Township::class);
     }
 
+    public function articles()
+    {
+        return $this->hasMany(Article::class);
+    }
+
 }

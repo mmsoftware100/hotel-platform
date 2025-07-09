@@ -14,8 +14,8 @@ class TransportationCategorySeeder extends Seeder
     public function run(): void
     {
         TransportationCategory::firstOrCreate([
-            'name' => 'Restaurant A',
-            'slug' => 'restaurant-a',
+            'name' => 'Transportation A',
+            'slug' => 'transportation-a',
             'image_url' => 'https://tourism-mm.vercel.app/myanmar.png',
             'description' => 'Welcome to Restaurant A',
             'is_active' => true,

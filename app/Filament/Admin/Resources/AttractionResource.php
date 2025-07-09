@@ -20,6 +20,9 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Str;
+use Filament\Forms\Get;
+use Filament\Forms\Set;
 
 class AttractionResource extends Resource
 {
@@ -52,13 +55,19 @@ class AttractionResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')
-                    ->required()
-                    ->reactive()
-                    ->afterStateUpdated(fn($state, callable $set) =>
-                        $set('slug', \Illuminate\Support\Str::slug($state))),
+                ->required()
+                ->live(onBlur: true)
+                ->afterStateUpdated(function (Get $get, Set $set, ?string $old, ?string $state) {
+                    if (filled($state)) {
+                        if ($get('slug') === null || Str::slug($old) === $get('slug')) {
+                            $set('slug', Str::slug($state));
+                        }
+                    }
+                }),
                 TextInput::make('slug')
-                    ->required()
-                    ->unique(ignoreRecord: true),
+                ->required()
+                ->unique(ignoreRecord: true)
+                ->helperText('This will be automatically generated from the title.'),
                 FileUpload::make('image_url')
                     ->image()
                     ->directory('attractions')

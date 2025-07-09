@@ -12,6 +12,8 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
+use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\BooleanColumn;
@@ -40,14 +42,19 @@ class ArticleCategoryResource extends Resource
 
                 TextInput::make('name')
                 ->required()
-                ->reactive()
-                ->afterStateUpdated(fn($state, callable $set) =>
-                $set('slug', Str::slug($state))
-    ),
-
+                ->live(onBlur: true)
+                ->afterStateUpdated(function (Get $get, Set $set, ?string $old, ?string $state) {
+                    if (filled($state)) {
+                        if ($get('slug') === null || Str::slug($old) === $get('slug')) {
+                            $set('slug', Str::slug($state));
+                        }
+                    }
+                }),
                 TextInput::make('slug')
                 ->required()
-                ->unique(ignoreRecord: true),
+                ->unique(ignoreRecord: true)
+                ->helperText('This will be automatically generated from the title.'),
+
                 FileUpload::make('image_url')->image()->directory('articles'),
                 RichEditor::make('description')
                 ->required(),
