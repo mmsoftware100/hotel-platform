@@ -4,9 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class RestaurantCategory extends Model
 {
+    use HasFactory,SoftDeletes;
     protected $fillable = [
         'name',
         'slug',
@@ -20,5 +22,5 @@ class RestaurantCategory extends Model
         'is_active' => 'boolean',
         'is_featured' => 'boolean',
     ];
-    use HasFactory;
+
 }

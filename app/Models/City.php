@@ -6,10 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+ use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 
 class City extends Model
 {
-    use SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'name',
@@ -58,7 +60,7 @@ class City extends Model
     public function scopeTouristDestinations($query)
     {
         return $query->whereIn('slug', [
-            'yangon', 'mandalay', 'bagan', 'inle-lake', 
+            'yangon', 'mandalay', 'bagan', 'inle-lake',
             'ngapali', 'pyin-oo-lwin', 'hsipaw'
         ]);
     }

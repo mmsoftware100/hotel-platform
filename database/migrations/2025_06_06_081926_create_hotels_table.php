@@ -37,6 +37,7 @@ return new class extends Migration
             $table->foreignId('township_id')->nullable()->constrained('townships', 'id')->restrictOnUpdate()->restrictOnDelete();
             $table->foreignId('village_id')->nullable()->constrained('villages', 'id')->restrictOnUpdate()->restrictOnDelete();
             $table->foreignId('hotel_category_id')->nullable()->constrained('hotel_categories', 'id')->restrictOnUpdate()->restrictOnDelete();
+            $table->softDeletes();
 
 
 

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignId('role_id')->constrained('roles', 'id')->restrictOnUpdate()->restrictOnDelete();
             $table->rememberToken();
             $table->timestamps();
+
         });
     }
 
