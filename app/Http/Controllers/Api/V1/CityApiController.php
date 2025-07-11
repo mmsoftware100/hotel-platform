@@ -88,9 +88,9 @@ class CityApiController extends Controller
         return response()->json($city, 201);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $slug)
     {
-        $city = City::find($id);
+        $city =  City::where('slug', $slug)->first();
 
         if (!$city) {
             return response()->json(['message' => 'City not found'], 404);
@@ -114,9 +114,10 @@ class CityApiController extends Controller
         return response()->json($city);
     }
 
-    public function destroy($id)
+    public function destroy($slug)
     {
-        $city = City::find($id);
+        $city = City::where('slug', $slug)->first();
+
 
         if (!$city) {
             return response()->json(['message' => 'City not found'], 404);

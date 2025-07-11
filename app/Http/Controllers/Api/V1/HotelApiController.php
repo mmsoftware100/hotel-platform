@@ -110,9 +110,9 @@ class HotelApiController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $slug)
     {
-        $hotel = Hotel::findOrFail($id);
+        $hotel = Hotel::where($slug,'slug')->first();
 
         $validated = $request->validate([
             'name' => 'sometimes|required|string|max:255',
@@ -145,9 +145,9 @@ class HotelApiController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy($slug)
     {
-        $hotel = Hotel::findOrFail($id);
+        $hotel = Hotel::where($slug,'slug')->first();
         $hotel->delete();
 
         return response()->json(['message' => 'Hotel deleted successfully']);

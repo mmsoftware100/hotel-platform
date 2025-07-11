@@ -84,9 +84,9 @@ class HomeApiController extends Controller
         return response()->json($home, 201);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $slug)
     {
-        $home = Home::findOrFail($id);
+        $home = Home::where($slug,'slug')->first();
 
         $validated = $request->validate([
             'name' => 'nullable|string|max:255',
@@ -102,9 +102,9 @@ class HomeApiController extends Controller
         return response()->json($home);
     }
 
-    public function destroy($id)
+    public function destroy($slug)
     {
-        $home = Home::findOrFail($id);
+        $home = Home::where($slug,'slug');
         $home->delete();
 
         return response()->json(['message' => 'Home deleted successfully']);

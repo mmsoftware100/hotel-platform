@@ -83,9 +83,9 @@ class DivisionApiController extends Controller
         return response()->json($division, 201);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $slug)
     {
-        $division = Division::find($id);
+        $division = Division::where($slug,'slug')->first();
 
         if (!$division) {
             return response()->json(['message' => 'Division not found'], 404);
@@ -107,9 +107,11 @@ class DivisionApiController extends Controller
         return response()->json($division);
     }
 
-    public function destroy($id)
+    public function destroy($slug)
     {
-        $division = Division::find($id);
+        // $division = Division::find($id);
+        $division = Division::where($slug,'slug')->first();
+
 
         if (!$division) {
             return response()->json(['message' => 'Division not found'], 404);

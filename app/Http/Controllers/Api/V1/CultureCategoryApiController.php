@@ -98,9 +98,9 @@ class CultureCategoryApiController extends Controller
         return response()->json($cultureCategory, 201);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $slug)
     {
-        $cultureCategory = CultureCategory::find($id);
+        $cultureCategory = CultureCategory::where($slug,'slug')->first();
         if (!$cultureCategory) {
             return response()->json(['message' => 'Culture Category not found'], 404);
         }
@@ -119,9 +119,10 @@ class CultureCategoryApiController extends Controller
         return response()->json($cultureCategory);
     }
 
-    public function destroy($id)
+    public function destroy($slug)
     {
-        $cultureCategory = CultureCategory::find($id);
+        $cultureCategory = CultureCategory::where('slug',$slug)->first();
+
         if (!$cultureCategory) {
             return response()->json(['message' => 'Culture Category not found'], 404);
         }
@@ -130,4 +131,6 @@ class CultureCategoryApiController extends Controller
 
         return response()->json(['message' => 'Culture Category deleted successfully']);
     }
+
+
 }

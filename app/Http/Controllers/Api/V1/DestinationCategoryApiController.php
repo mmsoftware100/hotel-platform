@@ -88,10 +88,10 @@ class DestinationCategoryApiController extends Controller
         return response()->json($destinationCategory, 201);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $slug)
     {
-        $destinationCategory = DestinationCategory::findOrFail($id);
-
+        // $destinationCategory = DestinationCategory::findOrFail($id);
+        $destinationCategory = DestinationCategory::where($slug,'slug')->first();
         $validated = $request->validate([
             'name' => 'sometimes|required|string|max:255',
             'slug' => 'sometimes|required|string|max:255|unique:destination_categories,slug,' . $destinationCategory->id,
@@ -106,9 +106,9 @@ class DestinationCategoryApiController extends Controller
         return response()->json($destinationCategory);
     }
 
-    public function destroy($id)
+    public function destroy($slug)
     {
-        $destinationCategory = DestinationCategory::findOrFail($id);
+        $destinationCategory = DestinationCategory::where($slug,'slug')->first();
         $destinationCategory->delete();
 
         return response()->json(['message' => 'Destination Category deleted successfully']);

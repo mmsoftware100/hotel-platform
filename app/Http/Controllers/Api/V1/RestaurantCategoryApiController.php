@@ -89,9 +89,10 @@ class RestaurantCategoryApiController extends Controller
         return response()->json($restaurantCategory, 201);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $slug)
     {
-        $restaurantCategory = RestaurantCategory::find($id);
+        $restaurantCategory = RestaurantCategory::where('slug', $slug)->first();
+
 
         if (!$restaurantCategory) {
             return response()->json(['message' => 'Restaurant Category not found'], 404);
@@ -111,9 +112,10 @@ class RestaurantCategoryApiController extends Controller
         return response()->json($restaurantCategory);
     }
 
-    public function destroy($id)
+    public function destroy($slug)
     {
-        $restaurantCategory = RestaurantCategory::find($id);
+        $restaurantCategory = RestaurantCategory::where('slug', $slug)->first();
+
 
         if (!$restaurantCategory) {
             return response()->json(['message' => 'Restaurant Category not found'], 404);

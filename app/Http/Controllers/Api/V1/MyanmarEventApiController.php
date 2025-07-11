@@ -92,6 +92,42 @@ class MyanmarEventApiController extends Controller
             return response()->json(['message' => 'Event not found'], 404);
         }
     }
+    public function update(Request $request, $slug)
+    {
+        $myanmarEvent = MyanmarEvent::where('slug', $slug)->first();
+        if (!$myanmarEvent) {
+            return response()->json(['message' => 'Event not found'], 404);
+        }
+
+        $validated = $request->validate([
+            'name' => 'sometimes|string|max:255',
+            'description' => 'sometimes|string',
+            'myanmar_event_category_id' => 'sometimes|integer|exists:myanmar_event_categories,id',
+            'division_id' => 'sometimes|integer|exists:divisions,id',
+            'region_id' => 'sometimes|integer|exists:regions,id',
+            'city_id' => 'sometimes|integer|exists:cities,id',
+            'township_id' => 'sometimes|integer|exists:townships,id',
+            'village_id' => 'sometimes|integer|exists:villages,id',
+            'is_featured' => 'sometimes|boolean',
+            // Add other fields as needed
+        ]);
+
+        $myanmarEvent->update($validated);
+
+        return response()->json($myanmarEvent);
+    }
+
+    public function destroy($slug)
+    {
+        $myanmarEvent = MyanmarEvent::where('slug', $slug)->first();
+        if (!$myanmarEvent) {
+            return response()->json(['message' => 'Event not found'], 404);
+        }
+
+        $myanmarEvent->delete();
+
+        return response()->json(['message' => 'Event deleted successfully']);
+    }
 
 
 }

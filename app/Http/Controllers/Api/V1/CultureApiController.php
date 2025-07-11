@@ -129,9 +129,9 @@ class CultureApiController extends Controller
         return response()->json($culture, 201);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $slug)
     {
-        $culture = Culture::findOrFail($id);
+        $culture =  Culture::where('slug', $slug)->first();
 
         $validated = $request->validate([
             'name' => 'sometimes|required|string|max:255',
@@ -156,9 +156,10 @@ class CultureApiController extends Controller
         return response()->json($culture);
     }
 
-    public function destroy($id)
+    public function destroy($slug)
     {
-        $culture = Culture::findOrFail($id);
+        // $culture =  Culture::where('slug', $slug)->first();
+        $culture = Culture::where('slug', $slug)->first();
         $culture->delete();
 
         return response()->json(['message' => 'Culture deleted successfully']);

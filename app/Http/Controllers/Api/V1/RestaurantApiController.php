@@ -87,9 +87,9 @@ class RestaurantApiController extends Controller
         return response()->json($restaurant, 201);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $slug)
     {
-        $restaurant = Restaurant::findOrFail($id);
+        $restaurant = Restaurant::where($slug,'slug');
 
         $validated = $request->validate([
             'name' => 'sometimes|required|string|max:255',
@@ -111,9 +111,9 @@ class RestaurantApiController extends Controller
         return response()->json($restaurant);
     }
 
-    public function destroy($id)
+    public function destroy($slug)
     {
-        $restaurant = Restaurant::findOrFail($id);
+        $restaurant = Restaurant::where($slug,'slug');
         $restaurant->delete();
 
         return response()->json(['message' => 'Restaurant deleted successfully']);

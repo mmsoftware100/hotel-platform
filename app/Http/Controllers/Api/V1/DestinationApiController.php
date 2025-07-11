@@ -130,9 +130,10 @@ class DestinationApiController extends Controller
         return response()->json($destination, 201);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $slug)
     {
-        $destination = Destination::findOrFail($id);
+        // $destination = Destination::findOrFail($id);
+        $destination = Destination::where($slug,'slug')->first();
 
         $validated = $request->validate([
             'name' => 'sometimes|required|string|max:255',
@@ -156,9 +157,9 @@ class DestinationApiController extends Controller
         return response()->json($destination);
     }
 
-    public function destroy($id)
+    public function destroy($slug)
     {
-        $destination = Destination::findOrFail($id);
+        $destination = Destination::where($slug,'slug')->first();
         $destination->delete();
 
         return response()->json(['message' => 'Destination deleted successfully.']);

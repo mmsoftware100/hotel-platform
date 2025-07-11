@@ -88,9 +88,9 @@ class RegionApiController extends Controller
         return response()->json($region, 201);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $slug)
     {
-        $region = Region::findOrFail($id);
+        $region = Region::where($slug,'slug')->first();
 
         $validated = $request->validate([
             'name' => 'sometimes|required|string|max:255',
@@ -110,9 +110,9 @@ class RegionApiController extends Controller
         return response()->json($region);
     }
 
-    public function destroy($id)
+    public function destroy($slug)
     {
-        $region = Region::findOrFail($id);
+        $region = Region::where($slug,'slug')->first();
         $region->delete();
 
         return response()->json(['message' => 'Region deleted successfully']);

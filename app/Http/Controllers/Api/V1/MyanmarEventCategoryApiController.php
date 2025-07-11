@@ -97,9 +97,9 @@ class MyanmarEventCategoryApiController extends Controller
         return response()->json($category, 201);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $slug)
     {
-        $category = MyanmarEventCategory::findOrFail($id);
+        $category = MyanmarEventCategory::where($slug,'slug')->first();
 
         $validated = $request->validate([
             'name' => 'sometimes|required|string|max:255',
@@ -115,9 +115,9 @@ class MyanmarEventCategoryApiController extends Controller
         return response()->json($category);
     }
 
-    public function destroy($id)
+    public function destroy($slug)
     {
-        $category = MyanmarEventCategory::findOrFail($id);
+        $category = MyanmarEventCategory::where($slug,'slug')->first();
         $category->delete();
 
         return response()->json(['message' => 'Myanmar Event Category deleted successfully.']);

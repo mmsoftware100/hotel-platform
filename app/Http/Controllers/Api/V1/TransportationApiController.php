@@ -81,9 +81,10 @@ class TransportationApiController extends Controller
         return response()->json($transportation, 201);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $slug)
     {
-        $transportation = Transportation::findOrFail($id);
+        $transportation = Transportation::where('slug', $slug)->first();
+
 
         $validated = $request->validate([
             'name' => 'sometimes|required|string|max:255',
@@ -100,9 +101,10 @@ class TransportationApiController extends Controller
         return response()->json($transportation);
     }
 
-    public function destroy($id)
+    public function destroy($slug)
     {
-        $transportation = Transportation::findOrFail($id);
+        $transportation = Transportation::where('slug', $slug)->first();
+
         $transportation->delete();
 
         return response()->json(['message' => 'Transportation deleted successfully']);

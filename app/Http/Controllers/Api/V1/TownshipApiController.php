@@ -86,9 +86,10 @@ class TownshipApiController extends Controller
         return response()->json($township, 201);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $slug)
     {
-        $township = Township::findOrFail($id);
+        $township = Township::where('slug', $slug)->first();
+
 
         $validated = $request->validate([
             'name' => 'sometimes|required|string|max:255',

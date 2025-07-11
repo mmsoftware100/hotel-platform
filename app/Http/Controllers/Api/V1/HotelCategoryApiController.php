@@ -95,9 +95,9 @@ class HotelCategoryApiController extends Controller
         return response()->json($hotelCategory, 201);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $slug)
     {
-        $hotelCategory = HotelCategory::findOrFail($id);
+        $hotelCategory = HotelCategory::where($slug,'slug')->first();
 
         $validated = $request->validate([
             'name' => 'sometimes|required|string|max:255',
@@ -113,9 +113,9 @@ class HotelCategoryApiController extends Controller
         return response()->json($hotelCategory);
     }
 
-    public function destroy($id)
+    public function destroy($slug)
     {
-        $hotelCategory = HotelCategory::findOrFail($id);
+        $hotelCategory = HotelCategory::where($slug,'slug')->first();
         $hotelCategory->delete();
 
         return response()->json(['message' => 'Hotel Category deleted successfully']);
