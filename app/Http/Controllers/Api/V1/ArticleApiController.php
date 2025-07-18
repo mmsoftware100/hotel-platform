@@ -16,22 +16,21 @@ class ArticleApiController extends Controller
             'per_page' => 'integer|min:1|max:100',
             'q' => 'nullable|string',
             'article_category_id' => 'nullable|integer|exists:article_categories,id',
-            'is_featured' => 'nullable|boolean', // New validation for boolean
+            'is_featured' => 'nullable|boolean',
         ]);
 
-        // Use validated inputs or fallback
         $page = $validated['page'] ?? 1;
-        $perPage = $validated['per_page'] ?? 2;
+        $perPage = $validated['per_page'] ?? 10;
         $search = $validated['q'] ?? null;
         $categoryId = $validated['article_category_id'] ?? null;
         $isFeatured = $validated['is_featured'] ?? null;
 
-             // Number of items per page
+        // Start building query
+        $query = Article::query();
 
-             
-            $articles = Article::paginate($perPage);
-
-            return response()->json($articles);
+        // Apply search filter
+        if ($search) {
+            $query->where('name', 'like', '%' . $search . '%');
         }
 
         // Category filter
@@ -39,30 +38,30 @@ class ArticleApiController extends Controller
             $query->where('article_category_id', $categoryId);
         }
 
-
-
-        // Apply is_featured filter
+        // Featured filter
         if (!is_null($isFeatured)) {
             $query->where('is_featured', $isFeatured);
         }
 
-        $total = $query->count(); // total after filters applied
+        // Get total after filters
+        $total = $query->count();
 
+        // Get paginated data
         $articles = $query->skip(($page - 1) * $perPage)
-            ->take($perPage)
-            ->get();
+                        ->take($perPage)
+                        ->get();
 
-        $response = [
+        // JSON response
+        return response()->json([
             'data' => $articles,
             'meta' => [
                 'current_page' => $page,
                 'per_page' => $perPage,
                 'total' => $total,
             ],
-        ];
-
-        return response()->json($response);
+        ]);
     }
+
 
 
 
@@ -107,13 +106,6 @@ class ArticleApiController extends Controller
         if (!$article) {
             return response()->json(['message' => 'Article not found'], 404);
         }
-        public function detail($slug)
-            {
-                // with('category')->
-                $article = Article::with('category')->where('slug', $slug)->first();
-                if ($article) {
-                    return response()->json($article);
-                }
-                return response()->json(['message' => 'Article not found'], 404);
-            }
+    }
+
 }
