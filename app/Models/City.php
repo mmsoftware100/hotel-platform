@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class City extends Model
 {
@@ -28,22 +29,7 @@ class City extends Model
         'is_featured' => 'boolean'
     ];
 
-    /**
-     * Get the region this city belongs to
-     */
-    public function region(): BelongsTo
-    {
-        return $this->belongsTo(Region::class);
-    }
 
-    /**
-     * Get all attractions for this city
-     */
-
-
-    /**
-     * Scope for capital cities
-     */
     public function scopeCapitals($query)
     {
         return $query->where('is_capital', true);
@@ -70,4 +56,10 @@ class City extends Model
     {
         return $this->hasMany(Attraction::class);
     }
+
+    public function region():BelongsTo
+    {
+        return $this->belongsTo(Region::class);
+    }
+
 }

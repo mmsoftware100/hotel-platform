@@ -57,3 +57,5 @@ protected function getFooterWidgets(): array
 
     // to hide
     protected static bool $shouldRegisterNavigation = false;
+
+    <!-- belongto x hasone  -->

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Region extends Model
@@ -37,13 +38,9 @@ class Region extends Model
     {
         return $this->belongsTo(Division::class);
     }
-
-    /**
-     * Get all cities for this region
-     */
-    public function cities(): HasMany
+    public function cities(): BelongsToMany
     {
-        return $this->hasMany(City::class);
+        return $this->belongsToMany(City::class);
     }
 
     public function townships()
