@@ -41,4 +41,31 @@ class Article extends Model
     {
         return $this->belongsTo(ArticleCategory::class, 'article_category_id');
     }
+    public function destination()
+    {
+         return $this->belongsTo(Destination::class,'destination_id');
+    }
+
+    public function division(){
+         return $this->belongsTo(Division::class,'division_id');
+    }
+
+    public function region(){
+        return $this->belongsTo(Region::class,'region_id');
+    }
+
+    public function city(){
+        return $this->belongsTo(City::class,'city_id');
+    }
+
+    public function township(){
+        return $this->belongsTo(Township::class,'township_id');
+    }
+    public function village(){
+        return $this->belongsTo(Village::class,'village_id');
+    }
+
+    public function attraction_category(){
+        return $this->belongsTo(AttractionCategory::class,'attraction_category_id');
+    }
 }

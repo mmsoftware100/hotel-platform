@@ -62,7 +62,7 @@ class DatabaseSeeder extends Seeder
 
 
             ArticleCategorySeeder::class,
-            ArticleSeeder::class,
+            // ArticleSeeder::class,
 
         ]);
     }

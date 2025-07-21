@@ -62,4 +62,12 @@ class Destination extends Model
     {
         return $this->belongsTo(DestinationCategory::class, 'destination_category_id');
     }
+
+    public function articles(){
+        return $this->hasMany(Article::class);
+    }
+
+    public function attractions(){
+        return $this->hasMany(Attraction::class);
+    }
 }

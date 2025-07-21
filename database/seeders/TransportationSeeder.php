@@ -17,7 +17,7 @@ class TransportationSeeder extends Seeder
         Transportation::firstOrCreate([
             'name' => 'Transportation A',
             'slug' => 'transportation-a',
-            'transportation_category_id' => null, // Assuming this is nullable
+            'transportation_category_id' => 1,
             'image_url' => 'https://tourism-mm.vercel.app/myanmar.png',
             'description' => 'Welcome to Transportation A',
             'is_active' => true,
@@ -25,7 +25,7 @@ class TransportationSeeder extends Seeder
         ]);
         Transportation::firstOrCreate([
             'name' => 'Transportation B',
-            'transportation_category_id' => null, // Assuming this is nullable
+            'transportation_category_id' => 1,
             'slug' => 'transportation-b',
             'image_url' => 'https://tourism-mm.vercel.app/myanmar.png',
             'description'=> 'Welcome to Transportation B',
@@ -35,6 +35,7 @@ class TransportationSeeder extends Seeder
 
         Transportation::firstOrCreate([
             'name' => 'Transportation C',
+            'transportation_category_id' => 1,
             'slug' => 'transportation-c',
             'image_url' => 'https://tourism-mm.vercel.app/myanmar.png',
             'description' => 'Welcome to Transportation C',

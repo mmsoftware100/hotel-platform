@@ -53,41 +53,33 @@ class Attraction extends Model
         return $this->belongsTo(AttractionCategory::class, 'attraction_category_id');
     }
 
-    /**
-     * Get the division the attraction is in.
-     */
+    public function destination(){
+        return $this->belongsTo(Destination::class,'destination_id');
+    }
+
     public function division()
     {
         return $this->belongsTo(Division::class);
     }
 
-    /**
-     * Get the region the attraction is in.
-     */
+
     public function region()
     {
         return $this->belongsTo(Region::class);
     }
 
-    /**
-     * Get the city the attraction is in.
-     */
+
     public function city()
     {
         return $this->belongsTo(City::class);
     }
 
-    /**
-     * Get the township the attraction is in.
-     */
+
     public function township()
     {
         return $this->belongsTo(Township::class);
     }
 
-    /**
-     * Get the village the attraction is in (if applicable).
-     */
     public function village()
     {
         return $this->belongsTo(Village::class);

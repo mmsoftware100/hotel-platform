@@ -35,13 +35,19 @@ class Village extends Model
     {
         return $this->hasMany(Culture::class);
     }
-    public function attractions(): HasMany
-    {
-        return $this->hasMany(Attraction::class);
-    }
+
     public function MyanmarEvents(): HasMany
     {
         return $this->hasMany(MyanmarEvent::class);
+    }
+
+    public function articles()
+    {
+        return $this->hasMany(Article::class);
+    }
+
+    public function attractions(){
+        return $this->hasMany(Attraction::class);
     }
 }
 

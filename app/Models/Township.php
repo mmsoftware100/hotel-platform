@@ -37,4 +37,12 @@ class Township extends Model
     {
         return $this->hasMany(Village::class);
     }
+    public function articles()
+    {
+        return $this->hasMany(Article::class);
+    }
+
+    public function attractions(){
+        return $this->hasMany(Attraction::class);
+    }
 }

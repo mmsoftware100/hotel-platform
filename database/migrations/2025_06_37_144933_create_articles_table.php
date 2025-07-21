@@ -31,7 +31,7 @@ return new class extends Migration
             $table->foreignId('city_id')->nullable()->constrained('cities', 'id')->restrictOnUpdate()->restrictOnDelete();
             $table->foreignId('township_id')->nullable()->constrained('townships', 'id')->restrictOnUpdate()->restrictOnDelete();
             $table->foreignId('village_id')->nullable()->constrained('villages', 'id')->restrictOnUpdate()->restrictOnDelete();
-            $table->foreignId('attraction_category_id')->nullable()->constrained('attraction_categories', 'id')->restrictOnUpdate()->restrictOnDelete();
+            // $table->foreignId('attraction_category_id')->nullable()->constrained('attraction_categories', 'id')->restrictOnUpdate()->restrictOnDelete();
 
             $table->softDeletes();
             $table->timestamps();

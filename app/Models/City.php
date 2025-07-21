@@ -39,10 +39,7 @@ class City extends Model
     /**
      * Get all attractions for this city
      */
-    public function attractions(): HasMany
-    {
-        return $this->hasMany(Attraction::class);
-    }
+
 
     /**
      * Scope for capital cities
@@ -58,8 +55,19 @@ class City extends Model
     public function scopeTouristDestinations($query)
     {
         return $query->whereIn('slug', [
-            'yangon', 'mandalay', 'bagan', 'inle-lake', 
+            'yangon', 'mandalay', 'bagan', 'inle-lake',
             'ngapali', 'pyin-oo-lwin', 'hsipaw'
         ]);
+    }
+
+
+    public function articles(): HasMany
+    {
+        return $this->hasMany(Article::class);
+    }
+
+    public function attractions(): HasMany
+    {
+        return $this->hasMany(Attraction::class);
     }
 }

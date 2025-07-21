@@ -8,15 +8,18 @@ use App\Models\Article;
 use Filament\Forms;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Filament\Forms\Components\{TextInput, Textarea, Toggle, Select, FileUpload};
+use Filament\Forms\Components\{Fieldset, TextInput, Textarea, Toggle, Select, FileUpload, Grid};
+use Filament\Forms\Set;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\BooleanColumn;
+use Illuminate\Support\Str;
 class ArticleResource extends Resource
 {
     protected static ?string $navigationGroup = 'Articles';
@@ -29,49 +32,142 @@ class ArticleResource extends Resource
 
     public static function form(Form $form): Form
     {
-            return $form->schema([
-            TextInput::make('name')->required(),
-            TextInput::make('slug')->unique(ignoreRecord: true),
-            FileUpload::make('image_url')->image()->directory('articles'),
-            // Textarea::make('description')->rows(5),
-            RichEditor::make('description')
-                ->required(),
-            Toggle::make('is_active')->default(true),
-            Toggle::make('is_featured')->default(true),
-            Select::make('article_category_id')
-                ->relationship('category', 'name') // assumes `ArticleCategory` has a `name` column
-                ->searchable()
-                ->nullable(),
-                TextInput::make('google_map_label')->nullable(),
-                TextInput::make('google_map_link')->nullable(),
-                Select::make('destination_id')
-                    ->relationship('destination', 'name')
-                    ->searchable()
-                    ->nullable(),
-                Select::make('division_id')
-                    ->relationship('division', 'name')
-                    ->searchable()
-                    ->nullable(),
-                Select::make('region_id')
-                    ->relationship('region', 'name')
-                    ->searchable()
-                    ->nullable(),
-                Select::make('city_id')
-                    ->relationship('city', 'name')
-                    ->searchable()
-                    ->nullable(),
-                Select::make('township_id')
-                    ->relationship('township', 'name')
-                    ->searchable()
-                    ->nullable(),
-                Select::make('village_id')
-                    ->relationship('village', 'name')
-                    ->searchable()
-                    ->nullable(),
-                Select::make('attraction_category_id')
-                    ->relationship('attractionCategory', 'name')
-                    ->searchable()
-                    ->nullable(),
+        return $form->schema([
+                Fieldset::make('')
+                    ->schema([
+                        TextInput::make('name')
+                            ->required()
+                            ->live(onBlur: true)
+                            ->afterStateUpdated(function (Get $get, Set $set, ?string $old, ?string $state) {
+                                if (filled($state)) {
+                                    if ($get('slug') === null || Str::slug($old) === $get('slug')) {
+                                        $set('slug', Str::slug($state));
+                                    }
+                                }
+                            }),
+                        TextInput::make('slug')
+                            ->required()
+                            ->unique(ignoreRecord: true)
+                            ->helperText('This will be automatically generated from the name.'),
+
+                        TextInput::make('google_map_label')->nullable(),
+
+                        TextInput::make('google_map_link')->nullable(),
+
+                        Grid::make(3)->schema([
+                            Select::make('article_category_id')
+                            ->relationship('category', 'name')
+                            ->preload()
+                            ->searchable()
+                            ->nullable(),
+
+
+                            Select::make('destination_id')
+                                ->relationship('destination', 'name')
+                                ->preload()
+                                ->searchable()
+                                ->nullable(),
+                            Select::make('division_id')
+                                ->preload()
+                                ->relationship('division', 'name')
+                                ->searchable()
+                                ->nullable(),
+                            Select::make('region_id')
+                                ->relationship('region', 'name')
+                                ->preload()
+                                ->searchable()
+                                ->nullable(),
+                            Select::make('city_id')
+                                ->relationship('city', 'name')
+                                ->preload()
+                                ->searchable()
+                                ->nullable(),
+                            Select::make('township_id')
+                                ->relationship('township', 'name')
+                                ->preload()
+                                ->searchable()
+                                ->nullable(),
+                            Select::make('village_id')
+                                ->relationship('village', 'name')
+                                ->preload()
+                                ->searchable()
+                                ->nullable(),
+                            Select::make('attraction_category_id')
+                                ->relationship('attractionCategory', 'name')
+                                // ->preload()
+                                ->searchable()
+                                ->nullable(),
+                        ]),
+
+                        Toggle::make('is_active')
+                            ->label('Active')
+                            ->default(true)
+                            ->inline(false)
+                            ->helperText('Toggle to activate or deactivate this category.'),
+
+                        Toggle::make('is_featured')
+                            ->label('Featured')
+                            ->default(true)
+                            ->inline(false)
+                            ->helperText('Toggle to activate or deactivate this category.'),
+
+
+                ]),
+                Fieldset::make('Media & Description')
+                    ->schema([
+                        Grid::make(1)->schema([
+
+                            RichEditor::make('description')
+                                ->label('Description')
+                                ->nullable()
+                                ->helperText('Provide a detailed description.'),
+
+                            FileUpload::make('image_url')
+                                ->label('Cover Photo')
+                                ->image()
+                                ->directory('Article')
+                                ->acceptedFileTypes(['image/jpeg', 'image/jpg', 'image/png'])
+                                ->imageEditor()
+                                ->helperText('Supported formats: JPG, PNG'),
+                        ]),
+                ]),
+
+
+
+            // Select::make('article_category_id')
+            //     ->relationship('category', 'name') // assumes `ArticleCategory` has a `name` column
+            //     ->searchable()
+            //     ->nullable(),
+            //     TextInput::make('google_map_label')->nullable(),
+            //     TextInput::make('google_map_link')->nullable(),
+            //     Select::make('destination_id')
+            //         ->relationship('destination', 'name')
+            //         ->searchable()
+            //         ->nullable(),
+            //     Select::make('division_id')
+            //         ->relationship('division', 'name')
+            //         ->searchable()
+            //         ->nullable(),
+            //     Select::make('region_id')
+            //         ->relationship('region', 'name')
+            //         ->searchable()
+            //         ->nullable(),
+            //     Select::make('city_id')
+            //         ->relationship('city', 'name')
+            //         ->searchable()
+            //         ->nullable(),
+            //     Select::make('township_id')
+            //         ->relationship('township', 'name')
+            //         ->searchable()
+            //         ->nullable(),
+            //     Select::make('village_id')
+            //         ->relationship('village', 'name')
+            //         ->searchable()
+            //         ->nullable(),
+            //     Select::make('attraction_category_id')
+            //         ->relationship('attractionCategory', 'name')
+            //         ->searchable()
+            //         ->nullable(),
         ]);
     }
 
@@ -94,7 +190,7 @@ public static function table(Table $table): Table
             TextColumn::make('city.name')->label('City'),
             TextColumn::make('township.name')->label('Township'),
             TextColumn::make('village.name')->label('Village'),
-            TextColumn::make('attractionCategory.name')->label('Attraction Category'),
+            // TextColumn::make('attractionCategory.name')->label('Attraction Category'),
 
         ])
         ->filters([
