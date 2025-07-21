@@ -77,7 +77,7 @@ class AttractionResource extends Resource
                         TextInput::make('google_map_link')->nullable(),
 
                         Grid::make(3)->schema([
-                            Select::make('article_category_id')
+                            Select::make('attraction_category_id')
                             ->relationship('category', 'name')
                             ->preload()
                             ->searchable()

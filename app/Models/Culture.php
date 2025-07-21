@@ -38,6 +38,10 @@ class Culture extends Model
     {
         return $this->belongsTo(CultureCategory::class, 'culture_category_id');
     }
+    public function destination()
+    {
+        return $this->belongsTo(Destination::class);
+    }
 
     public function division()
     {
@@ -66,6 +70,6 @@ class Culture extends Model
 
     public function cultureCategory()
     {
-        return $this->belongsTo(CultureCategory::class, 'culture_category_id');
+        return $this->belongsTo(CultureCategory::class);
     }
 }

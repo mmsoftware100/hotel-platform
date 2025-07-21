@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -51,5 +52,7 @@ class Division extends Model
     public function attractions(){
         return $this->hasMany(Attraction::class);
     }
-
+    public function cultures(): BelongsToMany{
+        return $this->belongsToMany(Culture::class);
+    }
 }

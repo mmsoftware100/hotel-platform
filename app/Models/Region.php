@@ -57,4 +57,8 @@ class Region extends Model
         return $this->hasMany(Attraction::class);
     }
 
+     public function cultures(): BelongsToMany{
+        return $this->belongsToMany(Culture::class);
+    }
+
 }
