@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class HotelCategory extends Model
 {
+
+    use HasFactory;
     protected $fillable = [
         'name',
         'slug',
@@ -21,5 +23,8 @@ class HotelCategory extends Model
         'is_featured' => 'boolean',
     ];
 
-    use HasFactory;
+    public function hotels(){
+        return $this->hasMany(Hotel::class);
+    }
+
 }

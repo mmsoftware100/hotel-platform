@@ -116,7 +116,7 @@ class CityResource extends Resource
                             FileUpload::make('image_url')
                                 ->label('Cover Photo')
                                 ->image()
-                                ->directory('Article')
+                                ->directory('Cities')
                                 ->acceptedFileTypes(['image/jpeg', 'image/jpg', 'image/png'])
                                 ->imageEditor()
                                 ->helperText('Supported formats: JPG, PNG'),

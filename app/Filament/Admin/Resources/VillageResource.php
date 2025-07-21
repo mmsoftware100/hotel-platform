@@ -6,12 +6,16 @@ use App\Filament\Admin\Resources\VillageResource\Pages;
 use App\Filament\Admin\Resources\VillageResource\RelationManagers;
 use App\Models\Village;
 use Filament\Forms;
+use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
+use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\BooleanColumn;
@@ -20,6 +24,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Str;
 
 class VillageResource extends Resource
 {
@@ -43,37 +48,69 @@ class VillageResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('name')
-                    ->required()
-                    ->reactive()
-                    ->afterStateUpdated(fn($state, callable $set) =>
-                        $set('slug', \Illuminate\Support\Str::slug($state))),
-                TextInput::make('slug')
-                    ->required()
-                    ->unique(ignoreRecord: true),
-                FileUpload::make('image_url')
-                    ->image()
-                    ->directory('villages')
-                    ->nullable(),
-                RichEditor::make('description')
-                ->required(),
-                Toggle::make('is_active')
-                    ->default(true)
-                    ->label('Active'),
-                Toggle::make('is_featured')
-                    ->default(false)
-                    ->label('Featured'),
-                Select::make('township_id')
-                    ->label('Township')
-                    ->relationship('township', 'name')
-                    ->required(),
-                TextInput::make('google_map_label')
-                    ->label('Google Map Label')
-                    ->nullable(),
-                TextInput::make('google_map_link')
-                    // ->url()
-                    ->label('Google Map URL')
-                    ->nullable(),
+                Fieldset::make('')
+                    ->schema([
+                        TextInput::make('name')
+                            ->required()
+                            ->live(onBlur: true)
+                            ->afterStateUpdated(function (Get $get, Set $set, ?string $old, ?string $state) {
+                                if (filled($state)) {
+                                    if ($get('slug') === null || Str::slug($old) === $get('slug')) {
+                                        $set('slug', Str::slug($state));
+                                    }
+                                }
+                            }),
+                        TextInput::make('slug')
+                            ->required()
+                            ->unique(ignoreRecord: true)
+                            ->helperText('This will be automatically generated from the name.'),
+
+                        TextInput::make('google_map_label')->nullable(),
+
+                        TextInput::make('google_map_link')->nullable(),
+
+                        Grid::make(3)->schema([
+
+                            Select::make('township_id')
+                                ->relationship('township', 'name')
+                                ->preload()
+                                ->searchable()
+                                ->nullable(),
+
+                        ]),
+
+                        Toggle::make('is_active')
+                            ->label('Active')
+                            ->default(true)
+                            ->inline(false)
+                            ->helperText('Toggle to activate or deactivate this category.'),
+
+                        Toggle::make('is_featured')
+                            ->label('Featured')
+                            ->default(true)
+                            ->inline(false)
+                            ->helperText('Toggle to activate or deactivate this category.'),
+
+
+                ]),
+                Fieldset::make('Media & Description')
+                    ->schema([
+                        Grid::make(1)->schema([
+
+                            RichEditor::make('description')
+                                ->label('Description')
+                                ->nullable()
+                                ->helperText('Provide a detailed description.'),
+
+                            FileUpload::make('image_url')
+                                ->label('Cover Photo')
+                                ->image()
+                                ->directory('Villages')
+                                ->acceptedFileTypes(['image/jpeg', 'image/jpg', 'image/png'])
+                                ->imageEditor()
+                                ->helperText('Supported formats: JPG, PNG'),
+                        ]),
+                ]),
             ]);
     }
 

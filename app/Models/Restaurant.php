@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Restaurant extends Model
 {
+    use HasFactory;
     protected $fillable = [
         'name',
         'slug',
@@ -19,12 +20,44 @@ class Restaurant extends Model
         'region_id',
         'city_id',
         'township_id',
-        'village_id'
+        'village_id',
+        'restaurant_category_id'
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
         'is_featured' => 'boolean',
     ];
-    use HasFactory;
+
+
+    public function category()
+    {
+         return $this->belongsTo(RestaurantCategory::class,'restaurant_category_id');
+    }
+
+    public function destination()
+    {
+         return $this->belongsTo(Destination::class,'destination_id');
+    }
+
+    public function division(){
+         return $this->belongsTo(Division::class,'division_id');
+    }
+
+    public function region(){
+        return $this->belongsTo(Region::class,'region_id');
+    }
+
+    public function city(){
+        return $this->belongsTo(City::class,'city_id');
+    }
+
+    public function township(){
+        return $this->belongsTo(Township::class,'township_id');
+    }
+    public function village(){
+        return $this->belongsTo(Village::class,'village_id');
+    }
+
+
 }

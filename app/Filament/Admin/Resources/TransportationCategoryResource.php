@@ -33,7 +33,7 @@ class TransportationCategoryResource extends Resource
     protected static ?string $label = 'Transportation Category';
     protected static ?string $pluralLabel = 'Transportation Categories';
     protected static ?int $navigationSort = 1410;
-    protected static ?string $model = Transportation::class;
+    protected static ?string $model = TransportationCategory::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 

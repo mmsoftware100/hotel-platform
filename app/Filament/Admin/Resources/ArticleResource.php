@@ -92,11 +92,11 @@ class ArticleResource extends Resource
                                 ->preload()
                                 ->searchable()
                                 ->nullable(),
-                            Select::make('attraction_category_id')
-                                ->relationship('attractionCategory', 'name')
-                                // ->preload()
-                                ->searchable()
-                                ->nullable(),
+                            // Select::make('attraction_category_id')
+                            //     ->relationship('attractionCategory', 'name')
+                            //     // ->preload()
+                            //     ->searchable()
+                            //     ->nullable(),
                         ]),
 
                         Toggle::make('is_active')
@@ -125,7 +125,7 @@ class ArticleResource extends Resource
                             FileUpload::make('image_url')
                                 ->label('Cover Photo')
                                 ->image()
-                                ->directory('Article')
+                                ->directory('Articles')
                                 ->acceptedFileTypes(['image/jpeg', 'image/jpg', 'image/png'])
                                 ->imageEditor()
                                 ->helperText('Supported formats: JPG, PNG'),

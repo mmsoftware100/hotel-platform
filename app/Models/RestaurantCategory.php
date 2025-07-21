@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class RestaurantCategory extends Model
 {
+    use HasFactory;
     protected $fillable = [
         'name',
         'slug',
@@ -20,5 +21,9 @@ class RestaurantCategory extends Model
         'is_active' => 'boolean',
         'is_featured' => 'boolean',
     ];
-    use HasFactory;
+
+    public function restaurants(){
+        return $this->belongsToMany(Restaurant::class);
+    }
+
 }

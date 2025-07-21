@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class TransportationCategory extends Model
 {
+    use HasFactory;
     protected $fillable = [
         'name',
         'slug',
@@ -19,7 +20,7 @@ class TransportationCategory extends Model
         'is_active' => 'boolean',
         'is_featured' => 'boolean',
     ];
-    use HasFactory;
+
 
     public function transportations()
     {

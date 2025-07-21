@@ -65,7 +65,7 @@ class Article extends Model
         return $this->belongsTo(Village::class,'village_id');
     }
 
-    public function attraction_category(){
-        return $this->belongsTo(AttractionCategory::class,'attraction_category_id');
-    }
+    // public function attraction_category(){
+    //     return $this->belongsTo(AttractionCategory::class,'attraction_category_id');
+    // }
 }

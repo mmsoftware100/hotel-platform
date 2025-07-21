@@ -61,7 +61,7 @@ class Destination extends Model
 
     public function category()
     {
-        return $this->belongsTo(DestinationCategory::class, 'destination_category_id');
+        return $this->belongsTo(DestinationCategory::class,'destination_category_id');
     }
 
     public function articles(){
@@ -73,5 +73,12 @@ class Destination extends Model
     }
     public function cultures(): BelongsToMany{
         return $this->belongsToMany(Culture::class);
+    }
+    public function hotels(){
+        return $this->belongsToMany(Hotel::class);
+    }
+
+        public function myanmarEvents(){
+        return $this->belongsToMany(MyanmarEvent::class);
     }
 }

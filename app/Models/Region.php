@@ -61,4 +61,15 @@ class Region extends Model
         return $this->belongsToMany(Culture::class);
     }
 
+    public function destinations():BelongsToMany{
+        return $this->belongsToMany(Destination::class);
+    }
+    public function hotels(){
+        return $this->belongsToMany(Hotel::class);
+    }
+    public function myanmarEvents(){
+        return $this->belongsToMany(MyanmarEvent::class);
+    }
+
 }
+

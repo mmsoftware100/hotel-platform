@@ -49,6 +49,11 @@ class Village extends Model
     public function attractions(){
         return $this->hasMany(Attraction::class);
     }
+    public function hotels(){
+        return $this->belongsToMany(Hotel::class);
+    }
+
+
 }
 
 

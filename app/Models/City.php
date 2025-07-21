@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -60,6 +61,16 @@ class City extends Model
     public function region():BelongsTo
     {
         return $this->belongsTo(Region::class);
+    }
+
+    public function destinations():BelongsToMany{
+        return $this->belongsToMany(Destination::class);
+    }
+    public function hotels(){
+        return $this->belongsToMany(Hotel::class);
+    }
+    public function myanmarEvents(){
+        return $this->belongsToMany(MyanmarEvent::class);
     }
 
 }

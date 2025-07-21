@@ -29,4 +29,32 @@ class Hotel extends Model
         'is_active' => 'boolean',
         'is_featured' => 'boolean',
     ];
+
+    public function category(){
+        return $this->belongsTo(HotelCategory::class,'hotel_category_id');
+    }
+
+    public function destination(){
+        return $this->belongsTo(Destination::class);
+    }
+
+    public function division(){
+        return $this->belongsTo(Division::class);
+    }
+    public function region(){
+        return $this->belongsTo(Region::class);
+    }
+
+    public function city(){
+        return $this->belongsTo(City::class);
+    }
+
+    public function township(){
+        return $this->belongsTo(Township::class);
+    }
+
+    public function village(){
+        return $this->belongsTo(Village::class);
+    }
+
 }
