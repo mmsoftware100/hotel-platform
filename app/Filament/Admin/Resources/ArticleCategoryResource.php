@@ -107,7 +107,7 @@ class ArticleCategoryResource extends Resource
                             FileUpload::make('image_url')
                                 ->label('Cover Photo')
                                 ->image()
-                                ->directory('articles')
+                                ->directory('ArticleCategories')
                                 ->acceptedFileTypes(['image/jpeg', 'image/jpg', 'image/png'])
                                 ->imageEditor()
                                 ->helperText('Supported formats: JPG, PNG'),

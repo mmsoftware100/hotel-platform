@@ -7,9 +7,12 @@ use App\Filament\Admin\Resources\AttractionCategoryResource\RelationManagers;
 use App\Models\AttractionCategory;
 use Dom\Text;
 use Filament\Forms;
+use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\BooleanColumn;
@@ -20,6 +23,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Forms\Set;
 use Illuminate\Support\Str;
 
 class AttractionCategoryResource extends Resource
@@ -36,31 +40,55 @@ class AttractionCategoryResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('name')
-                ->required()
-                ->reactive()
-                ->afterStateUpdated(fn($state, callable $set) =>
-                $set('slug', Str::slug($state))),
+                Fieldset::make('')
+                        ->schema([
+                            TextInput::make('name')
+                                ->required()
+                                ->live(onBlur: true)
+                                ->afterStateUpdated(function (Get $get, Set $set, ?string $old, ?string $state) {
+                                    if (filled($state)) {
+                                        if ($get('slug') === null || Str::slug($old) === $get('slug')) {
+                                            $set('slug', Str::slug($state));
+                                        }
+                                    }
+                                }),
+                            TextInput::make('slug')
+                                ->required()
+                                ->unique(ignoreRecord: true)
+                                ->helperText('This will be automatically generated from the name.'),
 
-                TextInput::make('slug')
-                ->required()
-                ->unique(ignoreRecord: true),
+                            Toggle::make('is_active')
+                                ->label('Active')
+                                ->default(true)
+                                ->inline(false)
+                                ->helperText('Toggle to activate or deactivate this category.'),
 
-                FileUpload::make('image_url')
-                    ->image()
-                    ->directory('attractions')
-                    ->nullable(),
+                            Toggle::make('is_featured')
+                                ->label('Featured')
+                                ->default(true)
+                                ->inline(false)
+                                ->helperText('Toggle to activate or deactivate this category.'),
 
-                RichEditor::make('description')
-                ->required(),
+                    ]),
 
-                Toggle::make('is_active')
-                    ->default(true)
-                    ->label('Active'),
+                    Fieldset::make('Media & Description')
+                        ->schema([
+                            Grid::make(1)->schema([
 
-                Toggle::make('is_featured')
-                    ->default(true)
-                    ->label('Featured'),
+                                RichEditor::make('description')
+                                    ->label('Description')
+                                    ->nullable()
+                                    ->helperText('Provide a detailed description.'),
+
+                                FileUpload::make('image_url')
+                                    ->label('Cover Photo')
+                                    ->image()
+                                    ->directory('AttractionCategories')
+                                    ->acceptedFileTypes(['image/jpeg', 'image/jpg', 'image/png'])
+                                    ->imageEditor()
+                                    ->helperText('Supported formats: JPG, PNG'),
+                            ]),
+                        ]),
             ]);
     }
 

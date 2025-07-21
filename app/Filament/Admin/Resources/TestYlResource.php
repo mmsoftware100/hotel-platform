@@ -23,10 +23,14 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class TestYlResource extends Resource
 {
     protected static ?string $model = Article::class;
-    
+
     protected static ?string $label = 'Ye Lin';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
+    // to hide
+    protected static bool $shouldRegisterNavigation = false;
+
 
     public static function form(Form $form): Form
     {

@@ -54,8 +54,6 @@ protected function getFooterWidgets(): array
 } -->
 
 
-filament form မှာ bug တွေရှိတယ်။ name ဖည့်ရင် slug text box မှာ အလိုလိုဖည့်သွားပေမယ့်။ Name text box မှာ backspace effect ဝင်နေတယ်။
 
-google map field တွေကို ရိုးရိုး text အနေနဲ့ပဲထည့်ထားတယ်။ 
-
-
+    // to hide
+    protected static bool $shouldRegisterNavigation = false;
