@@ -59,7 +59,31 @@ class ArticleResource extends Resource
                             ->relationship('category', 'name')
                             ->preload()
                             ->searchable()
-                            ->nullable(),
+                            ->nullable()
+                                ->createOptionForm([
+                                    TextInput::make('name')
+                                        ->label('Category Name')
+                                        ->required()
+                                        ->live(onBlur: true)
+                                        ->afterStateUpdated(function (Get $get, Set $set, ?string $old, ?string $state) {
+                                            if (filled($state)) {
+                                                if ($get('slug') === null || Str::slug($old) === $get('slug')) {
+                                                    $set('slug', Str::slug($state));
+                                                }
+                                            }
+                                        }),
+
+                                    TextInput::make('slug')
+                                        ->label('Category Slug')
+                                        ->required()
+                                        ->unique(ignoreRecord: true)
+                                        ->helperText('Slug used in URLs. Automatically generated.'),
+
+                                    Toggle::make('active')
+                                        ->label('Active')
+                                        ->default(true)
+                                        ->helperText('Toggle to enable or disable this item.'),
+                                ]),
 
 
                             Select::make('destination_id')
