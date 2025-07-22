@@ -14,14 +14,14 @@ class ArticleCategoryLiteResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        // return parent::toArray($request);
-        return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'slug' => $this->slug,
-            'image_url' => $this->image_url,
-            'description' => $this->description,
-            'is_active' => $this->is_active,
-        ];
+        return parent::toArray($request);
+        // return [
+        //     'id' => $this->id,
+        //     'name' => $this->name,
+        //     'slug' => $this->slug,
+        //     'image_url' => $this->image_url,
+        //     'description' => $this->description,
+        //     'is_active' => $this->is_active,
+        // ];
     }
 }
