@@ -5,6 +5,10 @@ namespace App\Filament\Admin\Resources;
 use App\Filament\Admin\Resources\ArticleResource\Pages;
 use App\Filament\Admin\Resources\ArticleResource\RelationManagers;
 use App\Models\Article;
+use App\Models\City;
+use App\Models\Region;
+use App\Models\Township;
+use App\Models\Village;
 use Filament\Forms;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Form;
@@ -14,12 +18,19 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Filament\Forms\Components\{Fieldset, TextInput, Textarea, Toggle, Select, FileUpload, Grid};
+use Filament\Forms\Components\{Fieldset, TextInput, Textarea, Toggle, Select, FileUpload, Grid, Section};
 use Filament\Forms\Set;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\BooleanColumn;
 use Illuminate\Support\Str;
+// use Filament\Forms\Components\Actions\Action;
+use Illuminate\Support\Collection;
+use Filament\Forms\Components\View;
+use Filament\Forms\Components\Hidden;
+use PhpParser\Node\Stmt\Label;
+
+
 class ArticleResource extends Resource
 {
     protected static ?string $navigationGroup = 'Articles';
@@ -59,68 +70,196 @@ class ArticleResource extends Resource
                             ->relationship('category', 'name')
                             ->preload()
                             ->searchable()
-                            ->nullable()
-                                ->createOptionForm([
-                                    TextInput::make('name')
-                                        ->label('Category Name')
-                                        ->required()
-                                        ->live(onBlur: true)
-                                        ->afterStateUpdated(function (Get $get, Set $set, ?string $old, ?string $state) {
-                                            if (filled($state)) {
-                                                if ($get('slug') === null || Str::slug($old) === $get('slug')) {
-                                                    $set('slug', Str::slug($state));
-                                                }
-                                            }
-                                        }),
+                            ->nullable(),
 
-                                    TextInput::make('slug')
-                                        ->label('Category Slug')
-                                        ->required()
-                                        ->unique(ignoreRecord: true)
-                                        ->helperText('Slug used in URLs. Automatically generated.'),
-
-                                    Toggle::make('active')
-                                        ->label('Active')
-                                        ->default(true)
-                                        ->helperText('Toggle to enable or disable this item.'),
-                                ]),
-
-
+//destination and 5
                             Select::make('destination_id')
-                                ->relationship('destination', 'name')
-                                ->preload()
-                                ->searchable()
-                                ->nullable(),
-                            Select::make('division_id')
-                                ->preload()
-                                ->relationship('division', 'name')
-                                ->searchable()
-                                ->nullable(),
-                            Select::make('region_id')
-                                ->relationship('region', 'name')
-                                ->preload()
-                                ->searchable()
-                                ->nullable(),
-                            Select::make('city_id')
-                                ->relationship('city', 'name')
-                                ->preload()
-                                ->searchable()
-                                ->nullable(),
-                            Select::make('township_id')
-                                ->relationship('township', 'name')
-                                ->preload()
-                                ->searchable()
-                                ->nullable(),
-                            Select::make('village_id')
-                                ->relationship('village', 'name')
-                                ->preload()
-                                ->searchable()
-                                ->nullable(),
-                            // Select::make('attraction_category_id')
-                            //     ->relationship('attractionCategory', 'name')
-                            //     // ->preload()
-                            //     ->searchable()
-                            //     ->nullable(),
+                                    ->relationship('destination', 'name')
+                                    ->preload()
+                                    ->searchable()
+                                    ->nullable()
+                                    ->createOptionForm([
+                                        Fieldset::make('')
+                                            ->schema([
+                                                TextInput::make('name')
+                                                    ->required()
+                                                    ->live(onBlur: true)
+                                                    ->afterStateUpdated(function (Get $get, Set $set, ?string $old, ?string $state) {
+                                                        if (filled($state)) {
+                                                            if ($get('slug') === null || Str::slug($old) === $get('slug')) {
+                                                                $set('slug', Str::slug($state));
+                                                            }
+                                                        }
+                                                    }),
+                                                TextInput::make('slug')
+                                                    ->required()
+                                                    ->unique(ignoreRecord: true)
+                                                    ->helperText('This will be automatically generated from the name.'),
+
+                                                TextInput::make('google_map_label')->nullable(),
+
+                                                TextInput::make('google_map_link')->nullable(),
+
+                                                Grid::make(3)->schema([
+                                                    Select::make('destination_category_id')
+                                                    ->relationship('category', 'name')
+                                                    ->preload()
+                                                    ->searchable()
+                                                    ->nullable(),
+
+                                                    Select::make('division_id')
+                                                        ->preload()
+                                                        ->relationship('division', 'name')
+                                                        ->searchable()
+                                                        ->nullable(),
+                                                    Select::make('region_id')
+                                                        ->relationship('region', 'name')
+                                                        ->preload()
+                                                        ->searchable()
+                                                        ->nullable(),
+                                                    Select::make('city_id')
+                                                        ->relationship('city', 'name')
+                                                        ->preload()
+                                                        ->searchable()
+                                                        ->nullable(),
+                                                    Select::make('township_id')
+                                                        ->relationship('township', 'name')
+                                                        ->preload()
+                                                        ->searchable()
+                                                        ->nullable(),
+                                                    Select::make('village_id')
+                                                        ->relationship('village', 'name')
+                                                        ->preload()
+                                                        ->searchable()
+                                                        ->nullable(),
+
+                                                ]),
+
+                                                Toggle::make('is_active')
+                                                    ->label('Active')
+                                                    ->default(true)
+                                                    ->inline(false)
+                                                    ->helperText('Toggle to activate or deactivate this category.'),
+
+                                                Toggle::make('is_featured')
+                                                    ->label('Featured')
+                                                    ->default(true)
+                                                    ->inline(false)
+                                                    ->helperText('Toggle to activate or deactivate this category.'),
+
+
+                                        ]),
+                                        Fieldset::make('Media & Description')
+                                            ->schema([
+                                                Grid::make(1)->schema([
+
+                                                    RichEditor::make('description')
+                                                        ->label('Description')
+                                                        ->nullable()
+                                                        ->helperText('Provide a detailed description.'),
+
+                                                    FileUpload::make('image_url')
+                                                        ->label('Cover Photo')
+                                                        ->image()
+                                                        ->directory('Destinations')
+                                                        ->acceptedFileTypes(['image/jpeg', 'image/jpg', 'image/png'])
+                                                        ->imageEditor()
+                                                        ->helperText('Supported formats: JPG, PNG'),
+                                                ]),
+                                        ]),
+                                    ]),
+
+
+                            Section::make()->schema([
+                                Select::make('division_id')
+                                    ->label('Division')
+                                    ->relationship('division', 'name')
+                                    ->searchable()
+                                    ->preload()
+                                    ->live()
+                                    ->nullable()
+                                    ->afterStateUpdated(function (?string $state, Set $set) {
+                                        if (blank($state)) {
+                                            $set('region_id', null);
+                                        }
+                                    }),
+
+
+                                Select::make('region_id')
+                                    ->label('Region')
+                                    ->options(function (Get $get): Collection {
+                                        $divisionId = $get('division_id');
+                                        if ($divisionId) {
+                                            return Region::where('division_id', $divisionId)->pluck('name', 'id');
+                                        }
+                                        return collect();
+                                    })
+                                    ->searchable()
+                                    ->preload()
+                                    ->live()
+                                    ->disabled(fn(Get $get) => !$get('division_id'))
+                                    ->placeholder('Choose division first')
+                                    ->nullable()
+                                    ->afterStateUpdated(function (?string $state, Set $set) {
+                                        if (blank($state)) {
+                                            $set('city_id', null);
+                                            $set('township_id', null);
+
+                                        }
+                                    }),
+
+
+                                Select::make('city_id')
+                                    ->label('City')
+                                    ->options(function (Get $get): Collection {
+                                        $regionID = $get('region_id');
+                                        if ($regionID) {
+                                            return City::where('region_id', $regionID)->pluck('name', 'id');
+                                        }
+                                        return collect();
+                                    })
+                                    ->searchable()
+                                    ->preload()
+                                    ->live()
+                                    ->disabled(fn(Get $get) => !$get('region_id'))
+                                    ->placeholder('Choose region first')
+                                    ->nullable(),
+
+                                Select::make('township_id')
+                                    ->label('Township')
+                                    ->options(function (Get $get): Collection {
+                                        $regionID = $get('region_id');
+                                        if ($regionID) {
+                                            return Township::where('region_id', $regionID)->pluck('name', 'id');
+                                        }
+                                        return collect();
+                                    })
+                                    ->searchable()
+                                    ->preload()
+                                    ->live()
+                                    ->disabled(fn(Get $get) => !$get('region_id'))
+                                    ->placeholder('Choose region first')
+                                    ->nullable(),
+
+
+                                Select::make('village_id')
+                                    ->label('Village')
+                                    ->options(options: function (Get $get): Collection {
+                                        $villageId = $get('village_id');
+                                        if ($villageId) {
+                                            return Village::where('village_id', $villageId)->pluck('name', 'id');
+                                        }
+                                        return collect();
+                                    })
+                                    ->searchable()
+                                    ->preload()
+                                    ->disabled(fn(Get $get) => !$get('township_id'))
+                                    ->placeholder('Choose Township first')
+                                    ->nullable(),
+
+                            ])->columns(5),
+//destination and 5
+
                         ]),
 
                         Toggle::make('is_active')
@@ -149,51 +288,16 @@ class ArticleResource extends Resource
                             FileUpload::make('image_url')
                                 ->label('Cover Photo')
                                 ->image()
-                                ->directory('Articles')
+                                ->directory('Cultures')
                                 ->acceptedFileTypes(['image/jpeg', 'image/jpg', 'image/png'])
                                 ->imageEditor()
                                 ->helperText('Supported formats: JPG, PNG'),
                         ]),
                 ]),
-
-
-
-            // Select::make('article_category_id')
-            //     ->relationship('category', 'name') // assumes `ArticleCategory` has a `name` column
-            //     ->searchable()
-            //     ->nullable(),
-            //     TextInput::make('google_map_label')->nullable(),
-            //     TextInput::make('google_map_link')->nullable(),
-            //     Select::make('destination_id')
-            //         ->relationship('destination', 'name')
-            //         ->searchable()
-            //         ->nullable(),
-            //     Select::make('division_id')
-            //         ->relationship('division', 'name')
-            //         ->searchable()
-            //         ->nullable(),
-            //     Select::make('region_id')
-            //         ->relationship('region', 'name')
-            //         ->searchable()
-            //         ->nullable(),
-            //     Select::make('city_id')
-            //         ->relationship('city', 'name')
-            //         ->searchable()
-            //         ->nullable(),
-            //     Select::make('township_id')
-            //         ->relationship('township', 'name')
-            //         ->searchable()
-            //         ->nullable(),
-            //     Select::make('village_id')
-            //         ->relationship('village', 'name')
-            //         ->searchable()
-            //         ->nullable(),
-            //     Select::make('attraction_category_id')
-            //         ->relationship('attractionCategory', 'name')
-            //         ->searchable()
-            //         ->nullable(),
         ]);
     }
+
+
 
 public static function table(Table $table): Table
 {
