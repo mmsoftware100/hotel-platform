@@ -21,6 +21,8 @@ use Filament\Tables;
 use Filament\Tables\Columns\BooleanColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -116,33 +118,64 @@ class ArticleCategoryResource extends Resource
             ]);
     }
 
-    public static function table(Table $table): Table
-    {
-        return $table
-            ->columns([
+public static function table(Table $table): Table
+{
+    return $table
+        ->columns([
 
-            TextColumn::make('no')->rowIndex()->sortable(), // for serial no
-            TextColumn::make('name')->searchable()->sortable(),
-            TextColumn::make('slug')->searchable(),
-            ImageColumn::make('image_url')->circular(),
-            BooleanColumn::make('is_active'),
-            BooleanColumn::make('is_featured'),
-            TextColumn::make('updated_at')->dateTime()->sortable(),
-            TextColumn::make('created_at')->dateTime()->sortable(),
-            ])
-            ->filters([
-                //
-            ])
-            ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
-    }
+            TextColumn::make('')->rowIndex(),
+            TextColumn::make('name')->searchable()->sortable()->limit(20)->toggleable(),
+            TextColumn::make('slug')->searchable()->limit(20)->toggleable(),
+            BooleanColumn::make('is_active')->toggleable(),
+            BooleanColumn::make('is_featured')->toggleable(),
+            ImageColumn::make('image_url')->circular()->toggleable(),
+            TextColumn::make('description')->searchable()->toggleable(),
+
+
+        ])->defaultSort('updated_at','desc')
+
+        ->filters([
+                    TernaryFilter::make('is_active')
+                        ->label('Is Active')
+                        ->trueLabel('Active')
+                        ->falseLabel('Inactive'),
+
+                    TernaryFilter::make('is_featured')
+                        ->label('Is Featured')
+                        ->trueLabel('Active')
+                        ->falseLabel('Inactive'),
+
+
+                    Filter::make('created_from')
+                        ->form([
+                            Forms\Components\DatePicker::make('created_from')->label('Created From'),
+                            Forms\Components\DatePicker::make('created_until')->label('Created Before'),
+                        ])
+                        ->query(function (Builder $query, array $data): Builder {
+                            return $query
+                                ->when($data['created_from'], fn ($q, $date) => $q->whereDate('created_at', '>=', $date))
+                                ->when($data['created_until'], fn ($q, $date) => $q->whereDate('created_at', '<=', $date));
+                    }),
+
+                    Filter::make('name')
+                        ->label('Title contains')
+                        ->form([
+                            Forms\Components\TextInput::make('value'),
+                        ])
+                        ->query(function (Builder $query, array $data): Builder {
+                            return $query
+                                ->when($data['value'], fn ($q) => $q->where('name', 'like', '%' . $data['value'] . '%'));
+                        }),
+        ])
+        ->actions([
+            Tables\Actions\EditAction::make(),
+        ])
+        ->bulkActions([
+            Tables\Actions\BulkActionGroup::make([
+                Tables\Actions\DeleteBulkAction::make(),
+            ]),
+        ]);
+}
 
     public static function getRelations(): array
     {
