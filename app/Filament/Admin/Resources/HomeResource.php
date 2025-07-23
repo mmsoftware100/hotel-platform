@@ -21,6 +21,8 @@ use Filament\Tables;
 use Filament\Tables\Columns\BooleanColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 use File;
 use Illuminate\Database\Eloquent\Builder;
@@ -113,30 +115,86 @@ class HomeResource extends Resource
             ]);
     }
 
-    public static function table(Table $table): Table
+    // public static function table(Table $table): Table
+    // {
+    //     return $table
+    //         ->columns([
+    //             TextColumn::make('title')
+    //                 ->searchable()
+    //                 ->sortable(),
+    //             TextColumn::make('slug')
+    //                 ->searchable()
+    //                 ->sortable(),
+    //             ImageColumn::make('image_url')
+    //                 ->disk('public')
+    //                 ->label('Image'),
+    //             TextColumn::make('video_url')
+    //                 ->url(fn ($record) => $record->video_url)
+    //                 ->label('Video URL'),
+    //             BooleanColumn::make('is_active')
+    //                 ->label('Active'),
+    //         ])
+    //         ->filters([
+    //             //
+    //         ])
+    //         ->actions([
+    //             Tables\Actions\ViewAction::make(),
+    //             Tables\Actions\EditAction::make(),
+    //         ])
+    //         ->bulkActions([
+    //             Tables\Actions\BulkActionGroup::make([
+    //                 Tables\Actions\DeleteBulkAction::make(),
+    //             ]),
+    //         ]);
+    // }
+
+
+        public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('title')
-                    ->searchable()
-                    ->sortable(),
-                TextColumn::make('slug')
-                    ->searchable()
-                    ->sortable(),
-                ImageColumn::make('image_url')
-                    ->disk('public')
-                    ->label('Image'),
+
+                TextColumn::make('')->rowIndex(),
+                TextColumn::make('name')->searchable()->sortable()->limit(20)->toggleable(),
+                TextColumn::make('slug')->searchable()->limit(20)->toggleable(),
+                BooleanColumn::make('is_active')->toggleable(),
+                ImageColumn::make('image_url')->circular()->toggleable(),
                 TextColumn::make('video_url')
                     ->url(fn ($record) => $record->video_url)
                     ->label('Video URL'),
-                BooleanColumn::make('is_active')
-                    ->label('Active'),
-            ])
+                TextColumn::make('description')->searchable()->toggleable()->limit(20),
+
+            ])->defaultSort('updated_at','desc')
+
             ->filters([
-                //
+                        TernaryFilter::make('is_active')
+                            ->label('Is Active')
+                            ->trueLabel('Active')
+                            ->falseLabel('Inactive'),
+
+
+                        Filter::make('created_from')
+                            ->form([
+                                Forms\Components\DatePicker::make('created_from')->label('Created From'),
+                                Forms\Components\DatePicker::make('created_until')->label('Created Before'),
+                            ])
+                            ->query(function (Builder $query, array $data): Builder {
+                                return $query
+                                    ->when($data['created_from'], fn ($q, $date) => $q->whereDate('created_at', '>=', $date))
+                                    ->when($data['created_until'], fn ($q, $date) => $q->whereDate('created_at', '<=', $date));
+                        }),
+
+                        Filter::make('name')
+                            ->label('Title contains')
+                            ->form([
+                                Forms\Components\TextInput::make('value'),
+                            ])
+                            ->query(function (Builder $query, array $data): Builder {
+                                return $query
+                                    ->when($data['value'], fn ($q) => $q->where('name', 'like', '%' . $data['value'] . '%'));
+                            }),
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
