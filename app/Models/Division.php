@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -17,6 +18,8 @@ class Division extends Model
         'description',
         'is_active',
         'is_featured',
+        'google_map_label',
+        'google_map_link',
     ];
 
     protected $casts = [
@@ -41,5 +44,24 @@ class Division extends Model
     {
         return $this->hasMany(Destination::class);
     }
-    
+
+    public function articles()
+    {
+        return $this->hasMany(Article::class);
+    }
+    public function attractions(){
+        return $this->hasMany(Attraction::class);
+    }
+    public function cultures(): BelongsToMany{
+        return $this->belongsToMany(Culture::class);
+    }
+
+    public function hotels(){
+        return $this->belongsToMany(Hotel::class);
+    }
+
+    public function myanmarEvents(){
+        return $this->belongsToMany(MyanmarEvent::class);
+    }
+
 }

@@ -37,6 +37,9 @@ class MyanmarEvent extends Model
         'start_date',
         'end_date',
         'is_featured',
+        'google_map_label',
+        'google_map_link',
+        'destination_id', // Optional: if this event is part of a destination
     ];
 
     /**
@@ -60,10 +63,12 @@ class MyanmarEvent extends Model
     {
         return $this->belongsTo(MyanmarEventCategory::class, 'myanmar_event_category_id');
     }
+    public function destination()
+    {
+        return $this->belongsTo(Destination::class);
+    }
 
-    /**
-     * Get the division the event is in.
-     */
+
     public function division()
     {
         return $this->belongsTo(Division::class);
@@ -100,4 +105,6 @@ class MyanmarEvent extends Model
     {
         return $this->belongsTo(Village::class);
     }
+
+
 }

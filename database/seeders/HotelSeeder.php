@@ -16,6 +16,7 @@ class HotelSeeder extends Seeder
         $hotels = [
             [
                 'name' => 'Sunrise Palace Hotel',
+                'slug' => 'sunrise-palace-hotel',
                 'address' => '123 Seaside Rd, Hlaing',
                 'description' => 'A modern hotel with sea view and rooftop pool.',
                 'active' => true,
@@ -28,6 +29,7 @@ class HotelSeeder extends Seeder
             ],
             [
                 'name' => 'Royal Mandalay Resort',
+                'slug' => 'royal-mandalay-resort',
                 'address' => '88 Sunset Blvd, Chanayethazan',
                 'description' => 'Luxury resort with traditional decor and spa services.',
                 'active' => true,
@@ -40,6 +42,7 @@ class HotelSeeder extends Seeder
             ],
             [
                 'name' => 'Downtown Inn',
+                'slug' => 'downtown-inn',
                 'address' => '456 Central Ave, Insein',
                 'description' => 'Affordable stay in the heart of the city.',
                 'active' => false,

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Region extends Model
@@ -20,6 +21,8 @@ class Region extends Model
         'division_id',
         'is_state',
         'is_featured',
+        'google_map_label',
+        'google_map_link',
     ];
 
     protected $casts = [
@@ -35,13 +38,9 @@ class Region extends Model
     {
         return $this->belongsTo(Division::class);
     }
-
-    /**
-     * Get all cities for this region
-     */
-    public function cities(): HasMany
+    public function cities(): BelongsToMany
     {
-        return $this->hasMany(City::class);
+        return $this->belongsToMany(City::class);
     }
 
     public function townships()
@@ -49,4 +48,28 @@ class Region extends Model
         return $this->hasMany(Township::class);
     }
 
+    public function articles()
+    {
+        return $this->hasMany(Article::class);
+    }
+
+    public function attractions(){
+        return $this->hasMany(Attraction::class);
+    }
+
+     public function cultures(): BelongsToMany{
+        return $this->belongsToMany(Culture::class);
+    }
+
+    public function destinations():BelongsToMany{
+        return $this->belongsToMany(Destination::class);
+    }
+    public function hotels(){
+        return $this->belongsToMany(Hotel::class);
+    }
+    public function myanmarEvents(){
+        return $this->belongsToMany(MyanmarEvent::class);
+    }
+
 }
+

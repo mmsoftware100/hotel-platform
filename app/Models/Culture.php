@@ -23,6 +23,9 @@ class Culture extends Model
         'village_id',
         'culture_category_id',
         'is_featured',
+        'google_map_label',
+        'google_map_link',
+        'destination_id', // Optional: if this culture is associated with a destination
     ];
 
     protected $casts = [
@@ -34,6 +37,10 @@ class Culture extends Model
     public function category()
     {
         return $this->belongsTo(CultureCategory::class, 'culture_category_id');
+    }
+    public function destination()
+    {
+        return $this->belongsTo(Destination::class);
     }
 
     public function division()
@@ -59,5 +66,10 @@ class Culture extends Model
     public function village()
     {
         return $this->belongsTo(Village::class);
+    }
+
+    public function cultureCategory()
+    {
+        return $this->belongsTo(CultureCategory::class);
     }
 }

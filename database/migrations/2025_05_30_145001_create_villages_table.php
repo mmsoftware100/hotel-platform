@@ -20,7 +20,9 @@ return new class extends Migration
             $table->boolean('is_active')->nullable()->default(true);
             $table->boolean('is_featured')->nullable()->default(true);
             $table->foreignId('township_id')->nullable()->constrained('townships', 'id')->restrictOnUpdate()->restrictOnDelete();
-            
+
+            $table->string('google_map_label')->nullable();
+            $table->string('google_map_link')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

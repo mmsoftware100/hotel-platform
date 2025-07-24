@@ -1,10 +1,98 @@
 # Hotel Platform
 
+test
+## 2025-06-27 
+
+```php
+            $table->string('google_map_label')->nullable();
+            $table->string('google_map_link')->nullable();
+            $table->foreignId('destination_id')->nullable()->constrained('destinations', 'id')->restrictOnUpdate()->restrictOnDelete();
+            $table->foreignId('division_id')->nullable()->constrained('divisions', 'id')->restrictOnUpdate()->restrictOnDelete();
+            $table->foreignId('region_id')->nullable()->constrained('regions', 'id')->restrictOnUpdate()->restrictOnDelete();
+            $table->foreignId('city_id')->nullable()->constrained('cities', 'id')->restrictOnUpdate()->restrictOnDelete();
+            $table->foreignId('township_id')->nullable()->constrained('townships', 'id')->restrictOnUpdate()->restrictOnDelete();
+            $table->foreignId('village_id')->nullable()->constrained('villages', 'id')->restrictOnUpdate()->restrictOnDelete();
+```
+
+သက်ဆိုင်ရာ 
+
+model, 
+api နဲ့
+admin panel တွေမှာ လိုက်တိုးပေးထားပါ
+
+- [x] see complete mock data set for each migrations
+
 ## Tasks
 
 - [x] project setup / database setup
 - [ ] Create table to store hotel
 - [ ] develop api for Hotel CRUD
+
+
+## Tourism Modules
+
+
+- [ ] Home Page
+- [ ] Region | City | Attraction  (It's all about destination )
+- [ ] Article | Category 
+- [ ] 
+
+
+Directions
+Region
+City
+Township
+Village
+
+
+
+
+Destination , self reference 
+
+## 2025-05-30 Fri
+
+mock api ထုတ်ပေးရန်။
+
+- [ ] /home
+- [ ] /destinations-by-regions
+- [ ] /articles
+- [ ] /curltures
+- [ ] /events
+
+
+
+
+Entity တစ်ခုတည်းကိုပဲ မျိုးစုံသုံးနိုင်ရင်တော့ ပိုအဆင်ပြေမယ်။
+
+အဓိက 
+
+Catgory | Article
+
+ဒီနှစ်ခုနဲ့ သွားမလား?
+
+လောလောဆယ် ရှင်းအောင်
+
+တစ်ခုစီပဲ ခွဲထားမယ်။
+
+ပွဲတော်များ Events
+လည်ပတ်စရာ နေရာများ Destination | Attraction 
+
+Region အလိုက်ဆိုတော့ Region | City | Township 
+
+ဒါတွေနဲ့ Destination ( မြို့ , area တစ်ခု ) ကို အရင်ချိတ်
+
+ပြီးမှ Attraction (ဒါက တကယ့် နေရာ )
+
+
+
+## ပြည်နယ်/တိုင်း
+## မြို့တော် 
+## နေရာများ
+
+## Rules
+
+- [ ] entity detail တွေကို slug နဲ့ပဲ သွားမယ်။
+
 
 
 ```bash
@@ -80,6 +168,13 @@ php artisan filament:install --panels
 # let's add resources 
 php artisan make:filament-resource User --view
 php artisan make:filament-resource Hotel --view
+php artisan make:filament-resource ArticleCategory --view
+
+
+php artisan make:filament-resource TestYl
+
+
+
 
 # user seeder
 
@@ -92,6 +187,16 @@ https://github.com/mmsoftware100/hotel-platform
 ```bash
 php artisan make:controller Api/V1/HotelApiController --api
 php artisan make:controller Api/V1/HomeApiController --api
+php artisan make:controller Api/V1/DestinationApiController --api
+php artisan make:controller Api/V1/VillageApiController --api
+
+
+php artisan make:controller Api/V1/ArticleApiController --api
+
+php artisan make:resource ArticleCategoryLiteResource
+php artisan make:resource ArticleCategoryLiteResource
+php artisan make:resource ArticleLiteResource
+php artisan make:resource ArticleDetailResource
 ```
 
 ## Main Module List
@@ -242,8 +347,31 @@ Nav Bar , Footer က ပြမယ့် စာရင်းကို Static / အ
 ကြိုရေးထားတာမျိုးပေါ့။
 
 ### To Do List
+ 
+## 2025-06-07 
 
+- [ ] Category နဲ့ Content relationship ထည့်ရန်။
+- [ ] CRUD စစ်ရန်။
+- [ ] foreign key များတွင် nullable ထည့်ရန်။
+- [ ] Select API များတွင် Pagination, Filtering ထည့်ရန်
+- [ ] API Response များတွင် Resource အသုံးပြုပြီး ပြန်ပေးရန်။
+
+
+
+
+
+### Filament Admin Panel
+
+
+composer require filament/filament:"^3.3" -W
+
+php artisan filament:install --panels
+
+php artisan make:filament-resource User
+
+=======
 - [ ] Category တွေအတွက် api ထုတ်ပေးရန်။
 - [ ] Listing API တွေမှာ filtering (filter by category / search query ) , pagination ထည့်ပေးရန်။
 - [ ] Listing API တွေ အတွက် စာနည်းတဲ့ resources နဲ့ detail api တွေ အတွက် စာအပြည့်အစုံ full flagged resources ထည့်ပေးရန်။
+ 
 

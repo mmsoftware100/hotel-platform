@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('articles', function (Blueprint $table) {
+        Schema::create('restaurant_categories', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
             $table->string('slug')->nullable()->unique();
@@ -19,8 +19,6 @@ return new class extends Migration
             $table->mediumText('description')->nullable();
             $table->boolean('is_active')->nullable()->default(true);
             $table->boolean('is_featured')->nullable()->default(true);
-            $table->foreignId('article_category_id')->nullable()->constrained('article_categories', 'id')->restrictOnUpdate()->restrictOnDelete();
-            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('articles');
+        Schema::dropIfExists('restaurant_categories');
     }
 };

@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class City extends Model
 {
@@ -28,25 +30,7 @@ class City extends Model
         'is_featured' => 'boolean'
     ];
 
-    /**
-     * Get the region this city belongs to
-     */
-    public function region(): BelongsTo
-    {
-        return $this->belongsTo(Region::class);
-    }
 
-    /**
-     * Get all attractions for this city
-     */
-    public function attractions(): HasMany
-    {
-        return $this->hasMany(Attraction::class);
-    }
-
-    /**
-     * Scope for capital cities
-     */
     public function scopeCapitals($query)
     {
         return $query->where('is_capital', true);
@@ -58,8 +42,35 @@ class City extends Model
     public function scopeTouristDestinations($query)
     {
         return $query->whereIn('slug', [
-            'yangon', 'mandalay', 'bagan', 'inle-lake', 
+            'yangon', 'mandalay', 'bagan', 'inle-lake',
             'ngapali', 'pyin-oo-lwin', 'hsipaw'
         ]);
     }
+
+
+    public function articles(): HasMany
+    {
+        return $this->hasMany(Article::class);
+    }
+
+    public function attractions(): HasMany
+    {
+        return $this->hasMany(Attraction::class);
+    }
+
+    public function region():BelongsTo
+    {
+        return $this->belongsTo(Region::class);
+    }
+
+    public function destinations():BelongsToMany{
+        return $this->belongsToMany(Destination::class);
+    }
+    public function hotels(){
+        return $this->belongsToMany(Hotel::class);
+    }
+    public function myanmarEvents(){
+        return $this->belongsToMany(MyanmarEvent::class);
+    }
+
 }

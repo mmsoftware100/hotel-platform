@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Destination extends Model
 {
@@ -23,6 +24,8 @@ class Destination extends Model
         'village_id',
         'destination_category_id',
         'is_featured',
+        'google_map_label',
+        'google_map_link',
     ];
 
     protected $casts = [
@@ -58,6 +61,24 @@ class Destination extends Model
 
     public function category()
     {
-        return $this->belongsTo(DestinationCategory::class, 'destination_category_id');
+        return $this->belongsTo(DestinationCategory::class,'destination_category_id');
+    }
+
+    public function articles(){
+        return $this->hasMany(Article::class);
+    }
+
+    public function attractions(){
+        return $this->hasMany(Attraction::class);
+    }
+    public function cultures(): BelongsToMany{
+        return $this->belongsToMany(Culture::class);
+    }
+    public function hotels(){
+        return $this->belongsToMany(Hotel::class);
+    }
+
+        public function myanmarEvents(){
+        return $this->belongsToMany(MyanmarEvent::class);
     }
 }
