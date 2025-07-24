@@ -21,6 +21,9 @@ use Filament\Tables;
 use Filament\Tables\Columns\BooleanColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -126,40 +129,65 @@ class RegionResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name')
-                    ->searchable()
-                    ->sortable(),
-                TextColumn::make('slug')
-                    ->searchable()
-                    ->sortable(),
-                ImageColumn::make('image_url')
-                    ->disk('public')
-                    ->label('Image'),
-                TextColumn::make('division.name')
-                    ->label('Division')
-                    ->searchable()
-                    ->sortable(),
-                BooleanColumn::make('is_state')
-                    ->label('Is State'),
-                BooleanColumn::make('is_featured')
-                    ->label('Featured'),
-                BooleanColumn::make('is_active')
-                    ->label('Active'),
-                TextColumn::make('google_map_label')
-                    ->label('Google Map Label'),
-                TextColumn::make('google_map_link')
-                    // ->url(fn ($record) => $record->google_map_link)
-                    ->label('Google Map URL'),
-                TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->label('Created At'),
-            ])
+
+                TextColumn::make('')->rowIndex(),
+                TextColumn::make('name')->searchable()->sortable()->limit(20)->toggleable(),
+                TextColumn::make('slug')->searchable()->limit(20)->toggleable(),
+                BooleanColumn::make('is_active')->toggleable(),
+                BooleanColumn::make('is_featured')->toggleable(),
+                BooleanColumn::make('is_state')->toggleable(),
+                ImageColumn::make('image_url')->circular()->toggleable(),
+                TextColumn::make('google_map_label')->label('Map Label')->limit(20)->toggleable(),
+                TextColumn::make('google_map_link')->label('Map Link')->limit(30)->url(fn ($record) => $record->google_map_link, true)->toggleable(),
+                TextColumn::make('division.name')->label('Division')->toggleable(),
+                TextColumn::make('description')->searchable()->toggleable()->limit(20),
+
+            ])->defaultSort('updated_at','desc')
+
             ->filters([
-                //
+                        TernaryFilter::make('is_active')
+                            ->label('Is Active')
+                            ->trueLabel('Active')
+                            ->falseLabel('Inactive'),
+
+                        TernaryFilter::make('is_featured')
+                            ->label('Is Featured')
+                            ->trueLabel('Active')
+                            ->falseLabel('Inactive'),
+
+                        TernaryFilter::make('is_state')
+                            ->label('Is State')
+                            ->trueLabel('Active')
+                            ->falseLabel('Inactive'),
+
+                        // SelectFilter::make('region_id')
+                        //     ->label('Region')
+                        //     ->relationship('region', 'name')
+                        //     ->preload()
+                        //     ->searchable(),
+
+                        Filter::make('created_from')
+                            ->form([
+                                Forms\Components\DatePicker::make('created_from')->label('Created From'),
+                                Forms\Components\DatePicker::make('created_until')->label('Created Before'),
+                            ])
+                            ->query(function (Builder $query, array $data): Builder {
+                                return $query
+                                    ->when($data['created_from'], fn ($q, $date) => $q->whereDate('created_at', '>=', $date))
+                                    ->when($data['created_until'], fn ($q, $date) => $q->whereDate('created_at', '<=', $date));
+                        }),
+
+                        Filter::make('name')
+                            ->label('Title contains')
+                            ->form([
+                                Forms\Components\TextInput::make('value'),
+                            ])
+                            ->query(function (Builder $query, array $data): Builder {
+                                return $query
+                                    ->when($data['value'], fn ($q) => $q->where('name', 'like', '%' . $data['value'] . '%'));
+                            }),
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([

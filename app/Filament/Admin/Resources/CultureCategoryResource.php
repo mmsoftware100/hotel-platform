@@ -20,6 +20,8 @@ use Filament\Tables;
 use Filament\Tables\Columns\BooleanColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -99,31 +101,52 @@ class CultureCategoryResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
-                    ->searchable()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('slug')
-                    ->searchable()
-                    ->sortable(),
-                Tables\Columns\ImageColumn::make('image_url')
-                    ->circular()
-                    ->size(50),
-                Tables\Columns\TextColumn::make('description')
-                    ->limit(50)
-                    ->sortable(),
-                Tables\Columns\BooleanColumn::make('is_active')
-                    ->label('Active'),
-                Tables\Columns\BooleanColumn::make('is_featured')
-                    ->label('Featured'),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable(),
-            ])
+
+                TextColumn::make('')->rowIndex(),
+                TextColumn::make('name')->searchable()->sortable()->limit(20)->toggleable(),
+                TextColumn::make('slug')->searchable()->limit(20)->toggleable(),
+                BooleanColumn::make('is_active')->toggleable(),
+                BooleanColumn::make('is_featured')->toggleable(),
+                ImageColumn::make('image_url')->circular()->toggleable(),
+                TextColumn::make('description')->searchable()->toggleable()->limit(20),
+
+
+            ])->defaultSort('updated_at','desc')
+
             ->filters([
-                //
+                        TernaryFilter::make('is_active')
+                            ->label('Is Active')
+                            ->trueLabel('Active')
+                            ->falseLabel('Inactive'),
+
+                        TernaryFilter::make('is_featured')
+                            ->label('Is Featured')
+                            ->trueLabel('Active')
+                            ->falseLabel('Inactive'),
+
+
+                        Filter::make('created_from')
+                            ->form([
+                                Forms\Components\DatePicker::make('created_from')->label('Created From'),
+                                Forms\Components\DatePicker::make('created_until')->label('Created Before'),
+                            ])
+                            ->query(function (Builder $query, array $data): Builder {
+                                return $query
+                                    ->when($data['created_from'], fn ($q, $date) => $q->whereDate('created_at', '>=', $date))
+                                    ->when($data['created_until'], fn ($q, $date) => $q->whereDate('created_at', '<=', $date));
+                        }),
+
+                        Filter::make('name')
+                            ->label('Title contains')
+                            ->form([
+                                Forms\Components\TextInput::make('value'),
+                            ])
+                            ->query(function (Builder $query, array $data): Builder {
+                                return $query
+                                    ->when($data['value'], fn ($q) => $q->where('name', 'like', '%' . $data['value'] . '%'));
+                            }),
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
