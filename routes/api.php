@@ -238,8 +238,26 @@ Route::get('v1/featured-events', function (Request $request) {
 // search section
 Route::get('v1/search', function (Request $request) {
     $query = $request->input('query');
-    $destinations = Destination::where('name', 'like', '%' . $query . '%')->get();
-    return response()->json($destinations);
+    // search in name and description of destinations
+    if (!$query) {
+        return response()->json(['error' => 'Query parameter is required.'], 400);
+    }
+    $destinations = Destination::where('name', 'like', '%' . $query . '%')->orWhere('description', 'like', '%' . $query . '%')->get();
+    // search at articles
+    $articles = Article::where('name', 'like', '%' . $query . '%')->orWhere('description', 'like', '%' . $query . '%')->get();
+    $attractions = Attraction::where('name', 'like', '%' . $query . '%')->orWhere('description', 'like', '%' . $query . '%')->get();
+    $events = MyanmarEvent::where('name', 'like', '%' . $query . '%')->orWhere('description', 'like', '%' . $query . '%')->get();
+    $events = MyanmarEvent::where('name', 'like', '%' . $query . '%')->orWhere('description', 'like', '%' . $query . '%')->get();
+    $cultures = Culture::where('name', 'like', '%' . $query . '%')->orWhere('description', 'like', '%' . $query . '%')->get();
+    
+    $data = [
+        'destinations' => DestinationResource::collection($destinations),
+        'articles' => $articles,
+        'attractions' => $attractions,
+        'events' => $events,
+        'cultures' => $cultures,
+    ];
+    return response()->json($data);
 });
 
 // Route::get('a/{slug}', function (Request $request,$slug) {
