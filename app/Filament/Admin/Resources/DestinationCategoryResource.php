@@ -96,28 +96,18 @@ class DestinationCategoryResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name')
-                    ->searchable()
-                    ->sortable(),
 
-                TextColumn::make('slug')
-                    ->searchable()
-                    ->sortable(),
+                TextColumn::make('')->rowIndex(),
+                TextColumn::make('name')->searchable()->sortable()->limit(20)->toggleable(),
+                TextColumn::make('slug')->searchable()->limit(20)->toggleable(),
+                BooleanColumn::make('is_active')->toggleable(),
+                BooleanColumn::make('is_featured')->toggleable(),
+                ImageColumn::make('image_url')->circular()->toggleable(),
+                TextColumn::make('description')->searchable()->toggleable()->limit(20),
 
-                ImageColumn::make('image_url')
-                    ->disk('public')
-                    ->circular()
-                    ->size(50),
 
-                TextColumn::make('description')
-                    ->limit(50)
-                    ->wrap(),
+            ])->defaultSort('updated_at','desc')
 
-                BooleanColumn::make('is_active')
-                    ->label('Active')
-                    ->trueIcon('heroicon-o-check-circle')
-                    ->falseIcon('heroicon-o-x-circle'),
-            ])
             ->filters([
                 //
             ])
