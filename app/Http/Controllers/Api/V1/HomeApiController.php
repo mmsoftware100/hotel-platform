@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\HomeLiteResource;
 use App\Models\Home;
 use Illuminate\Http\Request;
 
@@ -49,7 +50,8 @@ class HomeApiController extends Controller
                 ->get();
 
             $response = [
-                'data' => $homes,
+                // 'data' => $homes,
+                'data'=>HomeLiteResource::collection($homes),
                 'meta' => [
                     'current_page' => $page,
                     'per_page' => $perPage,
@@ -59,14 +61,19 @@ class HomeApiController extends Controller
             return response()->json($response);
     }
 
-    public function show(string $slug)
-    {
-        $home = Home::where('slug', $slug);
-        if ($home) {
-            return response()->json($home);
-        } else {
-            return response()->json(['message' => 'Home not found'], 404);
-        }
+    public function show(Request $request, $slug){
+            $home = Home::where('slug', $slug)
+                    // ->with('articles')
+                    ->first();
+
+            if ($home) {
+            // $relative_storage_path =Storage::url($announcement->cover_photo);
+            // $announcement->cover_photo = rtrim(config('app.url'), '/') . '/' . ltrim($relative_storage_path, '/');
+
+                return response()->json(new HomeLiteResource($home));
+            } else {
+                    return response()->json(['message' => 'Home not found'], 404);
+            }
     }
     public function store(Request $request)
     {

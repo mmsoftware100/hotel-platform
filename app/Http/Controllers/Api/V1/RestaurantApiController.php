@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\RestaurantLiteResource;
 use App\Models\Restaurant;
 use Illuminate\Http\Request;
 
@@ -45,7 +46,8 @@ class RestaurantApiController extends Controller
                 ->get();
 
             $response = [
-                'data' => $Restaurant,
+                // 'data' => $Restaurant,
+                'data' => RestaurantLiteResource::collection($Restaurant),
                 'meta' => [
                     'current_page' => $page,
                     'per_page' => $perPage,
@@ -59,7 +61,9 @@ class RestaurantApiController extends Controller
     {
         $restaurant = Restaurant::where('slug', $slug)->first();
         if ($restaurant) {
-            return response()->json($restaurant);
+            // return response()->json($restaurant);
+            return response()->json(new RestaurantLiteResource($restaurant));
+
         } else {
             return response()->json(['message' => 'Restaurant not found'], 404);
         }

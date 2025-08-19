@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\AttractionCategoryLiteResource;
 use App\Models\AttractionCategory;
 use Illuminate\Http\Request;
 
@@ -45,7 +46,8 @@ class AttractionCategoryApiController extends Controller
                 ->get();
 
             $response = [
-                'data' => $attractionCategories,
+                // 'data' => $attractionCategories,
+                'data'=>AttractionCategoryLiteResource::collection($attractionCategories),
                 'meta' => [
                     'current_page' => $page,
                     'per_page' => $perPage,
@@ -67,7 +69,9 @@ class AttractionCategoryApiController extends Controller
         $attractionCategory = AttractionCategory::where('slug', $slug)->first();
 
         if ($attractionCategory) {
-            return response()->json($attractionCategory);
+            // return response()->json($attractionCategory);
+            return response()->json(new AttractionCategoryLiteResource($attractionCategory));
+
         } else {
             return response()->json(['message' => 'Attraction Category not found'], 404);
         }

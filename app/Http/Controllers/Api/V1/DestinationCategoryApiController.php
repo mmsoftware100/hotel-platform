@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\DestinationCategoryLiteResource;
+use App\Models\Destination;
 use App\Models\DestinationCategory;
 use Illuminate\Http\Request;
 
@@ -46,7 +48,9 @@ class DestinationCategoryApiController extends Controller
                 ->get();
 
             $response = [
-                'data' => $destinationCategories,
+                // 'data' => $destinationCategories,
+                'data' => DestinationCategoryLiteResource::collection($destinationCategories),
+
                 'meta' => [
                     'current_page' => $page,
                     'per_page' => $perPage,
@@ -67,7 +71,10 @@ class DestinationCategoryApiController extends Controller
 
         $desinationCategory = DestinationCategory::with('destinations')->where('slug', $slug)->first();
         if ($desinationCategory) {
-            return response()->json($desinationCategory);
+            // return response()->json($desinationCategory);
+            return response()->json(new DestinationCategoryLiteResource($desinationCategory));
+            
+
         }
         return response()->json(['message' => 'Destination Category not found'], 404);
     }

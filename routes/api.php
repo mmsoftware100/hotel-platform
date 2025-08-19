@@ -58,65 +58,65 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::get('v1', function (Request $request) {
+// Route::get('v1', function (Request $request) {
 
-    // should return available API endpoints
-    $endpoints = [
-        'documentation' => url('/api/v1'),
-        'home' => url('/api/v1/home'),
-        'nav-bars' => url('/api/v1/nav-bars'),
-        'footers' => url('/api/v1/footers'),
-        'carousels' => url('/api/v1/carousels'),
-        'featured-divisions' => url('/api/v1/featured-divisions'),
-        'featured-articles' => url('/api/v1/featured-articles'),
-        'featured-attractions' => url('/api/v1/featured-attractions'),
-        'featured-cultures' => url('/api/v1/featured-cultures'),
-        'featured-events' => url('/api/v1/featured-events'),
-        'search' => url('/api/v1/search'),
+//     // should return available API endpoints
+//     $endpoints = [
+//         'documentation' => url('/api/v1'),
+//         'home' => url('/api/v1/home'),
+//         'nav-bars' => url('/api/v1/nav-bars'),
+//         'footers' => url('/api/v1/footers'),
+//         'carousels' => url('/api/v1/carousels'),
+//         'featured-divisions' => url('/api/v1/featured-divisions'),
+//         'featured-articles' => url('/api/v1/featured-articles'),
+//         'featured-attractions' => url('/api/v1/featured-attractions'),
+//         'featured-cultures' => url('/api/v1/featured-cultures'),
+//         'featured-events' => url('/api/v1/featured-events'),
+//         'search' => url('/api/v1/search'),
 
-        'destinations' => url('/api/v1/destinations'),
-        'destination-detail' => url('/api/v1/destinations/{slug}'),
-        'destination-categories' => url('/api/v1/destination-categories'),
-        'destination-category-detail' => url('/api/v1/destination-categories/{slug}'),
+//         'destinations' => url('/api/v1/destinations'),
+//         'destination-detail' => url('/api/v1/destinations/{slug}'),
+//         'destination-categories' => url('/api/v1/destination-categories'),
+//         'destination-category-detail' => url('/api/v1/destination-categories/{slug}'),
 
-        'articles' => url('/api/v1/articles'),
-        'article-detail' => url('/api/v1/articles/{slug}'),
-        'article-categories' => url('/api/v1/article-categories'),
-        'article-category-detail' => url('/api/v1/article-categories/{slug}'),
+//         'articles' => url('/api/v1/articles'),
+//         'article-detail' => url('/api/v1/articles/{slug}'),
+//         'article-categories' => url('/api/v1/article-categories'),
+//         'article-category-detail' => url('/api/v1/article-categories/{slug}'),
 
-        'attractions' => url('/api/v1/attractions'),
-        'attraction-detail' => url('/api/v1/attractions/{slug}'),
-        'attraction-categories' => url('/api/v1/attraction-categories'),
-        'attraction-category-detail' => url('/api/v1/attraction-categories/{slug}'),
-
-
-        'cultures' => url('/api/v1/cultures'),
-        'culture-detail' => url('/api/v1/cultures/{slug}'),
-        'culture-categories' => url('/api/v1/culture-categories'),
-        'culture-category-detail' => url('/api/v1/culture-categories/{slug}'),
+//         'attractions' => url('/api/v1/attractions'),
+//         'attraction-detail' => url('/api/v1/attractions/{slug}'),
+//         'attraction-categories' => url('/api/v1/attraction-categories'),
+//         'attraction-category-detail' => url('/api/v1/attraction-categories/{slug}'),
 
 
-        'events' => url('/api/v1/events'),
-        'event-detail' => url('/api/v1/cultures/{slug}'),
-        'event-categories' => url('/api/v1/event-categories'),
-        'event-category-detail' => url('/api/v1/event-categories/{slug}'),
+//         'cultures' => url('/api/v1/cultures'),
+//         'culture-detail' => url('/api/v1/cultures/{slug}'),
+//         'culture-categories' => url('/api/v1/culture-categories'),
+//         'culture-category-detail' => url('/api/v1/culture-categories/{slug}'),
 
-        'divisions' => url('/api/v1/divisions'),
-        'division-detail' => url('/api/v1/divisions/{slug}'),
-        'regions' => url('/api/v1/regions'),
-        'region-detail' => url('/api/v1/regions/{slug}'),
-        'cities' => url('/api/v1/cities'),
-        'city-detail' => url('/api/v1/cities/{slug}'),
-        'townships' => url('/api/v1/townships'),
-        'township-detail' => url('/api/v1/townships/{slug}'),
-        'villages' => url('/api/v1/villages'),
-        'village-detail' => url('/api/v1/villages/{slug}'),
-    ];
-    return response()->json([
-        'message' => 'Welcome to the API',
-        'endpoints' => $endpoints,
-    ]);
-});
+
+//         'events' => url('/api/v1/events'),
+//         'event-detail' => url('/api/v1/cultures/{slug}'),
+//         'event-categories' => url('/api/v1/event-categories'),
+//         'event-category-detail' => url('/api/v1/event-categories/{slug}'),
+
+//         'divisions' => url('/api/v1/divisions'),
+//         'division-detail' => url('/api/v1/divisions/{slug}'),
+//         'regions' => url('/api/v1/regions'),
+//         'region-detail' => url('/api/v1/regions/{slug}'),
+//         'cities' => url('/api/v1/cities'),
+//         'city-detail' => url('/api/v1/cities/{slug}'),
+//         'townships' => url('/api/v1/townships'),
+//         'township-detail' => url('/api/v1/townships/{slug}'),
+//         'villages' => url('/api/v1/villages'),
+//         'village-detail' => url('/api/v1/villages/{slug}'),
+//     ];
+//     return response()->json([
+//         'message' => 'Welcome to the API',
+//         'endpoints' => $endpoints,
+//     ]);
+// });
 
 Route::get('v1/home', function (Request $request) {
     $home = Home::find(1);
@@ -274,9 +274,9 @@ Route::get('v1/search', function (Request $request) {
 
 
 
-Route::get('v1/articles', [ArticleApiController::class, 'index']);
-Route::get('v1/articles/{slug}', [ArticleApiController::class, 'detail']);
-Route::get('v1/articles-detail/{slug}/{perPage?}', [ArticleApiController::class, 'show']);
+// Route::get('v1/articles', [ArticleApiController::class, 'index']);
+// Route::get('v1/articles/{slug}', [ArticleApiController::class, 'detail']);
+// Route::get('v1/articles-detail/{slug}/{perPage?}', [ArticleApiController::class, 'show']);
 
 // Route::get('v1/article-categories', [ArticleCategoryApiController::class, 'index']);
 // Route::get('v1/article-categories/{slug}', [ArticleCategoryApiController::class, 'show']);

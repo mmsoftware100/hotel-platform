@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Storage;
 
-class ArticleCategoryLiteResource extends JsonResource
+class RegionLiteResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -23,13 +23,18 @@ class ArticleCategoryLiteResource extends JsonResource
             $cover_photo_url = rtrim(config('app.url'), '/') . '/' . ltrim($relative_storage_path, '/');
         }
         return [
-            'id' => $this->id,
             'name' => $this->name,
             'slug' => $this->slug,
             'image_url' => $cover_photo_url,
             'description' => $this->description,
             'is_active' => $this->is_active,
+            'is_state' => $this->is_state,
             'is_featured' => $this->is_featured,
+            'google_map_label' => $this->google_map_label,
+            'google_map_link' => $this->google_map_link,
+            // 'division_id' => $this->division_id,
+            'division_id' => new DivisionLiteResource($this->division),
+
         ];
     }
 }

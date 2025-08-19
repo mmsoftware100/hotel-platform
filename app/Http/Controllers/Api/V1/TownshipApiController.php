@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\TownshipLiteResource;
 use App\Models\Township;
 use Illuminate\Http\Request;
 
@@ -46,7 +47,8 @@ class TownshipApiController extends Controller
                 ->get();
 
             $response = [
-                'data' => $Township,
+                // 'data' => $Township,
+                'data' => TownshipLiteResource::collection($Township),
                 'meta' => [
                     'current_page' => $page,
                     'per_page' => $perPage,
@@ -61,7 +63,9 @@ class TownshipApiController extends Controller
     {
         $township = Township::where('slug', $slug)->first();
         if ($township) {
-            return response()->json($township);
+            // return response()->json($township);
+            return response()->json(new TownshipLiteResource($township));
+
         } else {
             return response()->json(['message' => 'Township not found'], 404);
         }

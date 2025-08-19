@@ -112,11 +112,22 @@ class TransportationResource extends Resource
     {
         return $table
             ->columns([
-
                 TextColumn::make('')->rowIndex(),
                 TextColumn::make('name')->searchable()->sortable()->limit(20)->toggleable(),
                 TextColumn::make('slug')->searchable()->limit(20)->toggleable(),
-                TextColumn::make('category.name')->label('Category')->toggleable(),
+                
+                // FIX: Explicitly define how to sort and search the related column
+                TextColumn::make('category.name')
+                    ->label('Category')
+                    ->searchable(query: fn (Builder $query, string $search) =>
+                        $query->whereHas('category', fn (Builder $q) => $q->where('name', 'like', "%{$search}%"))
+                    )
+                    ->sortable(query: fn (Builder $query, string $direction) =>
+                        $query->join('transportation_categories', 'transportations.transportation_category_id', '=', 'transportation_categories.id')
+                            ->orderBy('transportation_categories.name', $direction)
+                    )
+                    ->toggleable(),
+                
                 BooleanColumn::make('is_active')->toggleable(),
                 BooleanColumn::make('is_featured')->toggleable(),
                 ImageColumn::make('image_url')->circular()->toggleable(),
@@ -132,7 +143,6 @@ class TransportationResource extends Resource
                 TextColumn::make('village.name')->label('Village')->toggleable(),
 
             ])->defaultSort('updated_at','desc')
-
             ->filters([
                         TernaryFilter::make('is_active')
                             ->label('Is Active')
@@ -159,7 +169,7 @@ class TransportationResource extends Resource
                                 return $query
                                     ->when($data['created_from'], fn ($q, $date) => $q->whereDate('created_at', '>=', $date))
                                     ->when($data['created_until'], fn ($q, $date) => $q->whereDate('created_at', '<=', $date));
-                        }),
+                            }),
 
                         Filter::make('name')
                             ->label('Title contains')

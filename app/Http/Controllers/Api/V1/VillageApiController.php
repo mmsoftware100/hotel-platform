@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\VillageLiteResource;
 use App\Models\Village;
 use Illuminate\Http\Request;
 
@@ -34,7 +35,8 @@ class VillageApiController extends Controller
             ->get();
 
         $response = [
-            'data' => $villages,
+            // 'data' => $villages,
+            'data' => VillageLiteResource::collection($villages),
             'meta' => [
                 'current_page' => $page,
                 'per_page' => $perPage,
@@ -49,7 +51,9 @@ class VillageApiController extends Controller
     {
         $village = Village::where('slug', $slug)->first();
         if ($village) {
-            return response()->json($village);
+            // return response()->json($village);
+            return response()->json(new VillageLiteResource($village));
+
         } else {
             return response()->json(['message' => 'Village not found'], 404);
         }
