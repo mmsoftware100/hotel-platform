@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\TransportationLiteResource;
 use Illuminate\Http\Request;
 use App\Models\Transportation; // Assuming you have a Transportation model
 class TransportationApiController extends Controller
@@ -44,7 +45,8 @@ class TransportationApiController extends Controller
                 ->get();
 
             $response = [
-                'data' => $Transportation,
+                // 'data' => $Transportation,
+                'data' => TransportationLiteResource::collection($Transportation),
                 'meta' => [
                     'current_page' => $page,
                     'per_page' => $perPage,
@@ -58,7 +60,9 @@ class TransportationApiController extends Controller
     {
         $transportation = Transportation::where('slug', $slug)->first();
         if ($transportation) {
-            return response()->json($transportation);
+            // return response()->json($transportation);
+            return response()->json(new TransportationLiteResource($transportation));
+
         } else {
             return response()->json(['message' => 'Transportation not found'], 404);
         }

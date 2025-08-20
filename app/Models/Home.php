@@ -18,5 +18,6 @@ class Home extends Model
         'video_url',
         'description',
         'is_active'
+        
     ];
 }

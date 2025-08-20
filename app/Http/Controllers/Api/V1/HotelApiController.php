@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\HotelLiteResource;
 use App\Models\Hotel;
 use Illuminate\Http\Request;
 
@@ -47,12 +48,13 @@ class HotelApiController extends Controller
 
         $total = $query->count(); // total after filters applied
 
-        $articles = $query->skip(($page - 1) * $perPage)
+        $hotels = $query->skip(($page - 1) * $perPage)
             ->take($perPage)
             ->get();
 
         $response = [
-            'data' => $articles,
+            // 'data' => $hotels,
+            'data'=>HotelLiteResource::collection($hotels),
             'meta' => [
                 'current_page' => $page,
                 'per_page' => $perPage,

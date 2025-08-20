@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Storage;
 
-class ArticleCategoryLiteResource extends JsonResource
+class TransportationCategoryLiteResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,7 +15,6 @@ class ArticleCategoryLiteResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-
         $cover_photo_url = null;
 
         if ($this->image_url) {

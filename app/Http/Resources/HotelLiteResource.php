@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Storage;
 
-class ArticleCategoryLiteResource extends JsonResource
+class HotelLiteResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,7 +15,6 @@ class ArticleCategoryLiteResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-
         $cover_photo_url = null;
 
         if ($this->image_url) {
@@ -23,13 +22,21 @@ class ArticleCategoryLiteResource extends JsonResource
             $cover_photo_url = rtrim(config('app.url'), '/') . '/' . ltrim($relative_storage_path, '/');
         }
         return [
-            'id' => $this->id,
             'name' => $this->name,
             'slug' => $this->slug,
             'image_url' => $cover_photo_url,
             'description' => $this->description,
             'is_active' => $this->is_active,
             'is_featured' => $this->is_featured,
+
+
+            'hotel_category_id' => new HotelCategoryLiteResource($this->category),
+            'division_id' => new DivisionLiteResource($this->division),
+            'region_id' => new RegionLiteResource($this->region),
+            'city_id' => new CityLiteResource($this->city),
+            'township_id' => new TownshipLiteResource($this->township),
+            'village_id' => new VillageLiteResource($this->village),
+            'destination_id' => $this->destination ? new DestinationLiteResource($this->destination) : null,
         ];
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CityLiteResource;
 use App\Models\City;
 use Illuminate\Http\Request;
 
@@ -45,7 +46,8 @@ class CityApiController extends Controller
                 ->get();
 
             $response = [
-                'data' => $cities,
+                // 'data' => $cities,
+                'data' => CityLiteResource::collection($cities),
                 'meta' => [
                     'current_page' => $page,
                     'per_page' => $perPage,
@@ -61,7 +63,8 @@ class CityApiController extends Controller
         $city = City::where('slug', $slug)->first();
 
         if ($city) {
-            return response()->json($city);
+            // return response()->json($city);
+            return response()->json(new CityLiteResource($city));
         } else {
             return response()->json(['message' => 'City not found'], 404);
         }

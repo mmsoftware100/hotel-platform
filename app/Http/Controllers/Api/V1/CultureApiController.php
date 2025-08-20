@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CultureLiteResource;
 use App\Models\Culture;
 use App\Models\CultureCategory;
 use Illuminate\Http\Request;
@@ -76,7 +77,8 @@ class CultureApiController extends Controller
                 ->get();
 
             $response = [
-                'data' => $cultures,
+                // 'data' => $cultures,
+                'data'=>CultureLiteResource::collection($cultures),
                 'meta' => [
                     'current_page' => $page,
                     'per_page' => $perPage,
@@ -97,7 +99,7 @@ class CultureApiController extends Controller
         $culture = Culture::where('slug', $slug)->first();
 
         if ($culture) {
-            return response()->json($culture);
+            return response()->json(new CultureLiteResource($culture));
         } else {
             return response()->json(['message' => 'Culture not found'], 404);
         }
