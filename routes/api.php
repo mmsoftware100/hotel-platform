@@ -401,7 +401,7 @@ Route::resource('v1/restaurant-categories', RestaurantCategoryApiController::cla
 Route::resource('v1/townships', TownshipApiController::class);
 Route::resource('v1/transportations', TransportationApiController::class);
 Route::resource('v1/transportation-categories', TransportationCategoryApiController::class);
-Route::resource('v1/users', UserApiController::class);
+// Route::resource('v1/users', UserApiController::class);
 Route::resource('v1/villages', VillageApiController::class);
 
 
