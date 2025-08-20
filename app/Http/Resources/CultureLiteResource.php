@@ -24,7 +24,7 @@ class CultureLiteResource extends JsonResource
         }
                 
         return [
-            'id' => $this->id,
+            // 'id' => $this->id,
             'name' => $this->name,
             'slug' => $this->slug,
             'image_url' => $cover_photo_url,
