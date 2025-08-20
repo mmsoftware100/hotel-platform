@@ -1,6 +1,13 @@
 # Hotel Platform
 
 test
+
+
+## 2025-08-17 Deployment on admin panel 
+
+
+test deployment.
+
 ## 2025-06-27 
 
 ```php
