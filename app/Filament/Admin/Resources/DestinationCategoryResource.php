@@ -105,7 +105,7 @@ class DestinationCategoryResource extends Resource
                 BooleanColumn::make('is_active')->toggleable(),
                 BooleanColumn::make('is_featured')->toggleable(),
                 ImageColumn::make('image_url')->circular()->toggleable(),
-                TextColumn::make('description')->searchable()->toggleable(),
+                TextColumn::make('description')->searchable()->toggleable()->limit(20),
 
 
             ])->defaultSort('updated_at','desc')
