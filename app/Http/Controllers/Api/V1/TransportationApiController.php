@@ -20,7 +20,7 @@ class TransportationApiController extends Controller
         ]);
 
             $page = $validated['page'] ?? 1;
-            $perPage = $validated['per_page'] ?? 2;
+            $perPage = $validated['per_page'] ?? 20;
             $search = $validated['q'] ?? null;
             $isFeatured = $validated['is_featured'] ?? null;
             $query = Transportation::query();

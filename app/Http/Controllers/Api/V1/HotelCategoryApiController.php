@@ -23,7 +23,7 @@ class HotelCategoryApiController extends Controller
 
         // Use validated inputs or fallback
         $page = $validated['page'] ?? 1;
-        $perPage = $validated['per_page'] ?? 2;
+        $perPage = $validated['per_page'] ?? 20;
         $search = $validated['q'] ?? null;
         // $categoryId = $validated['article_category_id'] ?? null;
         $isFeatured = $validated['is_featured'] ?? null;

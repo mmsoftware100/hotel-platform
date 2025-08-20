@@ -21,7 +21,7 @@ class AttractionCategoryApiController extends Controller
             // return $request;
         //     // Use validated inputs or fallback
             $page = $validated['page'] ?? 1;
-            $perPage = $validated['per_page'] ?? 2;
+            $perPage = $validated['per_page'] ?? 20;
             $search = $validated['q'] ?? null;
             $isFeatured = $validated['is_featured'] ?? null;
             $query = AttractionCategory::query();
