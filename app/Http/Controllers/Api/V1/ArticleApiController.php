@@ -75,7 +75,7 @@ class ArticleApiController extends Controller
     // }
 
 
-    public function detail(Request $request, $slug){
+    public function show(Request $request, $slug){
         $article = Article::where('slug', $slug)->with(['category'])->first();
 
         if ($article) {
