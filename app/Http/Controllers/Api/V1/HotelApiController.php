@@ -25,7 +25,7 @@ class HotelApiController extends Controller
 
         // Use validated inputs or fallback
         $page = $validated['page'] ?? 1;
-        $perPage = $validated['per_page'] ?? 2;
+        $perPage = $validated['per_page'] ?? 20;
         $search = $validated['q'] ?? null;
         // $categoryId = $validated['article_category_id'] ?? null;
         $isFeatured = $validated['is_featured'] ?? null;
@@ -70,7 +70,9 @@ class HotelApiController extends Controller
     {
         $hotel = Hotel::where('slug', $slug)->first();
         if ($hotel) {
-            return response()->json($hotel);
+            // return response()->json($hotel);
+            return response()->json(new HotelLiteResource($hotel));
+
         } else {
             return response()->json(['message' => 'Hotel not found'], 404);
         }

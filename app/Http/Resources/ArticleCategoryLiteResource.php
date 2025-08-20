@@ -23,7 +23,7 @@ class ArticleCategoryLiteResource extends JsonResource
             $cover_photo_url = rtrim(config('app.url'), '/') . '/' . ltrim($relative_storage_path, '/');
         }
         return [
-            'id' => $this->id,
+            // 'id' => $this->id,
             'name' => $this->name,
             'slug' => $this->slug,
             'image_url' => $cover_photo_url,

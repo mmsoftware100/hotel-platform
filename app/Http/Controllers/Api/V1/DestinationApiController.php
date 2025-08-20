@@ -29,7 +29,7 @@ class DestinationApiController extends Controller
             // return $request;
         //     // Use validated inputs or fallback
             $page = $validated['page'] ?? 1;
-            $perPage = $validated['per_page'] ?? 2;
+            $perPage = $validated['per_page'] ?? 20;
             $search = $validated['q'] ?? null;
             $categoryId = $validate['destination_category_id']??null;
             $divisionId = $validated['division_id']??null;

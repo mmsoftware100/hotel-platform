@@ -20,7 +20,7 @@ class ArticleApiController extends Controller
         ]);
 
         $page = $validated['page'] ?? 1;
-        $perPage = $validated['per_page'] ?? 10;
+        $perPage = $validated['per_page'] ?? 20;
         $search = $validated['q'] ?? null;
         $categoryId = $validated['article_category_id'] ?? null;
         $isFeatured = $validated['is_featured'] ?? null;

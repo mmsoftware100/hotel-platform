@@ -22,7 +22,7 @@ class DivisionResource extends JsonResource
         });
 
         return [
-            'id' => $this->id,
+            // 'id' => $this->id,
             'name' => $this->name,
             'slug' => $this->slug,
             'image_url' => $this->image_url,

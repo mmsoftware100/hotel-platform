@@ -18,7 +18,7 @@ class VillageApiController extends Controller
         ]);
 
         $page = $validated['page'] ?? 1;
-        $perPage = $validated['per_page'] ?? 10; // Default to 10 items per page
+        $perPage = $validated['per_page'] ?? 20; // Default to 10 items per page
         $search = $validated['q'] ?? null;
 
         $query = Village::query();
