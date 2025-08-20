@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\HotelCategoryLiteResource;
 use App\Models\HotelCategory;
 use Illuminate\Http\Request;
 
@@ -22,7 +23,7 @@ class HotelCategoryApiController extends Controller
 
         // Use validated inputs or fallback
         $page = $validated['page'] ?? 1;
-        $perPage = $validated['per_page'] ?? 2;
+        $perPage = $validated['per_page'] ?? 20;
         $search = $validated['q'] ?? null;
         // $categoryId = $validated['article_category_id'] ?? null;
         $isFeatured = $validated['is_featured'] ?? null;
@@ -50,7 +51,8 @@ class HotelCategoryApiController extends Controller
             ->get();
 
         $response = [
-            'data' => $hotelCategories,
+            // 'data' => $hotelCategories,
+            'data'=>HotelCategoryLiteResource::collection($hotelCategories),
             'meta' => [
                 'current_page' => $page,
                 'per_page' => $perPage,
@@ -66,7 +68,9 @@ class HotelCategoryApiController extends Controller
     {
         $hotelCategory = HotelCategory::where('slug', $slug)->first();
         if ($hotelCategory) {
-            return response()->json($hotelCategory);
+            // return response()->json($hotelCategory);
+            return response()->json(new HotelCategoryLiteResource($hotelCategory));
+
         } else {
             return response()->json(['message' => 'Hotel Category not found'], 404);
         }

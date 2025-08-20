@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\DestinationLiteResource;
 use App\Models\Destination;
 use App\Models\DestinationCategory;
 use Illuminate\Http\Request;
@@ -28,7 +29,7 @@ class DestinationApiController extends Controller
             // return $request;
         //     // Use validated inputs or fallback
             $page = $validated['page'] ?? 1;
-            $perPage = $validated['per_page'] ?? 2;
+            $perPage = $validated['per_page'] ?? 20;
             $search = $validated['q'] ?? null;
             $categoryId = $validate['destination_category_id']??null;
             $divisionId = $validated['division_id']??null;
@@ -80,7 +81,8 @@ class DestinationApiController extends Controller
                 ->get();
 
             $response = [
-                'data' => $destinations,
+                // 'data' => $destinations,
+                'data'=>DestinationLiteResource::collection($destinations),
                 'meta' => [
                     'current_page' => $page,
                     'per_page' => $perPage,
@@ -102,7 +104,8 @@ class DestinationApiController extends Controller
 
         $destination = Destination::with('category')->where('slug', $slug)->first();
         if ($destination) {
-            return response()->json($destination);
+            // return response()->json($destination);
+            return response()->json(new DestinationLiteResource($destination));
         }
         return response()->json(['message' => 'Destination not found'], 404);
     }

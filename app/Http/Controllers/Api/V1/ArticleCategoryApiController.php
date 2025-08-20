@@ -25,7 +25,7 @@ class ArticleCategoryApiController extends Controller
             // return $request;
         //     // Use validated inputs or fallback
             $page = $validated['page'] ?? 1;
-            $perPage = $validated['per_page'] ?? 2;
+            $perPage = $validated['per_page'] ?? 20;
             $search = $validated['q'] ?? null;
             // $categoryId = $validated['article_category_id'] ?? null;
             $isFeatured = $validated['is_featured'] ?? null;
@@ -57,7 +57,8 @@ class ArticleCategoryApiController extends Controller
                 ->get();
 
             $response = [
-                'data' => $articleCategories,
+                // 'data' => $articleCategories,
+                'data' => ArticleCategoryLiteResource::collection($articleCategories),
                 'meta' => [
                     'current_page' => $page,
                     'per_page' => $perPage,
@@ -70,76 +71,95 @@ class ArticleCategoryApiController extends Controller
 
     }
 
-    public function show($slug)
-    {
-        // $data = ArticleCategory::find($id);
-        // $articleCategory = ArticleCategory::where('slug', $slug)->with('articles')->first();
-        // if ($articleCategory) {
-        //     $articleCaegoryData = new ArticleCategoryDetailResource($articleCategory);
-        //     return response()->json($articleCaegoryData);
-        // } else {
-        //     return response()->json(['message' => 'Article not found'], 404);
-        // }
+    public function show(Request $request, $slug){
+            $articleCategory = ArticleCategory::where('slug', $slug)
+                    ->with('articles')
+                    ->first();
 
-        $articleCategory = ArticleCategory::where('slug', $slug)->with('articles');
-        // if ($articleCategory) {
-        //     // $articleCategoryData = new ArticleCategoryDetailResource($articleCategory);
-        //     return response()->json($articleCategory);
-        // } else {
-        //     return response()->json(['message' => 'Article category not found'], 404);
-        // }
-        $articleCategory = ArticleCategory::where('slug', $slug)
-            ->with('articles')
-            ->first();
+            if ($articleCategory) {
+            // $relative_storage_path =Storage::url($announcement->cover_photo);
+            // $announcement->cover_photo = rtrim(config('app.url'), '/') . '/' . ltrim($relative_storage_path, '/');
 
-        if ($articleCategory) {
-            return response()->json($articleCategory);
-        } else {
-            return response()->json(['message' => 'Article category not found'], 404);
-        }
-
+                return response()->json(new ArticleCategoryLiteResource($articleCategory));
+            } else {
+                    return response()->json(['message' => 'Article category not found'], 404);
+            }
     }
 
-    public function store(Request $request)
-        {
-            $validated = $request->validate([
-                'name' => 'required|string|max:255',
-                'slug' => 'required|string|max:255|unique:article_categories,slug',
-                'image_url' => 'nullable|string|max:255',
-                'description' => 'nullable|string',
-                'is_active' => 'boolean',
-                'is_featured' => 'boolean',
-            ]);
 
-            $articleCategory = ArticleCategory::create($validated);
+    // public function show($slug)
+    // {
+    //     // $data = ArticleCategory::find($id);
+    //     // $articleCategory = ArticleCategory::where('slug', $slug)->with('articles')->first();
+    //     // if ($articleCategory) {
+    //     //     $articleCaegoryData = new ArticleCategoryDetailResource($articleCategory);
+    //     //     return response()->json($articleCaegoryData);
+    //     // } else {
+    //     //     return response()->json(['message' => 'Article not found'], 404);
+    //     // }
 
-            return response()->json($articleCategory, 201);
-        }
+    //     $articleCategory = ArticleCategory::where('slug', $slug)->with('articles');
+    //     // if ($articleCategory) {
+    //     //     // $articleCategoryData = new ArticleCategoryDetailResource($articleCategory);
+    //     //     return response()->json($articleCategory);
+    //     // } else {
+    //     //     return response()->json(['message' => 'Article category not found'], 404);
+    //     // }
+    //     $articleCategory = ArticleCategory::where('slug', $slug)
+    //         ->with('articles')
+    //         ->first();
 
-        public function update(Request $request, $id)
-        {
-            $articleCategory = ArticleCategory::findOrFail($id);
+    //     if ($articleCategory) {
+    //         return response()->json($articleCategory);
+    //     } else {
+    //         return response()->json(['message' => 'Article category not found'], 404);
+    //     }
 
-            $validated = $request->validate([
-                'name' => 'sometimes|required|string|max:255',
-                'slug' => 'sometimes|required|string|max:255|unique:article_categories,slug,' . $articleCategory->id,
-                'image_url' => 'nullable|string|max:255',
-                'description' => 'nullable|string',
-                'is_active' => 'boolean',
-                'is_featured' => 'boolean',
-            ]);
+    // }
 
-            $articleCategory->update($validated);
 
-            return response()->json($articleCategory);
-        }
+    
 
-        public function destroy($id)
-        {
-            $articleCategory = ArticleCategory::findOrFail($id);
-            $articleCategory->delete();
+    // public function store(Request $request)
+    //     {
+    //         $validated = $request->validate([
+    //             'name' => 'required|string|max:255',
+    //             'slug' => 'required|string|max:255|unique:article_categories,slug',
+    //             'image_url' => 'nullable|string|max:255',
+    //             'description' => 'nullable|string',
+    //             'is_active' => 'boolean',
+    //             'is_featured' => 'boolean',
+    //         ]);
 
-            return response()->json(['message' => 'Article category deleted successfully.']);
-        }
+    //         $articleCategory = ArticleCategory::create($validated);
+
+    //         return response()->json($articleCategory, 201);
+    //     }
+
+    //     public function update(Request $request, $id)
+    //     {
+    //         $articleCategory = ArticleCategory::findOrFail($id);
+
+    //         $validated = $request->validate([
+    //             'name' => 'sometimes|required|string|max:255',
+    //             'slug' => 'sometimes|required|string|max:255|unique:article_categories,slug,' . $articleCategory->id,
+    //             'image_url' => 'nullable|string|max:255',
+    //             'description' => 'nullable|string',
+    //             'is_active' => 'boolean',
+    //             'is_featured' => 'boolean',
+    //         ]);
+
+    //         $articleCategory->update($validated);
+
+    //         return response()->json($articleCategory);
+    //     }
+
+    //     public function destroy($id)
+    //     {
+    //         $articleCategory = ArticleCategory::findOrFail($id);
+    //         $articleCategory->delete();
+
+    //         return response()->json(['message' => 'Article category deleted successfully.']);
+    //     }
 
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\RestaurantCategoryLiteResource;
 use App\Models\Restaurant;
 use App\Models\RestaurantCategory;
 use Illuminate\Http\Request;
@@ -21,7 +22,7 @@ class RestaurantCategoryApiController extends Controller
         ]);
 
             $page = $validated['page'] ?? 1;
-            $perPage = $validated['per_page'] ?? 2;
+            $perPage = $validated['per_page'] ?? 20;
             $search = $validated['q'] ?? null;
             $isFeatured = $validated['is_featured'] ?? null;
             $query = Restaurant::query();
@@ -41,12 +42,14 @@ class RestaurantCategoryApiController extends Controller
 
             $total = $query->count(); // total after filters applied
 
-            $Restaurant = $query->skip(($page - 1) * $perPage)
+            $restaurant_category = $query->skip(($page - 1) * $perPage)
                 ->take($perPage)
                 ->get();
 
             $response = [
-                'data' => $Restaurant,
+                // 'data' => $Restaurant,
+                'data' => RestaurantCategoryLiteResource::collection($restaurant_category),
+
                 'meta' => [
                     'current_page' => $page,
                     'per_page' => $perPage,
@@ -60,7 +63,9 @@ class RestaurantCategoryApiController extends Controller
     {
         $restaurantCategory = RestaurantCategory::where('slug', $slug)->first();
         if ($restaurantCategory) {
-            return response()->json($restaurantCategory);
+            // return response()->json($restaurantCategory);
+            return response()->json(new RestaurantCategoryLiteResource($restaurantCategory));
+
         } else {
             return response()->json(['message' => 'Restaurant Category not found'], 404);
         }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\AttractionLiteResource;
 use App\Models\Attraction;
 use Illuminate\Http\Request;
 
@@ -27,7 +28,7 @@ class AttractionApiController extends Controller
             // return $request;
         //     // Use validated inputs or fallback
             $page = $validated['page'] ?? 1;
-            $perPage = $validated['per_page'] ?? 2;
+            $perPage = $validated['per_page'] ?? 20;
             $search = $validated['q'] ?? null;
             $divisionId = $validated['division_id']??null;
             $regionId = $validated['region_id']??null;
@@ -72,7 +73,8 @@ class AttractionApiController extends Controller
                 ->get();
 
             $response = [
-                'data' => $attractions,
+                // 'data' => $attractions,
+                'data' => AttractionLiteResource::collection($attractions),
                 'meta' => [
                     'current_page' => $page,
                     'per_page' => $perPage,
@@ -82,17 +84,31 @@ class AttractionApiController extends Controller
             return response()->json($response);
     }
 
-    public function show($slug)
-    {
-        $attraction = Attraction::where('slug', $slug)->first();
+    // public function show($slug)
+    // {
+    //     $attraction = Attraction::where('slug', $slug)->first();
+
+    //     if ($attraction) {
+    //         return response()->json($attraction);
+    //     } else {
+    //         return response()->json(['message' => 'Attraction not found'], 404);
+    //     }
+
+    // }
+
+
+    public function show(Request $request, $slug){
+        $attraction = Attraction::where('slug', $slug)->with(['category'])->first();
 
         if ($attraction) {
-            return response()->json($attraction);
+
+            // $relative_storage_path =Storage::url($announcement->cover_photo);
+            // $announcement->cover_photo = rtrim(config('app.url'), '/') . '/' . ltrim($relative_storage_path, '/');
+
+            return response()->json(new AttractionLiteResource($attraction));
         } else {
             return response()->json(['message' => 'Attraction not found'], 404);
         }
-
-
     }
 
     public function store(Request $request)

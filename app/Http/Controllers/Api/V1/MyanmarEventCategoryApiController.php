@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\MyanmarEventCategoryLiteResource;
 use App\Models\MyanmarEventCategory;
 use Illuminate\Http\Request;
 
@@ -21,7 +22,7 @@ class MyanmarEventCategoryApiController extends Controller
         ]);
 
             $page = $validated['page'] ?? 1;
-            $perPage = $validated['per_page'] ?? 2;
+            $perPage = $validated['per_page'] ?? 20;
             $search = $validated['q'] ?? null;
             $isFeatured = $validated['is_featured'] ?? null;
             $query = MyanmarEventCategory::query();
@@ -46,7 +47,8 @@ class MyanmarEventCategoryApiController extends Controller
                 ->get();
 
             $response = [
-                'data' => $myanmarEventCategory,
+                // 'data' => $myanmarEventCategory,
+                'data'=>MyanmarEventCategoryLiteResource::collection($myanmarEventCategory),
                 'meta' => [
                     'current_page' => $page,
                     'per_page' => $perPage,
@@ -68,7 +70,9 @@ class MyanmarEventCategoryApiController extends Controller
 
         $myanmarEventCategory = MyanmarEventCategory::where('slug', $slug)->with('myanmarEvents')->first();
         if ($myanmarEventCategory) {
-            return response()->json($myanmarEventCategory);
+            // return response()->json($myanmarEventCategory);
+            return response()->json(new MyanmarEventCategoryLiteResource($myanmarEventCategory));
+
         } else {
             return response()->json(['message' => 'Myanmar Event Category not found'], 404);
         }

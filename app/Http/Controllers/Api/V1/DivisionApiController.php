@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\DivisionLiteResource;
 use App\Models\Division;
 use Illuminate\Http\Request;
 
@@ -21,7 +22,7 @@ class DivisionApiController extends Controller
             // return $request;
         //     // Use validated inputs or fallback
             $page = $validated['page'] ?? 1;
-            $perPage = $validated['per_page'] ?? 2;
+            $perPage = $validated['per_page'] ?? 20;
             $search = $validated['q'] ?? null;
             $isFeatured = $validated['is_featured'] ?? null;
             $query = Division::query();
@@ -45,7 +46,8 @@ class DivisionApiController extends Controller
                 ->get();
 
             $response = [
-                'data' => $divisions,
+                // 'data' => $divisions,
+                'data' => DivisionLiteResource::collection($divisions),
                 'meta' => [
                     'current_page' => $page,
                     'per_page' => $perPage,

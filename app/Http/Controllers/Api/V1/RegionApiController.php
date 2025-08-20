@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\RegionLiteResource;
 use App\Models\Region;
 use Illuminate\Http\Request;
 
@@ -21,7 +22,7 @@ class RegionApiController extends Controller
         ]);
 
             $page = $validated['page'] ?? 1;
-            $perPage = $validated['per_page'] ?? 2;
+            $perPage = $validated['per_page'] ?? 20;
             $search = $validated['q'] ?? null;
             $isFeatured = $validated['is_featured'] ?? null;
             $query = Region::query();
@@ -46,7 +47,8 @@ class RegionApiController extends Controller
                 ->get();
 
             $response = [
-                'data' => $Region,
+                // 'data' => $Region,
+                'data' => RegionLiteResource::collection($Region),
                 'meta' => [
                     'current_page' => $page,
                     'per_page' => $perPage,
@@ -62,7 +64,9 @@ class RegionApiController extends Controller
     {
         $region = Region::where('slug', $slug)->first();
         if ($region) {
-            return response()->json($region);
+            // return response()->json($region);
+            return response()->json(new RegionLiteResource($region));
+
         } else {
             return response()->json(['message' => 'Region not found'], 404);
         }

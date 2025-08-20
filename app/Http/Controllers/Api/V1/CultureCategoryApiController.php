@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CultureCategoryLiteResource;
 use App\Models\CultureCategory;
 use Illuminate\Http\Request;
 
@@ -21,7 +22,7 @@ class CultureCategoryApiController extends Controller
             // return $request;
         //     // Use validated inputs or fallback
             $page = $validated['page'] ?? 1;
-            $perPage = $validated['per_page'] ?? 2;
+            $perPage = $validated['per_page'] ?? 20;
             $search = $validated['q'] ?? null;
             $isFeatured = $validated['is_featured'] ?? null;
             $query = CultureCategory::query();
@@ -46,7 +47,8 @@ class CultureCategoryApiController extends Controller
                 ->get();
 
             $response = [
-                'data' => $cultureCategories,
+                // 'data' => $cultureCategories,
+                'data'=>CultureCategoryLiteResource::collection($cultureCategories),
                 'meta' => [
                     'current_page' => $page,
                     'per_page' => $perPage,
@@ -69,7 +71,8 @@ class CultureCategoryApiController extends Controller
 
         $cultureCategory = CultureCategory::where('slug', $slug)->with('cultures')->first();
         if ($cultureCategory) {
-            return response()->json($cultureCategory);
+            // return response()->json($cultureCategory);
+            return response()->json(new CultureCategoryLiteResource($cultureCategory));
         } else {
             return response()->json(['message' => 'Culture Category not found'], 404);
         }

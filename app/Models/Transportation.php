@@ -24,7 +24,7 @@ class Transportation extends Model
 
     public function category()
     {
-        return $this->belongsTo(TransportationCategory::class);
+        return $this->belongsTo(TransportationCategory::class,'transportation_category_id');
     }
 
 

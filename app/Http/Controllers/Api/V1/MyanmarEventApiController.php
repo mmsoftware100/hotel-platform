@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\MyanmarEventLiteResource;
 use App\Models\MyanmarEvent;
 use Illuminate\Http\Request;
 
@@ -24,7 +25,7 @@ class MyanmarEventApiController extends Controller
         ]);
 
             $page = $validated['page'] ?? 1;
-            $perPage = $validated['per_page'] ?? 2;
+            $perPage = $validated['per_page'] ?? 20;
             $search = $validated['q'] ?? null;
             $categoryId = $validate['culture_category_id']??null;
             $divisionId = $validated['division_id']??null;
@@ -73,7 +74,8 @@ class MyanmarEventApiController extends Controller
                 ->get();
 
             $response = [
-                'data' => $myanmarEvent,
+                // 'data' => $myanmarEvent,
+                'data'=>MyanmarEventLiteResource::collection($myanmarEvent),
                 'meta' => [
                     'current_page' => $page,
                     'per_page' => $perPage,
@@ -87,7 +89,9 @@ class MyanmarEventApiController extends Controller
     {
         $myanmarEvent = MyanmarEvent::where('slug', $slug)->first();
         if ($myanmarEvent) {
-            return response()->json($myanmarEvent);
+            // return response()->json($myanmarEvent);
+            return response()->json(new MyanmarEventLiteResource($myanmarEvent));
+
         } else {
             return response()->json(['message' => 'Event not found'], 404);
         }
