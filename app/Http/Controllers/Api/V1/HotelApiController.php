@@ -70,7 +70,9 @@ class HotelApiController extends Controller
     {
         $hotel = Hotel::where('slug', $slug)->first();
         if ($hotel) {
-            return response()->json($hotel);
+            // return response()->json($hotel);
+            return response()->json(new HotelLiteResource($hotel));
+
         } else {
             return response()->json(['message' => 'Hotel not found'], 404);
         }
