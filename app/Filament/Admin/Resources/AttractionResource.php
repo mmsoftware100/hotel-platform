@@ -307,7 +307,7 @@ class AttractionResource extends Resource
                             FileUpload::make('image_url')
                                 ->label('Cover Photo')
                                 ->image()
-                                ->directory('Cultures')
+                                ->directory('Attraction')
                                 ->acceptedFileTypes(['image/jpeg', 'image/jpg', 'image/png'])
                                 ->imageEditor()
                                 ->helperText('Supported formats: JPG, PNG'),
