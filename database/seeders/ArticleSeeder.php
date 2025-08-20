@@ -113,7 +113,7 @@ class ArticleSeeder extends Seeder
         foreach ($divisions as $division) {
             for ($i = 0; $i < 5; $i++) {
                 Article::create([
-                    'name' => "Sample Article {$i} in division {$division->name}",
+                    'name' => "Sample Article {$i} in division {$division->name} " . rand(1, 100000),
                     // add random number to the slug to avoid duplicates
                     'slug' => Str::slug("Sample Article {$i} in {$division->name}" . rand(1, 100)),
                     'image_url' => 'https://placehold.co/400?text=Sample+Article',
