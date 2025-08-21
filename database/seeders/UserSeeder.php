@@ -26,7 +26,7 @@ class UserSeeder extends Seeder
         foreach ($roles as $role) {
 
             $users[] = [
-                'id' => $role->id,
+                // 'id' => $role->id,
                 'name' => ucfirst($role->name),
                 'email' => strtolower(str_replace(' ', '', $role->name)) . '@mail.com',
                 'password' => $password,
