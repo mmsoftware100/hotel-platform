@@ -25,6 +25,7 @@ class DigitalMarketingPanelProvider extends PanelProvider
         return $panel
             ->id('digital-marketing')
             ->path('digital-marketing')
+            ->login()
             ->colors([
                 'primary' => Color::Amber,
             ])
@@ -35,8 +36,8 @@ class DigitalMarketingPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/DigitalMarketing/Widgets'), for: 'App\\Filament\\DigitalMarketing\\Widgets')
             ->widgets([
-                Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
+                // Widgets\AccountWidget::class,
+                // Widgets\FilamentInfoWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -51,6 +52,9 @@ class DigitalMarketingPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ]);
+            ])
+            ->brandName('MOHT Myanmar');
+            
+            
     }
 }

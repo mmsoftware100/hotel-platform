@@ -36,7 +36,6 @@ class ArticleCategoryResource extends Resource
     protected static ?string $pluralLabel = 'Article Categories';
     protected static ?int $navigationSort = 1410;
     protected static ?string $model = ArticleCategory::class;
-
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     // public static function form(Form $form): Form
