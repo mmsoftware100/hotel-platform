@@ -48,6 +48,17 @@ class User extends Authenticatable
     // {
     //     return $this->hasOne(Role::class)->where('name', $role);
     // }
+
+    public function canAccessPanel(string $panel): bool
+        {
+            return match ($panel) {
+                // 'admin' => $this->role->name === 'Super Admin',
+                'admin' => $this->role->name === 'Admin',
+                'digital-marketing' => $this->role->name === 'Digital Marketing',
+                'news' => $this->role->name === 'News',
+                default => false,
+            };
+        }    
     public function role()
     {
         return $this->belongsTo(Role::class);

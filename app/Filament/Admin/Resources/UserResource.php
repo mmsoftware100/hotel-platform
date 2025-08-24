@@ -48,6 +48,7 @@ class UserResource extends Resource
                 TextColumn::make('email')
                     ->searchable()
                     ->sortable(),
+                    
                 TextColumn::make('role.name')
                     ->label('Role')
                     ->searchable()
