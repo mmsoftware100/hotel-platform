@@ -59,8 +59,6 @@ class DatabaseSeeder extends Seeder
             TransportationSeeder::class,
 
 
-
-
             ArticleCategorySeeder::class,
             ArticleSeeder::class,
 
