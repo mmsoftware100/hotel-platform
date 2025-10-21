@@ -28,8 +28,8 @@ class HotelLiteResource extends JsonResource
             'description' => $this->description,
             'is_active' => $this->is_active,
             'is_featured' => $this->is_featured,
-
-
+            'google_map_label' => $this->google_map_label,
+            'google_map_link' => $this->google_map_link,
             'hotel_category_id' => new HotelCategoryLiteResource($this->category),
             'division_id' => new DivisionLiteResource($this->division),
             'region_id' => new RegionLiteResource($this->region),

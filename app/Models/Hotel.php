@@ -23,6 +23,8 @@ class Hotel extends Model
         'township_id',
         'village_id',
         'hotel_category_id',
+        'google_map_label',
+        'google_map_link',
     ];
 
     protected $casts = [
