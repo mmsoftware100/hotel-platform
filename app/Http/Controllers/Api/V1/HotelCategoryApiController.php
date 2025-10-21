@@ -66,7 +66,7 @@ class HotelCategoryApiController extends Controller
 
     public function show(string $slug)
     {
-        $hotelCategory = HotelCategory::where('slug', $slug)->first();
+        $hotelCategory = HotelCategory::where('slug', $slug)->with('hotels')->first();
         if ($hotelCategory) {
             // return response()->json($hotelCategory);
             return response()->json(new HotelCategoryLiteResource($hotelCategory));

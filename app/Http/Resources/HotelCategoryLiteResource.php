@@ -29,6 +29,11 @@ class HotelCategoryLiteResource extends JsonResource
             'description' => $this->description,
             'is_active' => $this->is_active,
             'is_featured' => $this->is_featured,
+            'hotels' => HotelLiteResource::collection($this->whenLoaded('hotels')),
+            // 'hotel_id' => $this->hotels ? new HotelLiteResource($this->hotels) : null,
+            // 'hotel_id' => new HotelLiteResource($this->hotels),
+            // 'gg' => "gg",
+
         ];
     }
 }
