@@ -29,6 +29,8 @@ class DestinationCategoryLiteResource extends JsonResource
             'description' => $this->description,
             'is_active' => $this->is_active,
             'is_featured' => $this->is_featured,
+            'destinations' => DestinationLiteResource::collection($this->whenLoaded('destinations')),
+
         ];
     }
 }
