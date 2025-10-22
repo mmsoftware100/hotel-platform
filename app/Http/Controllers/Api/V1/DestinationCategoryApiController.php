@@ -69,7 +69,7 @@ class DestinationCategoryApiController extends Controller
     //         return response()->json(['message' => 'Destination Category not found'], 404);
     //     }
 
-        $desinationCategory = DestinationCategory::with('destinations')->where('slug', $slug)->first();
+        $desinationCategory = DestinationCategory::with('destinations')->where('slug', $slug)->with('destinations')->first();
         if ($desinationCategory) {
             // return response()->json($desinationCategory);
             return response()->json(new DestinationCategoryLiteResource($desinationCategory));
