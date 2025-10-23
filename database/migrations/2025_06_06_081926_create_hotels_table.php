@@ -21,8 +21,8 @@ return new class extends Migration
             $table->decimal('pricing', 8, 2)->default(0.00);
             $table->decimal('lat', 10, 7)->nullable();
             $table->decimal('lng', 10, 7)->nullable();
-            $table->string('google_map_label')->nullable();
-            $table->string('google_map_link')->nullable();
+            $table->longText('google_map_label')->nullable();
+            $table->longText('google_map_link')->nullable();
             // $table->foreignId('township_id')->constrained()->onDelete('cascade');
             $table->string('image_url')->nullable();
             $table->boolean('is_featured')->default(false);

@@ -24,7 +24,11 @@ class Hotel extends Model
         'village_id',
         'hotel_category_id',
         'google_map_label',
+<<<<<<< Updated upstream
         'google_map_link',
+=======
+        'google_map_link'
+>>>>>>> Stashed changes
     ];
 
     protected $casts = [
