@@ -35,6 +35,8 @@ return new class extends Migration
             $table->foreignId('myanmar_event_category_id')->nullable()->constrained('myanmar_event_categories', 'id')->restrictOnUpdate()->restrictOnDelete();
             $table->date('start_date')->default(now());
             $table->date('end_date')->default(now()->addDays(value: 7));
+            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();                
             $table->softDeletes();
             $table->timestamps();
         });

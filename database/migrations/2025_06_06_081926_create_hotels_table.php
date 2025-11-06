@@ -39,7 +39,8 @@ return new class extends Migration
             $table->foreignId('hotel_category_id')->nullable()->constrained('hotel_categories', 'id')->restrictOnUpdate()->restrictOnDelete();
 
 
-
+            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();    
             $table->timestamps();
         });
 

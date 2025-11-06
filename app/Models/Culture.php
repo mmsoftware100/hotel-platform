@@ -26,6 +26,8 @@ class Culture extends Model
         'google_map_label',
         'google_map_link',
         'destination_id', // Optional: if this culture is associated with a destination
+        'created_by',
+        'updated_by',      
     ];
 
     protected $casts = [

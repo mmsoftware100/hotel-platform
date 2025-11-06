@@ -31,6 +31,8 @@ class Attraction extends Model
         'google_map_label',
         'google_map_link',
         'destination_id', // Optional, if the attraction is part of a destination
+        'created_by',
+        'updated_by',        
     ];
 
     /**

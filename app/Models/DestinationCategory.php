@@ -17,6 +17,8 @@ class DestinationCategory extends Model
         'description',
         'is_active',
         'is_featured',
+        'created_by',
+        'updated_by',          
     ];
 
     protected $casts = [

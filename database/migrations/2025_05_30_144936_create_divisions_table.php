@@ -22,7 +22,8 @@ return new class extends Migration
 
             $table->string('google_map_label')->nullable();
             $table->string('google_map_link')->nullable();
-
+            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();   
             $table->softDeletes();
             $table->timestamps();
         });

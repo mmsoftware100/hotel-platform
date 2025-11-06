@@ -21,7 +21,9 @@ class Restaurant extends Model
         'city_id',
         'township_id',
         'village_id',
-        'restaurant_category_id'
+        'restaurant_category_id',
+        'created_by',
+        'updated_by',          
     ];
 
     protected $casts = [

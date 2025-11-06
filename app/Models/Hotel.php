@@ -25,6 +25,8 @@ class Hotel extends Model
         'hotel_category_id',
         'google_map_label',
         'google_map_link',
+        'created_by',
+        'updated_by',          
     ];
 
     protected $casts = [

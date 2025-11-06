@@ -27,6 +27,8 @@ class Article extends Model
         'township_id',
         'village_id',
         'attraction_category_id',
+        'created_by',
+        'updated_by',
     ];
 
     protected $casts = [

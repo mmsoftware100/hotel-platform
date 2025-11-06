@@ -5,6 +5,7 @@ namespace App\Filament\Admin\Resources;
 use App\Filament\Admin\Resources\ArticleCategoryResource\Pages;
 use App\Filament\Admin\Resources\ArticleCategoryResource\RelationManagers;
 use App\Models\ArticleCategory;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\FileUpload;
@@ -120,6 +121,11 @@ class ArticleCategoryResource extends Resource
 
     public static function table(Table $table): Table
     {
+        $createdUserIds = ArticleCategory::pluck('created_by')->unique()->filter();
+        $createdUsers = User::whereIn('id', $createdUserIds)->pluck('name', 'id');        
+
+        $updatedUserIds = ArticleCategory::pluck('updated_by')->unique()->filter();
+        $updatedUsers = User::whereIn('id', $updatedUserIds)->pluck('name', 'id');        
         return $table
             ->columns([
 
@@ -130,6 +136,27 @@ class ArticleCategoryResource extends Resource
                 BooleanColumn::make('is_featured')->toggleable(),
                 ImageColumn::make('image_url')->circular()->toggleable(),
                 TextColumn::make('description')->searchable()->toggleable()->limit(20),
+
+                TextColumn::make('created_by')
+                    ->label('Created By')
+                    ->getStateUsing(function ($record) use ($createdUsers) {
+                        $userId = $record->created_by;
+                        return isset($createdUsers[$userId]) ? $userId . ' | ' . $createdUsers[$userId]: 'N/A';
+                    })
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(),
+
+
+                TextColumn::make('updated_by')
+                    ->label('Updated By')
+                    ->getStateUsing(function ($record) use ($updatedUsers) {
+                        $userId = $record->updated_by;
+                        return isset($updatedUsers[$userId]) ? $userId . ' | ' . $updatedUsers[$userId]: 'N/A';
+                    })
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(),                  
 
 
             ])->defaultSort('updated_at','desc')
@@ -169,6 +196,13 @@ class ArticleCategoryResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make()
+                    ->before(function (ArticleCategoryResource $record) {
+                        // This runs before deletion
+                        $newSlug = $record->slug . '_deleted_' . now()->timestamp;
+                        $record->slug = $newSlug;
+                        $record->save();
+                    }),                
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

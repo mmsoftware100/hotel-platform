@@ -21,6 +21,8 @@ class Village extends Model
         'township_id',
         'google_map_label',
         'google_map_link',
+        'created_by',
+        'updated_by',         
     ];
     protected $casts = [
         'is_active' => 'boolean',

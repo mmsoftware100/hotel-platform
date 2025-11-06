@@ -360,6 +360,11 @@ class HotelResource extends Resource
 
     public static function table(Table $table): Table
     {
+        $createdUserIds = \App\Models\Hotel::pluck('created_by')->unique()->filter();
+        $createdUsers = \App\Models\User::whereIn('id', $createdUserIds)->pluck('name', 'id');        
+
+        $updatedUserIds = \App\Models\Hotel::pluck('updated_by')->unique()->filter();
+        $updatedUsers = \App\Models\User::whereIn('id', $updatedUserIds)->pluck('name', 'id');           
         return $table
             ->columns([
 
@@ -380,6 +385,27 @@ class HotelResource extends Resource
                 TextColumn::make('city.name')->label('City')->toggleable(),
                 TextColumn::make('township.name')->label('Township')->toggleable(),
                 TextColumn::make('village.name')->label('Village')->toggleable(),
+
+                TextColumn::make('created_by')
+                    ->label('Created By')
+                    ->getStateUsing(function ($record) use ($createdUsers) {
+                        $userId = $record->created_by;
+                        return isset($createdUsers[$userId]) ? $userId . ' | ' . $createdUsers[$userId]: 'N/A';
+                    })
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(),
+
+
+                TextColumn::make('updated_by')
+                    ->label('Updated By')
+                    ->getStateUsing(function ($record) use ($updatedUsers) {
+                        $userId = $record->updated_by;
+                        return isset($updatedUsers[$userId]) ? $userId . ' | ' . $updatedUsers[$userId]: 'N/A';
+                    })
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(),                  
 
             ])->defaultSort('updated_at','desc')
 

@@ -22,6 +22,8 @@ class City extends Model
         'region_id',
         'is_capital', // to identify regional capitals
         'is_featured',
+        'created_by',
+        'updated_by',          
     ];
 
     protected $casts = [

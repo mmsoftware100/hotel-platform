@@ -40,6 +40,8 @@ class MyanmarEvent extends Model
         'google_map_label',
         'google_map_link',
         'destination_id', // Optional: if this event is part of a destination
+        'created_by',
+        'updated_by',          
     ];
 
     /**

@@ -10,6 +10,12 @@ class EditMyanmarEvent extends EditRecord
 {
     protected static string $resource = MyanmarEventResource::class;
 
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        $data['updated_by'] = auth()->id();
+        return $data;
+    }
+    
     protected function getHeaderActions(): array
     {
         return [

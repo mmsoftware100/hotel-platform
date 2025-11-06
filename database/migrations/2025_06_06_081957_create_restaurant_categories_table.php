@@ -19,6 +19,8 @@ return new class extends Migration
             $table->mediumText('description')->nullable();
             $table->boolean('is_active')->nullable()->default(true);
             $table->boolean('is_featured')->nullable()->default(true);
+            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();                
             $table->timestamps();
         });
     }
