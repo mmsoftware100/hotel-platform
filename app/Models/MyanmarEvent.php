@@ -30,7 +30,8 @@ class MyanmarEvent extends Model
         'is_active',
         'division_id',
         'region_id',
-        'city_id',
+        // 'city_id',
+        'district_id',
         'township_id',
         'village_id',
         'myanmar_event_category_id', // Make sure this matches your migration field

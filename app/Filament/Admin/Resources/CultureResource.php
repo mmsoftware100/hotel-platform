@@ -1245,7 +1245,8 @@ class CultureResource extends Resource
                 TextColumn::make('destination.name')->label('Destination')->toggleable(),
                 TextColumn::make('division.name')->label('Division')->toggleable(),
                 TextColumn::make('region.name')->label('Region')->toggleable(),
-                TextColumn::make('city.name')->label('City')->toggleable(),
+                // TextColumn::make('city.name')->label('City')->toggleable(),
+                TextColumn::make('district.name')->label('District')->toggleable(),                
                 TextColumn::make('township.name')->label('Township')->toggleable(),
                 TextColumn::make('village.name')->label('Village')->toggleable(),
                 TextColumn::make('created_by')
@@ -1309,11 +1310,40 @@ class CultureResource extends Resource
                             }),
             ])
             ->actions([
+                Tables\Actions\DeleteAction::make()
+                    ->before(function (Culture $record) {
+                        // This runs before deletion
+                        $newSlug = $record->slug . '_deleted_' . now()->timestamp;
+                        $record->slug = $newSlug;
+                        $record->save();
+                    }),
+
                 Tables\Actions\EditAction::make(),
+                // Tables\Actions\DeleteAction::make(),
+                Tables\Actions\ForceDeleteAction::make(),
+                Tables\Actions\RestoreAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    // Custom bulk action that updates slugs before deletion
+                    Tables\Actions\BulkAction::make('deleteWithSlugUpdate')
+                        ->label('Delete with Slug Update')
+                        ->icon('heroicon-o-trash')
+                        ->color('danger')
+                        ->requiresConfirmation()
+                        ->action(function (Collection $records) {
+                            // Update slugs for all records first
+                            $records->each(function ($record) {
+                                $newSlug = $record->slug . '_deleted_' . now()->timestamp;
+                                $record->update(['slug' => $newSlug]);
+                            });
+                            
+                            // Then delete all records
+                            $records->each->delete();
+                        }),
+                    
+                    // Regular delete action (optional)
+                    // Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

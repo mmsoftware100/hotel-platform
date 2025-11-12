@@ -27,6 +27,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
+use Illuminate\Support\Collection;
 
 class VillageResource extends Resource
 {
@@ -391,11 +392,40 @@ class VillageResource extends Resource
                             }),
             ])
             ->actions([
+                Tables\Actions\DeleteAction::make()
+                    ->before(function (Village $record) {
+                        // This runs before deletion
+                        $newSlug = $record->slug . '_deleted_' . now()->timestamp;
+                        $record->slug = $newSlug;
+                        $record->save();
+                    }),
+
                 Tables\Actions\EditAction::make(),
+                // Tables\Actions\DeleteAction::make(),
+                Tables\Actions\ForceDeleteAction::make(),
+                Tables\Actions\RestoreAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    // Custom bulk action that updates slugs before deletion
+                    Tables\Actions\BulkAction::make('deleteWithSlugUpdate')
+                        ->label('Delete with Slug Update')
+                        ->icon('heroicon-o-trash')
+                        ->color('danger')
+                        ->requiresConfirmation()
+                        ->action(function (Collection $records) {
+                            // Update slugs for all records first
+                            $records->each(function ($record) {
+                                $newSlug = $record->slug . '_deleted_' . now()->timestamp;
+                                $record->update(['slug' => $newSlug]);
+                            });
+                            
+                            // Then delete all records
+                            $records->each->delete();
+                        }),
+                    
+                    // Regular delete action (optional)
+                    // Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }
