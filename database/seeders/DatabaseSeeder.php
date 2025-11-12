@@ -30,16 +30,16 @@ class DatabaseSeeder extends Seeder
             HomeSeeder::class,
 
             DivisionSeeder::class,
-            RegionSeeder::class,
-            CitySeeder::class,
-            TownshipSeeder::class,
-            VillageSeeder::class,
+            // RegionSeeder::class,
+            // CitySeeder::class,
+            // TownshipSeeder::class,
+            // VillageSeeder::class,
 
             DestinationCategorySeeder::class,
-            DestinationSeeder::class,
+            // DestinationSeeder::class,
 
             AttractionCategorySeeder::class,
-            AttractionSeeder::class,
+            // AttractionSeeder::class,
 
 
 
@@ -50,19 +50,19 @@ class DatabaseSeeder extends Seeder
             MyanmarEventSeeder::class,
 
             HotelCategorySeeder::class,
-            HotelSeeder::class,
+            // HotelSeeder::class,
 
             RestaurantCategorySeeder::class,
-            RestaurantSeeder::class,
+            // RestaurantSeeder::class,
 
             TransportationCategorySeeder::class,
-            TransportationSeeder::class,
+            // TransportationSeeder::class,
 
 
 
 
             ArticleCategorySeeder::class,
-            ArticleSeeder::class,
+            // ArticleSeeder::class,
 
         ]);
     }

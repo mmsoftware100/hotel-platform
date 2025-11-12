@@ -28,6 +28,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Collection;
 
 class RegionResource extends Resource
 {
@@ -75,7 +76,62 @@ class RegionResource extends Resource
                                 ->preload()
                                 ->relationship('division', 'name')
                                 ->searchable()
-                                ->nullable(),
+                                ->nullable()
+                                ->createOptionForm([
+                                    Fieldset::make('')
+                                        ->schema([
+                                            TextInput::make('name')
+                                                ->required()
+                                                ->live(onBlur: true)
+                                                ->afterStateUpdated(function (Get $get, Set $set, ?string $old, ?string $state) {
+                                                    if (filled($state)) {
+                                                        if ($get('slug') === null || Str::slug($old) === $get('slug')) {
+                                                            $set('slug', Str::slug($state));
+                                                        }
+                                                    }
+                                                }),
+                                            TextInput::make('slug')
+                                                ->required()
+                                                ->unique(ignoreRecord: true)
+                                                ->helperText('This will be automatically generated from the name.'),
+
+                                            TextInput::make('google_map_label')->nullable(),
+
+                                            TextInput::make('google_map_link')->nullable(),
+
+                                            Toggle::make('is_active')
+                                                ->label('Active')
+                                                ->default(true)
+                                                ->inline(false)
+                                                ->helperText('Toggle to activate or deactivate this category.'),
+
+                                            Toggle::make('is_featured')
+                                                ->label('Featured')
+                                                ->default(true)
+                                                ->inline(false)
+                                                ->helperText('Toggle to activate or deactivate this category.'),
+
+
+                                    ]),
+                                    Fieldset::make('Media & Description')
+                                        ->schema([
+                                            Grid::make(1)->schema([
+
+                                                RichEditor::make('description')
+                                                    ->label('Description')
+                                                    ->nullable()
+                                                    ->helperText('Provide a detailed description.'),
+
+                                                FileUpload::make('image_url')
+                                                    ->label('Cover Photo')
+                                                    ->image()
+                                                    ->directory('Divisions')
+                                                    ->acceptedFileTypes(['image/jpeg', 'image/jpg', 'image/png'])
+                                                    ->imageEditor()
+                                                    ->helperText('Supported formats: JPG, PNG'),
+                                            ]),
+                                    ]),                                    
+                                ]),
 
                         Grid::make(3)->schema([
 
@@ -214,11 +270,40 @@ class RegionResource extends Resource
                             }),
             ])
             ->actions([
+                Tables\Actions\DeleteAction::make()
+                    ->before(function (Region $record) {
+                        // This runs before deletion
+                        $newSlug = $record->slug . '_deleted_' . now()->timestamp;
+                        $record->slug = $newSlug;
+                        $record->save();
+                    }),
+
                 Tables\Actions\EditAction::make(),
+                // Tables\Actions\DeleteAction::make(),
+                Tables\Actions\ForceDeleteAction::make(),
+                Tables\Actions\RestoreAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    // Custom bulk action that updates slugs before deletion
+                    Tables\Actions\BulkAction::make('deleteWithSlugUpdate')
+                        ->label('Delete with Slug Update')
+                        ->icon('heroicon-o-trash')
+                        ->color('danger')
+                        ->requiresConfirmation()
+                        ->action(function (Collection $records) {
+                            // Update slugs for all records first
+                            $records->each(function ($record) {
+                                $newSlug = $record->slug . '_deleted_' . now()->timestamp;
+                                $record->update(['slug' => $newSlug]);
+                            });
+                            
+                            // Then delete all records
+                            $records->each->delete();
+                        }),
+                    
+                    // Regular delete action (optional)
+                    // Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

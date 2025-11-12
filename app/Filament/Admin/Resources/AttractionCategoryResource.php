@@ -71,9 +71,9 @@ class AttractionCategoryResource extends Resource
                                 ->inline(false)
                                 ->helperText('Toggle to activate or deactivate this category.'),
 
-                    ]),
+                ]),
 
-                    Fieldset::make('Media & Description')
+                Fieldset::make('Media & Description')
                         ->schema([
                             Grid::make(1)->schema([
 
@@ -91,7 +91,7 @@ class AttractionCategoryResource extends Resource
                                     ->helperText('Supported formats: JPG, PNG'),
                                     
                             ]),
-                        ]),
+                ]),
             ]);
     }
 

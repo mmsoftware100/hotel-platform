@@ -55,7 +55,9 @@ class Article extends Model
     public function region(){
         return $this->belongsTo(Region::class,'region_id');
     }
-
+    public function district(){
+        return $this->belongsTo(District::class,'district_id');
+    }
     public function city(){
         return $this->belongsTo(City::class,'city_id');
     }

@@ -17,7 +17,8 @@ class Township extends Model
         'image_url',
         'description',
         'is_active',
-        'region_id',
+        // 'region_id',
+        'district_id',
         'is_featured',
         'google_map_label',
         'google_map_link',
@@ -31,11 +32,14 @@ class Township extends Model
     ];
 
     // Relationships
-    public function region()
+    // public function region()
+    // {
+    //     return $this->belongsTo(Region::class);
+    // }
+    public function district()
     {
-        return $this->belongsTo(Region::class);
+        return $this->belongsTo(District::class);
     }
-
     public function villages()
     {
         return $this->hasMany(Village::class);

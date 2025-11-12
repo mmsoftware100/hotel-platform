@@ -11,24 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('townships', function (Blueprint $table) {
+        Schema::create('districts', function (Blueprint $table) {
             $table->id();
-            // $table->string('name');
-            // $table->foreignId('state_id')->nullable()->constrained('states', 'id')->restrictOnUpdate()->restrictOnDelete();
-
             $table->string('name')->nullable();
             $table->string('slug')->nullable()->unique();
             $table->string('image_url')->nullable();
             $table->mediumText('description')->nullable();
             $table->boolean('is_active')->nullable()->default(true);
             $table->boolean('is_featured')->nullable()->default(true);
-            // $table->foreignId('region_id')->nullable()->constrained('regions', 'id')->restrictOnUpdate()->restrictOnDelete();
-            $table->foreignId('district_id')->nullable()->constrained('districts', 'id')->restrictOnUpdate()->restrictOnDelete();
+            $table->foreignId('region_id')->nullable()->constrained('regions', 'id')->restrictOnUpdate()->restrictOnDelete();
+            $table->boolean('is_state')->nullable()->default(true);
 
             $table->string('google_map_label')->nullable();
             $table->string('google_map_link')->nullable();
             $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
-            $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();                
+            $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();               
             $table->softDeletes();
             $table->timestamps();
         });
@@ -39,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('townships');
+        Schema::dropIfExists('districts');
     }
 };

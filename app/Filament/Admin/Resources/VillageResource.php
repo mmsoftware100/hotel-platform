@@ -77,7 +77,205 @@ class VillageResource extends Resource
                                 ->relationship('township', 'name')
                                 ->preload()
                                 ->searchable()
-                                ->nullable(),
+                                ->nullable()
+                                ->createOptionForm([
+                                    Fieldset::make('')
+                                        ->schema([
+                                            TextInput::make('name')
+                                                ->required()
+                                                ->live(onBlur: true)
+                                                ->afterStateUpdated(function (Get $get, Set $set, ?string $old, ?string $state) {
+                                                    if (filled($state)) {
+                                                        if ($get('slug') === null || Str::slug($old) === $get('slug')) {
+                                                            $set('slug', Str::slug($state));
+                                                        }
+                                                    }
+                                                }),
+                                            TextInput::make('slug')
+                                                ->required()
+                                                ->unique(ignoreRecord: true)
+                                                ->helperText('This will be automatically generated from the name.'),
+
+                                            TextInput::make('google_map_label')->nullable(),
+
+                                            TextInput::make('google_map_link')->nullable(),
+
+
+                                            // Select::make('region_id')
+                                            //         ->relationship('region', 'name')
+                                            //         ->preload()
+                                            //         ->searchable()
+                                            //         ->nullable(),
+
+                                            Select::make('district_id')
+                                                    ->relationship('district', 'name')
+                                                    ->preload()
+                                                    ->searchable()
+                                                    ->nullable()
+                                                    ->createOptionForm([
+                                                        Fieldset::make('')
+                                                            ->schema([
+                                                                TextInput::make('name')
+                                                                    ->required()
+                                                                    ->live(onBlur: true)
+                                                                    ->afterStateUpdated(function (Get $get, Set $set, ?string $old, ?string $state) {
+                                                                        if (filled($state)) {
+                                                                            if ($get('slug') === null || Str::slug($old) === $get('slug')) {
+                                                                                $set('slug', Str::slug($state));
+                                                                            }
+                                                                        }
+                                                                    }),
+                                                                TextInput::make('slug')
+                                                                    ->required()
+                                                                    ->unique(ignoreRecord: true)
+                                                                    ->helperText('This will be automatically generated from the name.'),
+
+                                                                TextInput::make('google_map_label')->nullable(),
+
+                                                                TextInput::make('google_map_link')->nullable(),
+
+
+                                                                Select::make('region_id')
+                                                                        ->relationship('region', 'name')
+                                                                        ->preload()
+                                                                        ->searchable()
+                                                                        ->nullable()
+                                                                        ->createOptionForm([
+                                                                            Fieldset::make('')
+                                                                                ->schema([
+                                                                                    TextInput::make('name')
+                                                                                        ->required()
+                                                                                        ->live(onBlur: true)
+                                                                                        ->afterStateUpdated(function (Get $get, Set $set, ?string $old, ?string $state) {
+                                                                                            if (filled($state)) {
+                                                                                                if ($get('slug') === null || Str::slug($old) === $get('slug')) {
+                                                                                                    $set('slug', Str::slug($state));
+                                                                                                }
+                                                                                            }
+                                                                                        }),
+                                                                                    TextInput::make('slug')
+                                                                                        ->required()
+                                                                                        ->unique(ignoreRecord: true)
+                                                                                        ->helperText('This will be automatically generated from the name.'),
+
+                                                                                    TextInput::make('google_map_label')->nullable(),
+
+                                                                                    TextInput::make('google_map_link')->nullable(),
+
+                                                                                    Select::make('division_id')
+                                                                                            ->preload()
+                                                                                            ->relationship('division', 'name')
+                                                                                            ->searchable()
+                                                                                            ->nullable(),
+
+                                                                                    Grid::make(3)->schema([
+
+                                                                                        Toggle::make('is_active')
+                                                                                            ->label('Active')
+                                                                                            ->default(true)
+                                                                                            ->inline(false)
+                                                                                            ->helperText('Toggle to activate or deactivate this category.'),
+
+                                                                                        Toggle::make('is_featured')
+                                                                                            ->label('Featured')
+                                                                                            ->default(true)
+                                                                                            ->inline(false)
+                                                                                            ->helperText('Toggle to priority.'),
+
+
+                                                                                        Toggle::make('is_state')
+                                                                                            ->label('State')
+                                                                                            ->default(true)
+                                                                                            ->inline(false)
+                                                                                            ->helperText('Toggle to state or not.'),
+
+                                                                                    ]),
+
+
+
+
+                                                                            ]),
+                                                                            Fieldset::make('Media & Description')
+                                                                                ->schema([
+                                                                                    Grid::make(1)->schema([
+
+                                                                                        RichEditor::make('description')
+                                                                                            ->label('Description')
+                                                                                            ->nullable()
+                                                                                            ->helperText('Provide a detailed description.'),
+
+                                                                                        FileUpload::make('image_url')
+                                                                                            ->label('Cover Photo')
+                                                                                            ->image()
+                                                                                            ->directory('Region')
+                                                                                            ->acceptedFileTypes(['image/jpeg', 'image/jpg', 'image/png'])
+                                                                                            ->imageEditor()
+                                                                                            ->helperText('Supported formats: JPG, PNG'),
+                                                                                    ]),
+                                                                            ]),
+                                                                        ]),
+                                                            
+
+                                                                        
+                                                                        
+                                                        ]),
+                                                                
+
+                                                        Fieldset::make('Media & Description')
+                                                            ->schema([
+                                                                Grid::make(1)->schema([
+
+                                                                    RichEditor::make('description')
+                                                                        ->label('Description')
+                                                                        ->nullable()
+                                                                        ->helperText('Provide a detailed description.'),
+
+                                                                    FileUpload::make('image_url')
+                                                                        ->label('Cover Photo')
+                                                                        ->image()
+                                                                        ->directory('Townships')
+                                                                        ->acceptedFileTypes(['image/jpeg', 'image/jpg', 'image/png'])
+                                                                        ->imageEditor()
+                                                                        ->helperText('Supported formats: JPG, PNG'),
+                                                                ]),
+                                                            ]),                                    
+                                                    ]),                         
+
+                                        
+                                            Grid::make(2)->schema([
+                                                Toggle::make('is_active')
+                                                    ->label('Active')
+                                                    ->default(true)
+                                                    ->inline(false)
+                                                    ->helperText('Toggle to activate or deactivate this category.'),
+
+                                                Toggle::make('is_featured')
+                                                    ->label('Featured')
+                                                    ->default(true)
+                                                    ->inline(false)
+                                                    ->helperText('Toggle to activate or deactivate this category.'),
+                                            ])
+                                        ]),
+
+                                    Fieldset::make('Media & Description')
+                                        ->schema([
+                                            Grid::make(1)->schema([
+
+                                                RichEditor::make('description')
+                                                    ->label('Description')
+                                                    ->nullable()
+                                                    ->helperText('Provide a detailed description.'),
+
+                                                FileUpload::make('image_url')
+                                                    ->label('Cover Photo')
+                                                    ->image()
+                                                    ->directory('Townships')
+                                                    ->acceptedFileTypes(['image/jpeg', 'image/jpg', 'image/png'])
+                                                    ->imageEditor()
+                                                    ->helperText('Supported formats: JPG, PNG'),
+                                            ]),
+                                    ]),                                    
+                                ]),
 
                         ]),
 
