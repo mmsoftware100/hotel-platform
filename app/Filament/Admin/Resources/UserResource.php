@@ -35,7 +35,7 @@ class UserResource extends Resource
                     ->label('Full Name'),
                 Select::make('role_id')->label('Name')->relationship('role','name')->nullable(),
                 TextInput::make('email')->required(),
-                TextInput::make('password')->required(),
+                TextInput::make('password')->required()->password(),
                 ]);
     }
 
