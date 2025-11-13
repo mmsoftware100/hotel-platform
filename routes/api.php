@@ -20,6 +20,8 @@ use App\Http\Controllers\Api\V1\MyanmarEventCategoryApiController;
 use App\Http\Controllers\Api\V1\RegionApiController;
 use App\Http\Controllers\Api\V1\RestaurantApiController;
 use App\Http\Controllers\Api\V1\RestaurantCategoryApiController;
+use App\Http\Controllers\Api\V1\ToureItineraryApiController;
+use App\Http\Controllers\Api\V1\ToureItineraryCategoryApiController;
 use App\Http\Controllers\Api\V1\TownshipApiController;
 use App\Http\Controllers\Api\V1\TransportationApiController;
 use App\Http\Controllers\Api\V1\TransportationCategoryApiController;
@@ -30,6 +32,7 @@ use App\Http\Controllers\DestinationCategoryController;
 use App\Http\Controllers\DestinationController;
 use App\Http\Resources\DestinationResource;
 use App\Http\Resources\DivisionResource;
+use App\Http\Resources\TourItineraryLiteResource;
 use App\Models\Article;
 use App\Models\ArticleCategory;
 use App\Models\Attraction;
@@ -475,11 +478,13 @@ Route::get('v1/villages', [VillageApiController::class, 'index']);
 Route::get('v1/villages/{slug}', [VillageApiController::class, 'show']);
 
 
+Route::get('v1/tour-itinerary-categories', [ToureItineraryCategoryApiController::class, 'index']);
+Route::get('v1/tour-itinerary-categories/{slug}', [ToureItineraryCategoryApiController::class, 'show']);
 
 
 
-
-
+Route::get('v1/tour-itineraries', [ToureItineraryApiController::class, 'index']);
+Route::get('v1/tour-itineraries/{slug}', [ToureItineraryApiController::class, 'show']);
 
 
 // Route::get('v1/myanmar-events',[MyanmarEventApiController::class,'index']);
