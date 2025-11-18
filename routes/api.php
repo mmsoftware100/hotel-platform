@@ -17,6 +17,7 @@ use App\Http\Controllers\Api\V1\HotelApiController;
 use App\Http\Controllers\Api\V1\HotelCategoryApiController;
 use App\Http\Controllers\Api\V1\MyanmarEventApiController;
 use App\Http\Controllers\Api\V1\MyanmarEventCategoryApiController;
+use App\Http\Controllers\Api\V1\PhotoApiController;
 use App\Http\Controllers\Api\V1\RegionApiController;
 use App\Http\Controllers\Api\V1\RestaurantApiController;
 use App\Http\Controllers\Api\V1\RestaurantCategoryApiController;
@@ -485,6 +486,13 @@ Route::get('v1/tour-itinerary-categories/{slug}', [ToureItineraryCategoryApiCont
 
 Route::get('v1/tour-itineraries', [ToureItineraryApiController::class, 'index']);
 Route::get('v1/tour-itineraries/{slug}', [ToureItineraryApiController::class, 'show']);
+
+Route::get('v1/photos', [PhotoApiController::class, 'index']);
+Route::get('v1/photos/{slug}', [PhotoApiController::class, 'show']);
+// Route::get('v1/photos/search/{slug?}', [PhotoApiController::class, 'search']);
+
+
+
 
 
 // Route::get('v1/myanmar-events',[MyanmarEventApiController::class,'index']);
