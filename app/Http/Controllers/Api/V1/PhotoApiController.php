@@ -48,7 +48,7 @@ class PhotoApiController extends Controller
             return $model::select($fields)
                 ->get()
                 ->map(function ($item) {
-                    $item->image_url = asset('images/' . $item->image_url);
+                    $item->image_url = asset('storage/' . $item->image_url);
                     return $item;
                 });
         };
