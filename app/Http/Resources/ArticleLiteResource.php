@@ -26,7 +26,10 @@ class ArticleLiteResource extends JsonResource
 
         if ($this->image_url) {
             $relative_storage_path = Storage::url($this->image_url);
+            // dd($relative_storage_path);
+            // $cover_photo_url = $relative_storage_path;
             $cover_photo_url = rtrim(config('app.url'), '/') . '/' . ltrim($relative_storage_path, '/');
+            // dd($cover_photo_url);
         }
 
         return [

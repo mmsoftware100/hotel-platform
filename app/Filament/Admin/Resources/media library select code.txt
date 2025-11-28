@@ -1,0 +1,39 @@
+function getArticleImages()
+{
+    return collect(Storage::files('public/Article'))
+        ->filter(function ($file) {
+            return str($file)->match('/\.(jpg|jpeg|png)$/i');
+        })
+        ->mapWithKeys(function ($file) {
+            return [
+                $file => Storage::url($file), // Key = path to save, Value = url
+            ];
+        });
+}
+
+
+
+
+
+Select::make('image_url')
+    ->label('Choose Cover Photo')
+    ->options(function () {
+        return getArticleImages()->mapWithKeys(function ($url, $path) {
+
+            $html = "
+                <div class='flex items-center gap-2'>
+                    <img src='{$url}' class='h-10 w-10 rounded object-cover' />
+                    <span>" . basename($path) . "</span>
+                </div>
+            ";
+
+            return [$path => $html]; // Save storage path to DB
+        });
+    })
+    ->allowHtml()
+    ->native(false)
+    ->searchable()
+    ->required(),
+
+
+

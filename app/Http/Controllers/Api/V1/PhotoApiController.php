@@ -44,11 +44,14 @@ class PhotoApiController extends Controller
         $page = $validated['page'] ?? 1;
         $perPage = $validated['per_page'] ?? 20;
 
+        
         $loadData = function ($model, $fields = ['slug', 'image_url']) {
             return $model::select($fields)
                 ->get()
                 ->map(function ($item) {
-                    $item->image_url = asset('storage/' . $item->image_url);
+                    if ($item->image_url && $item->image_url !== '') {
+                        $item->image_url = asset('storage/' . $item->image_url);
+                    }
                     return $item;
                 });
         };

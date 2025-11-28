@@ -13,7 +13,9 @@ class ListCities extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            // Actions\ViewAction::make(),
+
+            // Actions\CreateAction::make(),
         ];
     }
 }
