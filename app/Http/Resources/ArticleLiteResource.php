@@ -49,6 +49,7 @@ class ArticleLiteResource extends JsonResource
 
             'name' => $this->name,
             'slug' => $this->slug,
+            // 'image_url' => $cover_photo_url,
             'image_url' => $cover_photo_url,
             'description' => $this->description,
             'is_active' => (bool) $this->is_active,

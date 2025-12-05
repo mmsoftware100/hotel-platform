@@ -22,6 +22,13 @@ class MediaLibraryResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    // Add this to hide from navigation
+    protected static bool $shouldRegisterNavigation = false;
+
+    // Optional: Hide from breadcrumbs too
+    protected static bool $isScopedToTenant = false;
+    protected static bool $isGloballySearchable = false;    
+
     public static function form(Form $form): Form
     {
         return $form

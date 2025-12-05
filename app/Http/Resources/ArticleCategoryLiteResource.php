@@ -30,6 +30,11 @@ class ArticleCategoryLiteResource extends JsonResource
             'description' => $this->description,
             'is_active' => $this->is_active,
             'is_featured' => $this->is_featured,
+            // 'articles' => $this->whenLoaded('articles', function () {
+            //     return $this->articles;
+            // }),   
+            'articles' => ArticleLiteResource::collection($this->whenLoaded('articles')),
+
         ];
     }
 }

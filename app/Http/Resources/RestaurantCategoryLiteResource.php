@@ -29,6 +29,9 @@ class RestaurantCategoryLiteResource extends JsonResource
             'description' => $this->description,
             'is_active' => $this->is_active,
             'is_featured' => $this->is_featured,
+            'restaurants' => RestaurantLiteResource::collection($this->whenLoaded('restaurants')),
+
+            
         ];
     }
 }

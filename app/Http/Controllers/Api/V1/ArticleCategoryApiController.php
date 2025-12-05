@@ -84,6 +84,8 @@ class ArticleCategoryApiController extends Controller
             } else {
                     return response()->json(['message' => 'Article category not found'], 404);
             }
+
+            
     }
 
 

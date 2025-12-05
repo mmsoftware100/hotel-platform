@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Filament\Admin\Resources\CultureResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Storage;
@@ -29,6 +30,12 @@ class CultureCategoryLiteResource extends JsonResource
             'description' => $this->description,
             'is_active' => $this->is_active,
             'is_featured' => $this->is_featured,
+            // 'cultures' => CultureResource::collection($this->whenLoaded('cultures')),            
+            // 'cultures' => $this->whenLoaded('cultures', function () {
+            //     return $this->cultures;
+            // }),           
+            'cultures' => CultureLiteResource::collection($this->whenLoaded('cultures')),
+             
         ];
     }
 }

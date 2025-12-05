@@ -39,14 +39,19 @@ class MediaTestResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
 
+    // Add this to hide from navigation
+    protected static bool $shouldRegisterNavigation = false;
 
+    // Optional: Hide from breadcrumbs too
+    protected static bool $isScopedToTenant = false;
+    protected static bool $isGloballySearchable = false;    
 
     public static function form(Form $form): Form
     {
 
         function getArticleImages()
         {
-            return collect(Storage::files('public/Articles'))
+            return collect(Storage::files('public/MediaLibrary'))
                 ->filter(function ($file) {
                     return str($file)->match('/\.(jpg|jpeg|png)$/i');
                 })

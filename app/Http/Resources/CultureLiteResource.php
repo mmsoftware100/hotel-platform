@@ -35,7 +35,7 @@ class CultureLiteResource extends JsonResource
             'google_map_link' => $this->google_map_link,
 
             'culture_category_id' => new CultureCategoryLiteResource($this->category),
-            'culture_category_id' => $this->culture_category_id,
+            // 'culture_category_id' => $this->culture_category_id,
             'division_id' => new DivisionLiteResource($this->division),
             'region_id' => new RegionLiteResource($this->region),
             'city_id' => new CityLiteResource($this->city),

@@ -29,6 +29,8 @@ class MyanmarEventCategoryLiteResource extends JsonResource
             'description' => $this->description,
             'is_active' => $this->is_active,
             'is_featured' => $this->is_featured,
+            // 'cultures' => CultureLiteResource::collection($this->whenLoaded('cultures')),
+
         ];
     }
 }

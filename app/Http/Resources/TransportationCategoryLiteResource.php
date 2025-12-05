@@ -29,6 +29,8 @@ class TransportationCategoryLiteResource extends JsonResource
             'description' => $this->description,
             'is_active' => $this->is_active,
             'is_featured' => $this->is_featured,
+            'trasportations' => TransportationLiteResource::collection($this->whenLoaded('trasportations')),
+
         ];
     }
 }
