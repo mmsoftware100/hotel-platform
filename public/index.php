@@ -48,8 +48,12 @@ $app = require_once __DIR__.'/../bootstrap/app.php';
 
 $kernel = $app->make(Kernel::class);
 
-$response = $kernel->handle(
+$response = (function() use ($kernel) {
+    // remove PHP/Server disclosure header when possible
+    @header_remove('X-Powered-By');
+    return $kernel->handle(
     $request = Request::capture()
-)->send();
+    );
+})()->send();
 
 $kernel->terminate($request, $response);
