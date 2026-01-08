@@ -3,6 +3,10 @@
 test
 
 
+docker run -v $(pwd):/zap/wrk/:rw -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py \
+    -t http://host.docker.internal:8000 -r report.html
+
+
 ## 2025-08-17 Deployment on admin panel 
 
 
