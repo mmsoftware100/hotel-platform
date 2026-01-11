@@ -22,8 +22,8 @@ class DestinationApiController extends Controller
                 'city_id'=>'nullable|integer|exists:city_id',
                 'township_id'=>'nullable|integer|exists:township_id',
                 'village_id'=>'nullable|exists:village_id',
-                'destination_category_id'=>'nullable|exists:destination_category_id',
-                'is_featured' => 'nullable|boolean', // New validation for boolean
+                'destination_category_id'=>'nullable|exists:destination_categories,id',
+                'is_featured' => 'nullable|boolean', 
             ]);
 
             // return $request;
